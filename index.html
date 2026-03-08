@@ -4137,6 +4137,19 @@ Same Solutions LLC
             updatePropertySelector();
             renderPropertiesSummary();
             
+            // If customer portal, only show their data
+            if (isCustomerPortal() && customerScope) {
+                renderCustomerPortalUI();
+                return;
+            }
+            
+            // If household, show limited view
+            if (isHousehold()) {
+                renderHouseholdUI();
+                return;
+            }
+            
+            // ADMIN VIEW - show everything
             // Use cached stats for performance
             const stats = getTotalStats();
             document.getElementById('header-paid').textContent = fmt(stats.totalPaid);
@@ -4298,6 +4311,79 @@ Same Solutions LLC
             document.getElementById('job-customer').innerHTML = opts;
             document.getElementById('invoice-customer').innerHTML = opts;
             document.getElementById('statement-customer').innerHTML = opts;
+        }
+        
+        // Render UI for customer portal (limited view)
+        function renderCustomerPortalUI() {
+            const customerId = customerScope;
+            const customer = data.customers[customerId];
+            if (!customer) return;
+            
+            // Get only this customer's data
+            const myJobs = data.jobs.filter(j => j.customer === customerId);
+            const myInvoices = data.invoices.filter(i => i.customer === customerId);
+            const myQuotes = (data.quotes || []).filter(q => q.customer === customerId);
+            
+            // Calculate customer's stats
+            const myPaid = myJobs.filter(j => j.status === 'paid').reduce((s, j) => s + j.amount, 0);
+            const myOwed = myJobs.filter(j => j.status === 'owed').reduce((s, j) => s + j.amount, 0);
+            
+            // Render Invoices tab for customer
+            const invoicesTable = document.getElementById('invoices-table');
+            if (invoicesTable) {
+                if (myInvoices.length === 0) {
+                    invoicesTable.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:#64748b;">No invoices yet</td></tr>';
+                } else {
+                    invoicesTable.innerHTML = myInvoices.map(i => `
+                        <tr class="clickable" onclick="viewInv('${i.number}')">
+                            <td><strong>${i.number}</strong></td>
+                            <td>${i.date}</td>
+                            <td>${customer.name}</td>
+                            <td class="amount">${fmt(i.total)}</td>
+                            <td class="status-${i.status}">${i.status.toUpperCase()}</td>
+                            <td><button class="btn btn-small btn-secondary" onclick="event.stopPropagation();viewInv('${i.number}')">👁️ View</button></td>
+                        </tr>
+                    `).join('');
+                }
+            }
+            
+            // Render Quotes tab for customer
+            const quotesTable = document.getElementById('quotes-table');
+            if (quotesTable) {
+                if (myQuotes.length === 0) {
+                    quotesTable.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:#64748b;">No quotes yet</td></tr>';
+                } else {
+                    quotesTable.innerHTML = myQuotes.map(q => {
+                        const quoteTotal = calculateQuoteTotal ? calculateQuoteTotal(q) : q.total || 0;
+                        return `
+                            <tr>
+                                <td><strong>${q.id}</strong></td>
+                                <td>${q.date}</td>
+                                <td>${customer.name}</td>
+                                <td>${q.description}</td>
+                                <td class="amount">${fmt(quoteTotal)}</td>
+                                <td class="status-${q.status === 'accepted' ? 'paid' : ''}">${q.status.toUpperCase()}</td>
+                                <td><button class="btn btn-small" onclick="viewQuoteDetail('${q.id}')">👁️</button></td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            }
+            
+            // Update stats display if visible
+            const statOwed = document.getElementById('stat-owed');
+            if (statOwed) statOwed.textContent = fmt(myOwed);
+            const statPaid = document.getElementById('stat-paid');
+            if (statPaid) statPaid.textContent = fmt(myPaid);
+            
+            // Properties are handled by updatePropertySelector and renderPropertiesSummary
+        }
+        
+        // Render UI for household member (property view only)
+        function renderHouseholdUI() {
+            // Household members only see property info
+            // Properties are handled by updatePropertySelector and renderPropertiesSummary
+            // Nothing else to render since other tabs are hidden
         }
 
         // Navigation
