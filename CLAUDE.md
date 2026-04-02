@@ -42,25 +42,7 @@ Single-file PWA business management app for Same Solutions LLC, a handyman/techn
 
 ### Run tests
 
-```bash
-node manage/test-suite.js
-node manage/critical-functionality-tests.js
-node manage/full-requirements-analysis.js
-node manage/feature-completeness-tests.js
-node manage/unit-tests.js
-node manage/integration-tests.js
-node manage/performance-tests.js
-```
-
 In-app: admin dropdown → 🧪 Run Tests (runs `runAppTests()`, 18+ automated checks)
-
-### Automated fixes
-
-```bash
-./manage/fix-all.sh manage/index.html
-```
-
-Applies fixes for ARIA labels, alt attributes, toast parameters, error handlers, and empty states.
 
 ### Local development
 
@@ -129,11 +111,6 @@ Built by `buildIndexes()` — always call after `loadData()`:
 - Project: same-solutions-app
 - localStorage key: `sameSolutionsData`
 - Data versioned with `_version` field matching `DATA_VERSION` constant
-
-## Specs & Documentation
-
-- `UI_NAVIGATION.md` — Tab bar structure, page purposes, Jobs↔Invoice relationships
-- `UNIFIED_ASSET_ARCHITECTURE.md` — Equipment management unified asset schema and implementation plan
 
 ## Known Tech Debt
 
