@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar — Same Solutions LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #101820;
+    color: #e5e5e5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  a { color: #FFB612; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .top-link {
+    width: 100%;
+    max-width: 480px;
+    padding: 16px 16px 0;
+    font-size: 13px;
+  }
+
+  .cal-container {
+    width: 100%;
+    max-width: 480px;
+    padding: 16px;
+    flex: 1;
+  }
+
+  /* Header */
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cal-header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .cal-nav {
+    background: none;
+    border: 1px solid #333;
+    color: #FFB612;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cal-nav:hover { background: #1a2530; }
+
+  /* Grid */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+  .cal-dow {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    padding: 6px 0;
+    text-transform: uppercase;
+  }
+  .cal-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #aaa;
+    position: relative;
+    cursor: default;
+    gap: 4px;
+  }
+  .cal-cell.current { color: #e5e5e5; }
+  .cal-cell.current:hover { background: #1a2530; }
+  .cal-cell.has-event { cursor: pointer; }
+  .cal-cell.today {
+    border: 2px solid #FFB612;
+    color: #fff;
+    font-weight: 700;
+  }
+  .cal-cell.selected {
+    background: #1a2530;
+  }
+  .dot-row {
+    display: flex;
+    gap: 3px;
+    height: 6px;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  /* Event panel */
+  .event-panel {
+    margin-top: 16px;
+    background: #1a2530;
+    border-radius: 10px;
+    padding: 14px;
+    display: none;
+  }
+  .event-panel.open { display: block; }
+  .event-panel h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .event-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 0;
+  }
+  .event-item + .event-item { border-top: 1px solid #263040; }
+  .event-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #101820;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .event-text {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  /* Footer */
+  .bottom-links {
+    width: 100%;
+    max-width: 480px;
+    padding: 0 16px 8px;
+    font-size: 13px;
+  }
+  .footer {
+    width: 100%;
+    max-width: 480px;
+    padding: 8px 16px 24px;
+    text-align: center;
+    font-size: 11px;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-link">
+  <a href="https://github.com/SUGARDUNK3RTON/samesolutionsllc-website/blob/main/PLANNER.md">View full planner &rarr;</a>
+</div>
+
+<div class="cal-container">
+  <div class="cal-header">
+    <button class="cal-nav" id="prev-btn">&larr;</button>
+    <h1 id="month-title"></h1>
+    <button class="cal-nav" id="next-btn">&rarr;</button>
+  </div>
+  <div class="cal-grid" id="cal-grid"></div>
+  <div class="event-panel" id="event-panel">
+    <h2 id="event-date"></h2>
+    <div id="event-list"></div>
+  </div>
+</div>
+
+<div class="bottom-links">
+  <a href="/">&larr; Back to site</a>
+</div>
+
+<footer class="footer">Same Solutions LLC &bull; Updated via PLANNER.md</footer>
+
+<script>
+const TAG_COLORS = { BIZ: '#FFB612', ME: '#8b5cf6', INS: '#3b82f6', APP: '#22c55e' };
+
+const EVENTS = [
+  { y: 2026, m: 3, d: 1, text: 'Call Marketplace \u2014 insurance SEP', tag: 'INS' },
+  { y: 2026, m: 3, d: 1, text: 'Send Haim quote + Send Jon quote', tag: 'BIZ' },
+  { y: 2026, m: 3, d: 2, text: 'Invoice Haim SS-Q003', tag: 'BIZ' },
+  { y: 2026, m: 3, d: 2, text: 'Collect Letvin $695', tag: 'BIZ' },
+  { y: 2026, m: 3, d: 3, text: 'Admin billing tab \u2014 Claude Code', tag: 'APP' },
+  { y: 2026, m: 3, d: 3, text: 'Water heater research', tag: 'ME' },
+  { y: 2026, m: 10, d: 1, text: 'Open enrollment 2027 starts', tag: 'INS' },
+  { y: 2026, m: 11, d: 15, text: 'Open enrollment 2027 ends', tag: 'INS' },
+];
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+let viewYear = 2026, viewMonth = 3; // 0-indexed: 3 = April
+let selectedKey = null;
+
+function eventKey(y, m, d) { return y + '-' + m + '-' + d; }
+
+function getEvents(y, m, d) {
+  return EVENTS.filter(e => e.y === y && e.m === m && e.d === d);
+}
+
+function render() {
+  document.getElementById('month-title').textContent = MONTHS[viewMonth] + ' ' + viewYear;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  DAYS.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'cal-dow';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const today = new Date();
+
+  // Blank cells before first day
+  for (let i = 0; i < firstDay; i++) {
+    const el = document.createElement('div');
+    el.className = 'cal-cell';
+    grid.appendChild(el);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const el = document.createElement('div');
+    const evts = getEvents(viewYear, viewMonth, d);
+    const isToday = today.getFullYear() === viewYear && today.getMonth() === viewMonth && today.getDate() === d;
+    const key = eventKey(viewYear, viewMonth, d);
+
+    let cls = 'cal-cell current';
+    if (isToday) cls += ' today';
+    if (evts.length) cls += ' has-event';
+    if (selectedKey === key) cls += ' selected';
+    el.className = cls;
+
+    el.innerHTML = '<span>' + d + '</span>';
+
+    if (evts.length) {
+      const dots = document.createElement('div');
+      dots.className = 'dot-row';
+      const tags = [...new Set(evts.map(e => e.tag))];
+      tags.forEach(t => {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.style.background = TAG_COLORS[t] || '#888';
+        dots.appendChild(dot);
+      });
+      el.appendChild(dots);
+
+      el.addEventListener('click', () => {
+        selectedKey = selectedKey === key ? null : key;
+        render();
+        if (selectedKey) showEvents(viewYear, viewMonth, d, evts);
+        else document.getElementById('event-panel').classList.remove('open');
+      });
+    }
+
+    grid.appendChild(el);
+  }
+
+  if (!selectedKey) {
+    document.getElementById('event-panel').classList.remove('open');
+  }
+}
+
+function showEvents(y, m, d, evts) {
+  const panel = document.getElementById('event-panel');
+  const dateStr = MONTHS[m] + ' ' + d + ', ' + y;
+  document.getElementById('event-date').textContent = dateStr;
+  const list = document.getElementById('event-list');
+  list.innerHTML = evts.map(e =>
+    '<div class="event-item">' +
+      '<span class="event-tag" style="background:' + TAG_COLORS[e.tag] + '">' + e.tag + '</span>' +
+      '<span class="event-text">' + e.text + '</span>' +
+    '</div>'
+  ).join('');
+  panel.classList.add('open');
+}
+
+document.getElementById('prev-btn').addEventListener('click', () => {
+  viewMonth--;
+  if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+  selectedKey = null;
+  render();
+});
+document.getElementById('next-btn').addEventListener('click', () => {
+  viewMonth++;
+  if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+  selectedKey = null;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
