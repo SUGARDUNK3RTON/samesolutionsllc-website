@@ -3472,7 +3472,8 @@
             'celestiaheady@same.com': { _pw: 'aGVhZHk=', role: 'household', customerId: 'celestia-heady', properties: ['sam-home'], vehicles: ['OV-002'] },
             // Demo/Friend accounts
             'alecsuttman@same.com': { _pw: 'c3V0dG1hbg==', role: 'customer', customerId: 'alexander-suttman', properties: ['suttman-home'] },
-            'haimtalmid@same.com': { _pw: 'dGFsbWlk', role: 'customer', customerId: 'haim-talmid', properties: ['talmid-eton', 'talmid-rental2', 'talmid-rental3', 'talmid-dearborn'] }
+            'haimtalmid@same.com': { _pw: 'dGFsbWlk', role: 'customer', customerId: 'haim-talmid', properties: ['talmid-eton', 'talmid-rental2', 'talmid-rental3', 'talmid-dearborn'] },
+            'janettessman@same.com': { _pw: 'dGVzc21hbg==', role: 'customer', customerId: 'janet-tessman', properties: ['tessman-home'] }
         };
         
         // Determine user's role based on email
@@ -4738,10 +4739,10 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.1';
+        const APP_VERSION = 'v1.7.2';
         
         // Data schema version - increment when structure changes
-        const DATA_VERSION = 13;
+        const DATA_VERSION = 14;
         
         let data = { customers: {}, jobs: [], invoices: [], expenses: [], quotes: [], mileage: [], _version: DATA_VERSION };
 
@@ -6450,8 +6451,75 @@ Same Solutions LLC
                 
                 console.log('✅ v13 complete — Aceves lake property + SS-Q008 deck quote: $' + (q008 ? q008.amount : '?'));
             }
-            
-            
+
+            // v13 -> v14: Tessman customer + property + SS-Q009 painting quote
+            if (fromVersion < 14) {
+                // Add customer
+                if (!data.customers['janet-tessman']) {
+                    data.customers['janet-tessman'] = {
+                        id: 'janet-tessman',
+                        name: 'Janet Tessman',
+                        phone: '(248) 535-4042',
+                        address: '186 Cardinal St, Commerce, MI 48382',
+                        type: 'customer',
+                        notes: 'Jayce\'s grandma. Referral: Janice Fisk (200 Cardinal St, neighbor).',
+                        created: new Date().toISOString()
+                    };
+                }
+
+                // Add property
+                if (!data.properties) data.properties = {};
+                if (!data.properties['tessman-home']) {
+                    data.properties['tessman-home'] = {
+                        id: 'tessman-home',
+                        owner: 'janet-tessman',
+                        ownerId: 'janet-tessman',
+                        address: '186 Cardinal St',
+                        city: 'Commerce Township',
+                        state: 'MI',
+                        zip: '48382',
+                        county: 'Oakland',
+                        type: 'residential',
+                        style: 'Single Family',
+                        yearBuilt: 1971,
+                        beds: 3,
+                        baths: 2,
+                        sqft: 1313,
+                        notes: '1971 ranch. Front room has brick accent wall on far 12ft wall.',
+                        created: new Date().toISOString()
+                    };
+                }
+
+                // SS-Q009 — Interior painting quote
+                data.quotes = (data.quotes || []).filter(q => q.id !== 'SS-Q009');
+                data.quotes.push({
+                    id: 'SS-Q009',
+                    customer: 'janet-tessman',
+                    property: 'tessman-home',
+                    title: 'Interior Painting — Front Room',
+                    date: new Date().toISOString().split('T')[0],
+                    validUntil: new Date(Date.now() + 60*86400000).toISOString().split('T')[0],
+                    laborRate: 75,
+                    status: 'pending',
+                    lineItems: [
+                        { id: 1, type: 'labor', description: 'Prep (patch, sand, tape)', qty: 2, unit: 'hrs', unitPrice: 75 },
+                        { id: 2, type: 'labor', description: 'Paint walls 2 coats', qty: 3, unit: 'hrs', unitPrice: 75 },
+                        { id: 3, type: 'material', description: 'SW SuperPaint Interior', qty: 2, unit: 'gal', unitPrice: 60, supplier: 'Sherwin-Williams' },
+                        { id: 4, type: 'material', description: 'Supplies (rollers, tape, drop cloths, patch)', qty: 1, unit: 'lot', unitPrice: 35 },
+                        { id: 5, type: 'labor', description: 'Ceiling cleaning TSP wash', qty: 1, unit: 'hrs', unitPrice: 75 },
+                        { id: 6, type: 'material', description: 'TSP cleaner', qty: 1, unit: 'ea', unitPrice: 12 }
+                    ],
+                    amount: 617,
+                    notes: 'INTERIOR PAINTING — Front Room\n186 Cardinal St, Commerce Township MI 48382\n\nScope:\n• Prep walls — patch holes, sand, tape trim/ceiling lines\n• Paint walls 2 coats (SW SuperPaint)\n• Clean ceiling with TSP wash\n• Brick accent wall on far 12ft wall — paint stops at brick\n\nValid 60 days from issue date.',
+                    changeLog: [{ date: new Date().toISOString(), by: 'sam@samesolutionsllc.com', reason: 'Initial painting quote — front room', changes: ['6 line items', 'Labor: 6 hrs @ $75 = $450', 'Materials: $167'] }],
+                    createdAt: new Date().toISOString(),
+                    createdBy: 'sam@samesolutionsllc.com'
+                });
+
+                console.log('✅ v14 complete — Tessman customer + tessman-home property + SS-Q009 painting quote: $617');
+            }
+
+
             data._version = DATA_VERSION;
             saveData();
             toast('Data upgraded to latest version', 'success');
