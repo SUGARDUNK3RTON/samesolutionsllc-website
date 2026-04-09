@@ -4739,7 +4739,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.5';
+        const APP_VERSION = 'v1.7.6';
         
         // Data schema version - increment when structure changes
         const DATA_VERSION = 15;
@@ -11802,7 +11802,7 @@ Same Solutions LLC
         }
         
         // DELETE VEHICLE
-        function deleteVehicle(vehicleId) {
+        async function deleteVehicle(vehicleId) {
             if (!data.vehicles?.[vehicleId]) {
                 const veh = Object.entries(data.vehicles || {}).find(([k, v]) => v.id === vehicleId);
                 if (veh) vehicleId = veh[0];
@@ -11811,7 +11811,7 @@ Same Solutions LLC
             const vehicle = data.vehicles?.[vehicleId];
             if (!vehicle) { toast('Vehicle not found', 'error'); return; }
             
-            if (!confirm(`Delete ${vehicle.year} ${vehicle.make} ${vehicle.model}? This cannot be undone.`)) return;
+            if (!(await confirmModal(`Delete ${vehicle.year} ${vehicle.make} ${vehicle.model}?`, { title: 'Delete Vehicle', confirmText: 'Delete', danger: true }))) return;
             
             delete data.vehicles[vehicleId];
             saveData();
@@ -16588,8 +16588,8 @@ Same Solutions LLC
         }
         
         // Delete photo
-        function deletePhoto(photoId) {
-            if (!confirm('Delete this photo?')) return;
+        async function deletePhoto(photoId) {
+            if (!(await confirmModal('Delete this photo?', { title: 'Delete Photo', confirmText: 'Delete', danger: true }))) return;
             const photos = data.propertyPhotos?.['sam'] || [];
             const idx = photos.findIndex(p => p.id === photoId);
             if (idx >= 0) {
@@ -19101,8 +19101,8 @@ Same Solutions LLC
         }
         
         // Delete inventory item
-        function deleteInventoryItem(itemId) {
-            if (!confirm('Delete this item from inventory?')) return;
+        async function deleteInventoryItem(itemId) {
+            if (!(await confirmModal('Delete this item from inventory?', { title: 'Delete Item', confirmText: 'Delete', danger: true }))) return;
             
             const idx = (data.appliances || []).findIndex(a => a.id === itemId);
             if (idx >= 0) {
@@ -20857,8 +20857,8 @@ Same Solutions LLC
         }
         
         // Delete appliance
-        function deleteAppliance(applianceId) {
-            if (!confirm('Delete this appliance? This cannot be undone.')) return;
+        async function deleteAppliance(applianceId) {
+            if (!(await confirmModal('Delete this appliance?', { title: 'Delete Appliance', confirmText: 'Delete', danger: true }))) return;
             
             data.appliances = (data.appliances || []).filter(a => a.id !== applianceId);
             saveData();
@@ -23530,8 +23530,8 @@ Same Solutions LLC
             toast('Recurring job updated!', 'success');
         }
         
-        function deleteRecurringJob(id) {
-            if (!confirm('Delete this recurring job?')) return;
+        async function deleteRecurringJob(id) {
+            if (!(await confirmModal('Delete this recurring job?', { title: 'Delete Recurring Job', confirmText: 'Delete', danger: true }))) return;
             const idx = data.recurringJobs?.findIndex(r => r.id === id);
             if (idx >= 0) {
                 data.recurringJobs.splice(idx, 1);
