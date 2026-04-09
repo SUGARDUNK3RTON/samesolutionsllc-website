@@ -4739,10 +4739,10 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.2';
+        const APP_VERSION = 'v1.7.3';
         
         // Data schema version - increment when structure changes
-        const DATA_VERSION = 14;
+        const DATA_VERSION = 15;
         
         let data = { customers: {}, jobs: [], invoices: [], expenses: [], quotes: [], mileage: [], _version: DATA_VERSION };
 
@@ -4792,7 +4792,8 @@ Same Solutions LLC
                 if (!data.commonIssues) data.commonIssues = {};
                 if (!data.assets) data.assets = {}; // Unified asset system
                 if (!data.feedback) data.feedback = [];
-                
+                if (!data.recurringEvents) data.recurringEvents = [];
+
                 // NOTE: All data seeding/updates handled by migrateData() below.
                 // Do NOT add seed blocks here — they conflict with the migration system.
             }
@@ -6517,6 +6518,26 @@ Same Solutions LLC
                 });
 
                 console.log('✅ v14 complete — Tessman customer + tessman-home property + SS-Q009 painting quote: $617');
+            }
+
+            // v14 -> v15: Add recurring events data structure
+            if (fromVersion < 15) {
+                if (!data.recurringEvents) {
+                    data.recurringEvents = [];
+                }
+                // Seed initial recurring event
+                if (!data.recurringEvents.find(e => e.id === 'therapy')) {
+                    data.recurringEvents.push({
+                        id: 'therapy',
+                        title: 'Therapy — Catherine Howe',
+                        day: 'thursday',
+                        time: '11:00 AM',
+                        location: 'TBD',
+                        recurring: 'weekly',
+                        category: 'personal'
+                    });
+                }
+                console.log('✅ v15 complete — recurring events data structure added');
             }
 
 
