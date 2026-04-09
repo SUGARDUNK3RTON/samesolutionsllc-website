@@ -20,16 +20,18 @@
   a { color: #FFB612; text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  .top-link {
+  .top-links {
     width: 100%;
-    max-width: 480px;
+    max-width: 700px;
     padding: 16px 16px 0;
     font-size: 13px;
+    display: flex;
+    gap: 16px;
   }
 
   .cal-container {
     width: 100%;
-    max-width: 480px;
+    max-width: 700px;
     padding: 16px;
     flex: 1;
   }
@@ -42,7 +44,7 @@
     margin-bottom: 16px;
   }
   .cal-header h1 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     color: #fff;
   }
@@ -61,6 +63,26 @@
   }
   .cal-nav:hover { background: #1a2530; }
 
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    font-size: 12px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
   /* Grid */
   .cal-grid {
     display: grid;
@@ -76,38 +98,53 @@
     text-transform: uppercase;
   }
   .cal-cell {
-    aspect-ratio: 1;
+    min-height: 80px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #aaa;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #555;
     position: relative;
     cursor: default;
-    gap: 4px;
+    padding: 4px;
+    background: #151f2a;
   }
-  .cal-cell.current { color: #e5e5e5; }
-  .cal-cell.current:hover { background: #1a2530; }
+  .cal-cell.current { color: #ccc; background: #1a2530; }
+  .cal-cell.current:hover { background: #1f2d3d; }
   .cal-cell.has-event { cursor: pointer; }
   .cal-cell.today {
     border: 2px solid #FFB612;
     color: #fff;
     font-weight: 700;
   }
-  .cal-cell.selected {
-    background: #1a2530;
+  .cal-cell.selected { background: #253545; }
+  .cal-day-num {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
   }
-  .dot-row {
+  .cell-events {
     display: flex;
-    gap: 3px;
-    height: 6px;
+    flex-direction: column;
+    gap: 1px;
+    overflow: hidden;
+    flex: 1;
   }
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+  .cell-evt {
+    font-size: 9px;
+    line-height: 1.3;
+    padding: 1px 3px;
+    border-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #101820;
+    font-weight: 600;
+  }
+  .cell-more {
+    font-size: 9px;
+    color: #888;
+    margin-top: 1px;
   }
 
   /* Event panel */
@@ -149,23 +186,34 @@
   /* Footer */
   .bottom-links {
     width: 100%;
-    max-width: 480px;
+    max-width: 700px;
     padding: 0 16px 8px;
     font-size: 13px;
+    display: flex;
+    gap: 16px;
   }
   .footer {
     width: 100%;
-    max-width: 480px;
+    max-width: 700px;
     padding: 8px 16px 24px;
     text-align: center;
     font-size: 11px;
     color: #555;
   }
+
+  /* Mobile: single column list fallback */
+  @media (max-width: 500px) {
+    .cal-cell { min-height: 56px; padding: 3px; }
+    .cell-evt { font-size: 8px; }
+    .cal-day-num { font-size: 12px; }
+    .cal-container { padding: 8px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="top-link">
+<div class="top-links">
+  <a href="/manage">&larr; Back to app</a>
   <a href="https://github.com/SUGARDUNK3RTON/samesolutionsllc-website/blob/main/PLANNER.md">View full planner &rarr;</a>
 </div>
 
@@ -175,6 +223,14 @@
     <h1 id="month-title"></h1>
     <button class="cal-nav" id="next-btn">&rarr;</button>
   </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#e74c3c"></div> Deadline</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FFB612"></div> Business</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> Personal</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div> Completed</div>
+  </div>
+
   <div class="cal-grid" id="cal-grid"></div>
   <div class="event-panel" id="event-panel">
     <h2 id="event-date"></h2>
@@ -189,17 +245,46 @@
 <footer class="footer">Same Solutions LLC &bull; Updated via PLANNER.md</footer>
 
 <script>
-const TAG_COLORS = { BIZ: '#FFB612', ME: '#8b5cf6', INS: '#3b82f6', APP: '#22c55e' };
+// Color categories: red = deadline, gold = business, blue = personal, green = completed
+const CAT_COLORS = {
+  deadline: '#e74c3c',
+  biz:      '#FFB612',
+  personal: '#3b82f6',
+  done:     '#22c55e'
+};
 
 const EVENTS = [
-  { y: 2026, m: 3, d: 1, text: 'Call Marketplace \u2014 insurance SEP', tag: 'INS' },
-  { y: 2026, m: 3, d: 1, text: 'Send Haim quote + Send Jon quote', tag: 'BIZ' },
-  { y: 2026, m: 3, d: 2, text: 'Invoice Haim SS-Q003', tag: 'BIZ' },
-  { y: 2026, m: 3, d: 2, text: 'Collect Letvin $695', tag: 'BIZ' },
-  { y: 2026, m: 3, d: 3, text: 'Admin billing tab \u2014 Claude Code', tag: 'APP' },
-  { y: 2026, m: 3, d: 3, text: 'Water heater research', tag: 'ME' },
-  { y: 2026, m: 10, d: 1, text: 'Open enrollment 2027 starts', tag: 'INS' },
-  { y: 2026, m: 11, d: 15, text: 'Open enrollment 2027 ends', tag: 'INS' },
+  // April 2026
+  // Thu 4/3
+  { y:2026, m:3, d:3, text:'11 AM Therapy', cat:'personal' },
+  { y:2026, m:3, d:3, text:'Call Tessman (248-535-4042)', cat:'biz' },
+  { y:2026, m:3, d:3, text:'Call Insurance (800) 318-2596', cat:'biz' },
+  { y:2026, m:3, d:3, text:'Research ladder for peak stain', cat:'biz' },
+  { y:2026, m:3, d:3, text:'Send Haim SS-Q003', cat:'biz' },
+  // Fri 4/4
+  { y:2026, m:3, d:4, text:'Tax Prep (2-4 hrs)', cat:'biz' },
+  { y:2026, m:3, d:4, text:'Finalize Ladder', cat:'biz' },
+  { y:2026, m:3, d:4, text:'Finalize SW paint order', cat:'biz' },
+  // Sat 4/5
+  { y:2026, m:3, d:5, text:'Peak Stain SS-Q004 (weather)', cat:'biz' },
+  { y:2026, m:3, d:5, text:'Place SW Bulk Order', cat:'biz' },
+  // Sun 4/6
+  { y:2026, m:3, d:6, text:'10 AM CeCe Arches (all day)', cat:'biz' },
+  // Mon-Fri 4/7-11
+  { y:2026, m:3, d:7, text:'Tessman Painting TBD', cat:'biz' },
+  { y:2026, m:3, d:8, text:'Tessman Painting TBD', cat:'biz' },
+  { y:2026, m:3, d:9, text:'Taxes Backup', cat:'biz' },
+  // Thu 4/10 recurring therapy
+  { y:2026, m:3, d:10, text:'11 AM Therapy', cat:'personal' },
+  // Tue 4/15 TAX DEADLINE
+  { y:2026, m:3, d:15, text:'TAX DEADLINE', cat:'deadline' },
+  // Thu 4/17 recurring therapy
+  { y:2026, m:3, d:17, text:'11 AM Therapy', cat:'personal' },
+  // Thu 4/24 recurring therapy
+  { y:2026, m:3, d:24, text:'11 AM Therapy', cat:'personal' },
+  // Existing future events
+  { y:2026, m:10, d:1, text:'Open enrollment 2027 starts', cat:'deadline' },
+  { y:2026, m:11, d:15, text:'Open enrollment 2027 ends', cat:'deadline' },
 ];
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -230,7 +315,6 @@ function render() {
   const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
   const today = new Date();
 
-  // Blank cells before first day
   for (let i = 0; i < firstDay; i++) {
     const el = document.createElement('div');
     el.className = 'cal-cell';
@@ -249,19 +333,31 @@ function render() {
     if (selectedKey === key) cls += ' selected';
     el.className = cls;
 
-    el.innerHTML = '<span>' + d + '</span>';
+    // Day number
+    const dayNum = document.createElement('div');
+    dayNum.className = 'cal-day-num';
+    dayNum.textContent = d;
+    el.appendChild(dayNum);
 
+    // Show up to 3 mini event labels in cell
     if (evts.length) {
-      const dots = document.createElement('div');
-      dots.className = 'dot-row';
-      const tags = [...new Set(evts.map(e => e.tag))];
-      tags.forEach(t => {
-        const dot = document.createElement('div');
-        dot.className = 'dot';
-        dot.style.background = TAG_COLORS[t] || '#888';
-        dots.appendChild(dot);
+      const cellEvts = document.createElement('div');
+      cellEvts.className = 'cell-events';
+      const maxShow = 3;
+      evts.slice(0, maxShow).forEach(evt => {
+        const tag = document.createElement('div');
+        tag.className = 'cell-evt';
+        tag.style.background = CAT_COLORS[evt.cat] || '#888';
+        tag.textContent = evt.text;
+        cellEvts.appendChild(tag);
       });
-      el.appendChild(dots);
+      if (evts.length > maxShow) {
+        const more = document.createElement('div');
+        more.className = 'cell-more';
+        more.textContent = '+' + (evts.length - maxShow) + ' more';
+        cellEvts.appendChild(more);
+      }
+      el.appendChild(cellEvts);
 
       el.addEventListener('click', () => {
         selectedKey = selectedKey === key ? null : key;
@@ -284,12 +380,14 @@ function showEvents(y, m, d, evts) {
   const dateStr = MONTHS[m] + ' ' + d + ', ' + y;
   document.getElementById('event-date').textContent = dateStr;
   const list = document.getElementById('event-list');
-  list.innerHTML = evts.map(e =>
-    '<div class="event-item">' +
-      '<span class="event-tag" style="background:' + TAG_COLORS[e.tag] + '">' + e.tag + '</span>' +
+  list.innerHTML = evts.map(e => {
+    const color = CAT_COLORS[e.cat] || '#888';
+    const label = e.cat === 'deadline' ? 'DEADLINE' : e.cat === 'biz' ? 'BIZ' : e.cat === 'personal' ? 'PERSONAL' : 'DONE';
+    return '<div class="event-item">' +
+      '<span class="event-tag" style="background:' + color + '">' + label + '</span>' +
       '<span class="event-text">' + e.text + '</span>' +
-    '</div>'
-  ).join('');
+    '</div>';
+  }).join('');
   panel.classList.add('open');
 }
 

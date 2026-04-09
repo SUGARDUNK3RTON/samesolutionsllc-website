@@ -21,7 +21,7 @@ Single-file PWA business management app for Same Solutions LLC, a handyman/techn
 ### Data Migrations
 
 - ALL data changes go through versioned `migrateData()` — NEVER seed data blocks in the data-exists path
-- Current: `DATA_VERSION 13`, 12 migrations (line ~4744 of manage/index.html)
+- Current: `DATA_VERSION 15`, 14 migrations (line ~4744 of manage/index.html)
 - Increment DATA_VERSION for every new migration
 - Each migration checks `if (fromVersion < N)` and runs once
 
@@ -56,7 +56,7 @@ Serve `manage/` over HTTP(S) with any static file server.
 - **Customer Portal**: Customers log in, see "My Property" + "My Billing" tabs. Admin sees all tabs.
 - **Unified Renderer**: `renderDocument(doc, {theme, editable, showHistory, ...})` — ONE function for all quote/invoice display (dark, light, print themes)
 - **Print**: `renderPrintDocument(docId, docType)` opens clean white-background window.print() view
-- **Service Worker**: `manage/sw.js` — cache version v39. Must update all three cache names when static assets change. Skips Firebase/external API calls.
+- **Service Worker**: `manage/sw.js` — cache version v41. Must update all three cache names when static assets change. Skips Firebase/external API calls.
 
 ### Data Stores
 
@@ -70,6 +70,7 @@ Serve `manage/` over HTTP(S) with any static file server.
 - `data.equipment{}` — machines, RC vehicles, tools (keyed by ID like EQ-LOSI-MICRO-T)
 - `data.appliances[]` — property appliances
 - `data.assets{}` — tools and electronics
+- `data.recurringEvents[]` — weekly/recurring calendar events
 
 ### Index Maps (for performance)
 
