@@ -4739,7 +4739,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.4';
+        const APP_VERSION = 'v1.7.5';
         
         // Data schema version - increment when structure changes
         const DATA_VERSION = 15;
@@ -5807,7 +5807,7 @@ Same Solutions LLC
             }
             
             if (fromVersion < 7) {
-                console.log('📦 v7: Suttman MONROE blueprint model + parcel');
+                // console.log('📦 v7: Suttman MONROE blueprint model + parcel');
                 if (data.properties && data.properties['suttman-home']) {
                     const sp = data.properties['suttman-home'];
                     sp.style = '2-Story';
@@ -5837,7 +5837,7 @@ Same Solutions LLC
                     sp.unverified = ['lot dimensions', 'orientation', 'HVAC make/model', 'water heater'];
                     sp.notes = 'MONROE Elev C, WYN-83. Full blueprints on file. Parcel O67 03803 0162. Purchased 5/9/22. ~$800K est.';
                 }
-                console.log('✅ v7 complete — suttman MONROE + parcel');
+                // console.log('✅ v7 complete — suttman MONROE + parcel');
             }
             
             // v7 -> v8: SS-Q003 corrected line items + closets broken out (Sam reviewed on-site)
@@ -5888,7 +5888,7 @@ Same Solutions LLC
                     createdAt: '2026-03-11T00:00:00.000Z',
                     createdBy: 'sam@samesolutionsllc.com'
                 });
-                console.log('✅ v8 complete — SS-Q003 corrected + closets');
+                // console.log('✅ v8 complete — SS-Q003 corrected + closets');
             }
             
             // v8 -> v9: Add Losi Mini-T 2.0 RC car to machines (sam-home)
@@ -5966,7 +5966,7 @@ Same Solutions LLC
                 };
                 // Also remove old incorrect entry if it exists
                 if (data.equipment['EQ-LOSI-MINI-T']) delete data.equipment['EQ-LOSI-MINI-T'];
-                console.log('✅ v9 complete — Losi Micro-T 2S (LOS-1392T1) added to machines');
+                // console.log('✅ v9 complete — Losi Micro-T 2S (LOS-1392T1) added to machines');
             }
             
             // v9 -> v10: Add SCX24, Traxxas Slash 4x4, ARRMA Typhon GROM to machines
@@ -6098,7 +6098,7 @@ Same Solutions LLC
                     notes: 'ARRMA Typhon GROM — 1/18 scale 4WD brushed buggy (ARA2106). MEGA 380 motor, metal gear drivetrain, Spektrum Smart electronics, clipless body. Battery and USB-C charger included. 20+ mph stock.'
                 };
                 
-                console.log('✅ v10 complete — SCX24 C10, Slash 4X4, Typhon GROM added');
+                // console.log('✅ v10 complete — SCX24 C10, Slash 4X4, Typhon GROM added');
             }
             
             // v10 -> v11: Haim multi-property quotes, updated materials, new bathroom work, 3 new properties
@@ -6279,7 +6279,7 @@ Same Solutions LLC
                     notes: 'General handyman rate $75/hr.'
                 });
                 
-                console.log('✅ v11 complete — Haim multi-property: Q003 updated, Q005-Q007 created, 8hrs logged, 3 properties added');
+                // console.log('✅ v11 complete — Haim multi-property: Q003 updated, Q005-Q007 created, 8hrs logged, 3 properties added');
             }
             
             // v11 -> v12: Finalize SS-Q003 Eton Ave — actual work done, ready for invoice
@@ -6338,7 +6338,7 @@ Same Solutions LLC
                 const q = data.quotes.find(q => q.id === 'SS-Q003');
                 if (q) q.amount = q.lineItems.reduce((s, i) => s + (i.qty * i.unitPrice), 0);
                 
-                console.log('✅ v12 complete — SS-Q003 finalized: $' + (q ? q.amount : '?'));
+                // console.log('✅ v12 complete — SS-Q003 finalized: $' + (q ? q.amount : '?'));
             }
             // v12 -> v13: Aceves lake property + SS-Q008 deck replacement quote
             if (fromVersion < 13) {
@@ -6450,7 +6450,7 @@ Same Solutions LLC
                 const q008 = data.quotes.find(q => q.id === 'SS-Q008');
                 if (q008) q008.amount = q008.lineItems.reduce((s, i) => s + ((i.qty || 0) * (i.unitPrice || 0)), 0);
                 
-                console.log('✅ v13 complete — Aceves lake property + SS-Q008 deck quote: $' + (q008 ? q008.amount : '?'));
+                // console.log('✅ v13 complete — Aceves lake property + SS-Q008 deck quote: $' + (q008 ? q008.amount : '?'));
             }
 
             // v13 -> v14: Tessman customer + property + SS-Q009 painting quote
@@ -6515,7 +6515,7 @@ Same Solutions LLC
                     createdBy: 'sam@samesolutionsllc.com'
                 });
 
-                console.log('✅ v14 complete — Tessman customer + tessman-home property + SS-Q009 painting quote: $455');
+                // console.log('✅ v14 complete — Tessman customer + tessman-home property + SS-Q009 painting quote: $455');
             }
 
             // v14 -> v15: Add recurring events data structure
@@ -6535,7 +6535,7 @@ Same Solutions LLC
                         category: 'personal'
                     });
                 }
-                console.log('✅ v15 complete — recurring events data structure added');
+                // console.log('✅ v15 complete — recurring events data structure added');
             }
 
 
@@ -9104,12 +9104,13 @@ Same Solutions LLC
         }
         
         // Delete job with confirmation
-        function deleteJob(jobId) {
+        async function deleteJob(jobId) {
             if (!isAdmin()) { toast("Admin access required", "error"); return; }
             const job = data.jobs.find(j => j.id === jobId);
             if (!job) return;
-            
-            if (confirm(`Delete job "${job.description}" (${fmt(job.amount)})?\\n\\nThis cannot be undone.`)) {
+
+            const ok = await confirmModal(`Delete job "${job.description}" (${fmt(job.amount)})?`, { title: 'Delete Job', confirmText: 'Delete', danger: true });
+            if (ok) {
                 data.jobs = data.jobs.filter(j => j.id !== jobId);
                 saveData();
                 updateUI();
@@ -9370,12 +9371,13 @@ Same Solutions LLC
         }
         
         // Delete expense
-        function deleteExpense(expenseId) {
+        async function deleteExpense(expenseId) {
             if (!isAdmin()) { toast("Admin access required", "error"); return; }
             const exp = data.expenses.find(e => e.id === expenseId);
             if (!exp) return toast('Expense not found', 'error');
-            
-            if (confirm(`Delete expense "${exp.description}" (${fmt(exp.amount)})?`)) {
+
+            const ok = await confirmModal(`Delete expense "${exp.description}" (${fmt(exp.amount)})?`, { title: 'Delete Expense', confirmText: 'Delete', danger: true });
+            if (ok) {
                 data.expenses = data.expenses.filter(e => e.id !== expenseId);
                 saveData();
                 updateUI();
@@ -9955,11 +9957,12 @@ Same Solutions LLC
         }
         
         // Delete mileage entry
-        function deleteMileage(mileageId) {
+        async function deleteMileage(mileageId) {
             const entry = (data.mileage || []).find(m => m.id === mileageId);
             if (!entry) return toast('Entry not found', 'error');
             
-            if (confirm(`Delete mileage entry (${entry.miles} mi)?`)) {
+            const ok = await confirmModal(`Delete mileage entry (${entry.miles} mi)?`, { title: 'Delete Mileage', confirmText: 'Delete', danger: true });
+            if (ok) {
                 data.mileage = data.mileage.filter(m => m.id !== mileageId);
                 saveData();
                 updateUI();
@@ -24507,8 +24510,8 @@ Same Solutions LLC
             }
         }
         
-        function deleteDocument(entityType, entityId, docId) {
-            if (!confirm('Delete this document?')) return;
+        async function deleteDocument(entityType, entityId, docId) {
+            if (!(await confirmModal('Delete this document?', { title: 'Delete Document', confirmText: 'Delete', danger: true }))) return;
             const docs = data.documents?.[entityType]?.[entityId];
             if (!docs) return;
             const idx = docs.findIndex(d => d.id === docId);
@@ -25088,8 +25091,8 @@ Same Solutions LLC
             }
         }
         
-        function deleteFeedback(feedbackId) {
-            if (!confirm('Delete this feedback?')) return;
+        async function deleteFeedback(feedbackId) {
+            if (!(await confirmModal('Delete this feedback?', { title: 'Delete Feedback', confirmText: 'Delete', danger: true }))) return;
             const idx = data.feedback.findIndex(f => f.id === feedbackId);
             if (idx >= 0) {
                 data.feedback.splice(idx, 1);
