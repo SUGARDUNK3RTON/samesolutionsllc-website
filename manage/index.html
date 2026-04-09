@@ -4739,7 +4739,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.3';
+        const APP_VERSION = 'v1.7.4';
         
         // Data schema version - increment when structure changes
         const DATA_VERSION = 15;
@@ -6503,21 +6503,19 @@ Same Solutions LLC
                     laborRate: 75,
                     status: 'pending',
                     lineItems: [
-                        { id: 1, type: 'labor', description: 'Prep (patch, sand, tape)', qty: 2, unit: 'hrs', unitPrice: 75 },
-                        { id: 2, type: 'labor', description: 'Paint walls 2 coats', qty: 3, unit: 'hrs', unitPrice: 75 },
-                        { id: 3, type: 'material', description: 'SW SuperPaint Interior', qty: 2, unit: 'gal', unitPrice: 60, supplier: 'Sherwin-Williams' },
-                        { id: 4, type: 'material', description: 'Supplies (rollers, tape, drop cloths, patch)', qty: 1, unit: 'lot', unitPrice: 35 },
-                        { id: 5, type: 'labor', description: 'Ceiling cleaning TSP wash', qty: 1, unit: 'hrs', unitPrice: 75 },
-                        { id: 6, type: 'material', description: 'TSP cleaner', qty: 1, unit: 'ea', unitPrice: 12 }
+                        { id: 1, type: 'labor', description: 'Prep — patch nail holes, light sanding, tape trim/brick/window/door', qty: 1.5, unit: 'hrs', unitPrice: 75 },
+                        { id: 2, type: 'labor', description: 'Paint walls — 2 coats SW SuperPaint Interior (color TBD)', qty: 2.5, unit: 'hrs', unitPrice: 75 },
+                        { id: 3, type: 'material', description: 'Sherwin-Williams SuperPaint Interior (2 gallons, color TBD)', qty: 2, unit: 'gal', unitPrice: 60, supplier: 'Sherwin-Williams' },
+                        { id: 4, type: 'material', description: 'Supplies — roller covers, tape, drop cloths, patch compound', qty: 1, unit: 'lot', unitPrice: 35 }
                     ],
-                    amount: 617,
-                    notes: 'INTERIOR PAINTING — Front Room\n186 Cardinal St, Commerce Township MI 48382\n\nScope:\n• Prep walls — patch holes, sand, tape trim/ceiling lines\n• Paint walls 2 coats (SW SuperPaint)\n• Clean ceiling with TSP wash\n• Brick accent wall on far 12ft wall — paint stops at brick\n\nValid 60 days from issue date.',
-                    changeLog: [{ date: new Date().toISOString(), by: 'sam@samesolutionsllc.com', reason: 'Initial painting quote — front room', changes: ['6 line items', 'Labor: 6 hrs @ $75 = $450', 'Materials: $167'] }],
+                    amount: 455,
+                    notes: 'Room: 16.5ft x 12ft, 8ft ceiling. One 12ft wall is brick (not painted). Front wall has door + large window. Ceiling has no transitions — cleaning only recommended. Optional add-ons: ceiling cleaning +$87, trim/baseboards +$175.',
+                    changeLog: [{ date: new Date().toISOString(), by: 'sam@samesolutionsllc.com', reason: 'Revised quote — removed ceiling cleaning, updated labor hours', changes: ['4 line items', 'Labor: 4 hrs @ $75 = $300', 'Materials: $155'] }],
                     createdAt: new Date().toISOString(),
                     createdBy: 'sam@samesolutionsllc.com'
                 });
 
-                console.log('✅ v14 complete — Tessman customer + tessman-home property + SS-Q009 painting quote: $617');
+                console.log('✅ v14 complete — Tessman customer + tessman-home property + SS-Q009 painting quote: $455');
             }
 
             // v14 -> v15: Add recurring events data structure
