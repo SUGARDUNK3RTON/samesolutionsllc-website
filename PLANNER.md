@@ -1,88 +1,98 @@
 # Same Solutions — Planner
 
-> **Last updated**: March 31, 2026 | **Updated by**: Sam + Claude
-> **View this on phone**: github.com → PLANNER.md
+> **Last updated**: Wednesday April 2, 2026 9:30 PM
+> **View on phone**: github.com → PLANNER.md
 
 ---
 
-## 🔴 TODAY / URGENT
+## 🔴 HARD DEADLINES
 
-- [ ] **Call Marketplace (800) 318-2596** — request SEP extension for insurance enrollment `INS` `P0`
-  - Have Hyundai cancellation letter ready (Jan 13 cancellation, admin error)
-  - If denied → apply Healthy Michigan Plan at mibridges.michigan.gov (denial triggers new SEP)
-- [ ] **Send Haim SS-Q003** ($1,830.50) — have him log in at haimtalmid@same.com or print `BIZ` `P0`
-  - → then: invoice him (SS-012), discuss $813 outstanding balance
-- [ ] **Send Jon deck quote SS-Q008** ($16,886) — jonathanaceves@same.com `BIZ` `P1`
-  - Hubbard Lake Trex replacement, 500 sqft wrap-around
-- [ ] **4:00 PM - Paint master bedroom wall** 'ME' 'P1'
+- [ ] **April 15 — FILE 2025 TAXES** (Sam Schedule C + CeCe separate)
+- [ ] **ASAP — Call Marketplace (800) 318-2596** — insurance SEP extension
+- [ ] **Friday night — Ladder plan finalized** for Saturday peak stain attempt
+
 ---
 
 ## 📅 THIS WEEK
 
-### Monday 3/31 ✅
-- [x] Deploy v1.7.1 (unified renderer + Aceves lake property)
-- [x] Set up Claude Code + CLAUDE.md + git pipeline
-- [x] Insurance research — Sam (~$22.7K MAGI, 145% FPL, big subsidies) + CeCe (~$56.4K MAGI, 360% FPL, qualifies for subsidies)
-- [x] Aceves deck quote SS-Q008 built ($16,886)
-- [x] Haim SS-Q003 finalized ($1,830.50)
-
-### Tuesday 4/1
-- [ ] Call Marketplace — insurance SEP `INS` `P0`
-- [ ] Send Haim quote + discuss payment `BIZ` `P0`
-- [ ] Send Jon deck quote `BIZ` `P1`
-- [ ] Collect Letvin $695 `BIZ` `P1`
-  - → blocked by: nothing, just call/text him
-- [ ] Apply Healthy Michigan as backup `INS` `P1`
-  - → depends on: Marketplace call result
-
-### Wednesday 4/2
-- [ ] Invoice Haim for SS-Q003 → SS-012 `BIZ` `P0`
-  - → depends on: Haim reviews/accepts quote
-- [ ] Get Haim rental addresses (rental2, rental3, Dearborn) `BIZ` `P2`
-- [ ] Water heater research — replacement options for 1984 unit `ME` `P1`
-
 ### Thursday 4/3
-- [ ] Admin billing tab merge — tell Claude Code to implement `APP` `P1`
-  - → roadmap P0 #2, depends on: nothing, can start anytime
-- [ ] Haim jobs — schedule next visit (Q005 drain, Q006 caulking, Q007 towel holder) `BIZ` `P2`
-  - → depends on: getting rental addresses
+
+- [ ] **Call/text Mrs. Tessman** (248-535-4042) — $617 quote, ask if approved, ask color `P0`
+- [ ] **Call (800) 318-2596** — insurance SEP `P0`
+  - Sam and CeCe each call separately
+  - If denied → apply Healthy Michigan at mibridges.michigan.gov
+- [ ] **Research ladder for Aceves peak stain** (need 32-40ft) `P1`
+  - Check FB Marketplace / Craigslist for used 32-36ft
+  - HD rental backup: ~$55-75/day
+- [ ] **Send Haim SS-Q003** ($1,830.50) `P1`
+- [ ] **Start compiling SW bulk paint order** `P1`
 
 ### Friday 4/4
-- [ ] Data store consolidation — Claude Code `APP` `P2`
-  - → depends on: admin billing tab done first
-- [ ] Review week, plan next week `ME`
+
+- [ ] **Tax prep session** (2-4 hrs) — organize 2025 income + expenses `P0`
+- [ ] **Finalize ladder** — buy, rent, or borrow confirmed `P0`
+- [ ] **Finalize SW paint order** — get all colors from CeCe, confirm Tessman `P1`
+- [ ] **Insurance backup** — if not done Thursday `P0`
+- [ ] **Prep Saturday peak stain** — supplies, safety gear
+
+### Saturday 4/5
+
+- [ ] **Aceves peak stain** (SS-Q004, $301.50) — weather permitting `P0`
+  - If rained out → taxes day instead
+- [ ] **Place Sherwin-Williams bulk order** (50% off) `P1`
+- [ ] **File taxes backup day**
+
+### Sunday 4/6
+
+- [ ] **10:00 AM – 5:00 PM — Paint CeCe's studio arches** `P0`
+  - 4 arched sections, ~4.5ft wide × 10ft high each
+  - 3 on one wall, 1 on separate wall
+  - ~140 sqft, 2 coats, 1 gallon SW paint
+  - 10:00 — tape arch outlines (1.5 hr)
+  - 11:30 — first coat all 4 arches (1.5 hr)
+  - 1:00 — lunch / dry time (2 hr)
+  - 3:00 — second coat (1 hr)
+  - 4:00 — remove tape + touch up (30 min)
+  - 4:30 — cleanup, done by 5:00
 
 ---
 
-## 📋 BACKLOG (unscheduled)
+## 📋 NEXT WEEK (April 7-11)
 
-### Business
-- [ ] Enter Letvin appliance model numbers in KB `BIZ` `P3`
-- [ ] Enter tankless water heater in KB (sam-home) `BIZ` `P3`
-- [ ] Collect Talmid ~$813 outstanding `BIZ` `P1` → depends on: delivering Q003
-- [ ] Aceves front peak staining SS-Q004 ($301.50) — schedule `BIZ` `P2`
-- [ ] Jon deck job — schedule if he accepts SS-Q008 `BIZ` `P2` → depends on: Jon's response
+- [ ] **Taxes deadline backup** — must be filed by April 15
+- [ ] **Janet Tessman painting** (1 day, local, 186 Cardinal St)
+- [ ] **Collect Letvin $695**
+- [ ] **Invoice Haim SS-Q003 → SS-012**
+- [ ] **Claude Code: v14 migration** (Tessman customer + quote)
+- [ ] **Claude Code: update PLANNER.md + CLAUDE.md in repo**
 
-### App Development (Claude Code tasks)
-- [ ] Firebase Auth migration — replace PRESET_ACCOUNTS `APP` `P2`
-- [ ] CSS extraction — inline styles → classes `APP` `P2`
-- [ ] Module split — single file → modules with build step `APP` `P3`
-- [ ] Logo SVG rebuild — two interlocking hex S shapes `APP` `P3`
-- [ ] Replace 18 native confirm() → confirmModal() `APP` `P3`
+---
 
-### Personal
-- [ ] Water heater replacement (1984 unit — 41 years old, critical) `ME` `P1`
-- [ ] Foran's Transmission site — Dad review `ME` `P3`
+## 📦 SHERWIN-WILLIAMS BULK ORDER (50% Off)
 
-### Insurance (ongoing)
-- [ ] Both apply on HealthCare.gov once SEP secured `INS` `P1`
-  - Sam: ~$30-80/mo Silver with CSR (est $22.7K MAGI)
-  - CeCe: ~$280-350/mo Silver (est $56.4K MAGI)
-  - Each applies SEPARATELY — household of 1 each
-  - → depends on: SEP granted or Medicaid denial triggers new SEP
-- [ ] Open enrollment 2027: Nov 1 – Dec 15, 2026 (shortened window) `INS`
-- [ ] Track CeCe's business expenses for lower MAGI `INS` `P2`
-  - Booth rental ~$650/mo, products ~$500/mo, tools, ½ SE tax
+**Goal**: One massive order, all jobs, maximum savings
+
+| # | Job | Product | Color | Gal | Retail | 50% Cost |
+|---|-----|---------|-------|-----|--------|----------|
+| 1 | Tessman front room | SW SuperPaint Interior | TBD (ask Thu) | 2 | $120 | $60 |
+| 2 | CeCe studio arches | SW SuperPaint Interior | CeCe has codes | 1 | $60 | $30 |
+| 3 | Windsor's room | SW SuperPaint Interior | TBD | 2 | $120 | $60 |
+| 4 | Master bedroom | SW SuperPaint Interior | TBD | 3 | $180 | $90 |
+| 5 | Basement (partial) | SW SuperPaint Interior | TBD | 1-2 | $120 | $60 |
+| 6 | Outside concrete wall | SW Masonry/Exterior | TBD | 1-2 | $120 | $60 |
+| 7 | Sam's deck (solid stain) | SW SuperDeck Solid Stain | TBD | 3-5 | $275 | $138 |
+| 8 | Jon & Abbey interior | SW SuperPaint Interior | They have colors | TBD | TBD | TBD |
+| | **ESTIMATED TOTAL** | | | **~15-19** | **~$995-1,195** | **~$498-598** |
+
+**Colors still needed:**
+- [ ] CeCe's arch color codes (she has them)
+- [ ] Tessman color (after she approves quote)
+- [ ] Windsor's color
+- [ ] Master bedroom color
+- [ ] Basement color
+- [ ] Concrete wall color
+- [ ] Deck stain color
+- [ ] Jon & Abbey — verify their colors available at SW
 
 ---
 
@@ -90,31 +100,37 @@
 
 | Metric | Amount |
 |--------|--------|
-| **Collected** | $2,650 |
-| **Outstanding** | ~$1,508 (Letvin $695 + Talmid $813) |
-| **Completed, not invoiced** | $1,830.50 (Haim SS-Q003) |
-| **Pending quotes** | $17,358.50 (Q004-Q008) |
-| **Next invoice** | SS-012 |
+| **Outstanding receivables** | ~$1,508 (Letvin $695 + Talmid $813) |
+| **Completed not invoiced** | $1,830.50 (Haim SS-Q003) |
+| **Pending quotes total** | $18,186 |
+| **SW order savings** | ~$500-600 |
+
+**Active Quotes**
+
+| ID | Customer | Amount | Status |
+|----|----------|--------|--------|
+| SS-Q003 | Talmid | $1,830.50 | done → needs invoice |
+| SS-Q004 | Aceves (peak) | $301.50 | Saturday if weather |
+| SS-Q008 | Aceves (deck) | $16,886 | waiting Jon end of month |
+| SS-Q009 | Tessman | $617 | contact Thursday |
 
 ---
 
-## 🔗 QUICK LINKS
+## 🏠 ACEVES DECK (SS-Q008)
 
-- **App**: samesolutionsllc.com/manage
-- **Marketplace**: healthcare.gov / (800) 318-2596
-- **Healthy MI**: mibridges.michigan.gov
-- **GitHub**: github.com/SUGARDUNK3RTON/samesolutionsllc-website
-- **Haim login**: haimtalmid@same.com / talmid
-- **Jon login**: jonathanaceves@same.com / aceves
+- Keith is in — rate TBD pending Jon's decision
+- Jon waiting until end of April for family friend
+- Jon said he wants to go with Sam
+- Photos requested — waiting
+- Stay prepped, don't order materials yet
+- Sam pays Keith something either way
 
 ---
 
-## 📝 HOW TO USE THIS FILE
+## 📋 BACKLOG
 
-**On phone**: Open GitHub app or github.com → tap PLANNER.md → rendered view
-**Edit on phone**: Tap pencil icon → edit → commit
-**Via Claude Code**: `claude` → "mark the insurance call done and add a task for next Monday"
-**Via this chat**: Tell Claude "add X to my planner" → I give you the line to add
-**Dependencies**: Tasks marked `→ depends on:` can't start until the blocker is done
-**Tags**: `BIZ` business | `ME` personal | `INS` insurance | `APP` app development
-**Priority**: `P0` do today | `P1` this week | `P2` soon | `P3` whenever
+**Business**: Janice Fisk eval (after Tessman), business cards, pocket tools, Foran's site, logo finalization
+
+**Home (sam-home)**: Floor plan SVG fix, water heater research, deck board replacement + stain
+
+**App**: Tessman v14 migration, admin billing merge, data store consolidation, Firebase auth, landing page recovery
