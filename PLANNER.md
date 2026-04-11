@@ -24,6 +24,7 @@
 - Prep for Saturday peak stain
 
 ### Saturday 4/5
+- Aceves deck modified quote 700 sq ft, 2 stairs, stair1:~3 steps, stair2: ?same
 - Aceves peak stain SS-Q004 ($301.50) — weather permitting
 - Place SW bulk order (50% off)
 - File taxes backup day
