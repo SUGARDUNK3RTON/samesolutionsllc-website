@@ -4719,7 +4719,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.10';
+        const APP_VERSION = 'v1.7.11';
         
         // Data schema version - increment when structure changes
         const DATA_VERSION = 15;
@@ -15394,7 +15394,7 @@ Same Solutions LLC
             baths: 1,
             lotSize: 0.29, // acres
             lotSqFt: 12632, // calculated
-            lotDimensions: { frontage: 55, depth: 234 }, // GIS-verified (Oakland County)
+            lotDimensions: { frontage: 53, depth: 234 }, // Zillow street frontage (water frontage 55ft per GIS)
             waterfront: { type: 'Huron River', frontage: 55 },
             purchaseDate: '2021-10-01',
             purchasePrice: 370000,
@@ -15442,23 +15442,22 @@ Same Solutions LLC
             roofPitch: '4:12',
             sketchupVerified: true,
             gisVerified: true,
-            // GIS-VERIFIED ORIENTATION + 2026-04 field walkthrough corrections
+            // ORIENTATION — corrected 2026-04-20 field walkthrough (house sits diagonally on lot)
             orientation: {
-                front: 'south',       // Main entrance on south side
-                rear: 'north',        // Bluebird Dr side (street)
-                streetSide: 'north',  // Bluebird Dr
-                waterSide: 'south',   // Huron River
-                left: 'west',         // Bedroom wing, doorwall, basement walkout
-                right: 'east',        // Garage (with man door to deck)
-                deckFaces: 'north',   // Main deck runs E-W along north side
-                walkwaySide: 'south', // South walkway wraps along south
-                driveway: 'north'     // From Bluebird Dr
+                streetSide: 'northeast',   // Bluebird Dr runs N-S but diagonal here
+                waterSide: 'southwest',    // Huron River
+                garageFaces: 'northeast',  // Garage doors face road/driveway
+                deckFaces: 'southwest',    // Both doorwalls face river
+                frontDoor: 'southeast',    // Rarely used entrance
+                bedroomWing: 'northwest',  // Master + Windsor exterior walls
+                driveway: 'northeast',     // From Bluebird Dr to garage
+                compassNote: 'House sits diagonally on lot. Bluebird Dr runs N-S but angles at this property. True compass approximately 45deg rotated from cardinal directions.'
             },
             // GIS-VERIFIED LOT (Oakland County Property Gateway)
             lot: {
                 parcel: 'E-17-10-476-008',
-                streetFrontage: 55,   // ft on Bluebird Dr (north)
-                waterFrontage: 55,    // ft on Huron River (south)
+                streetFrontage: 53,   // ft on Bluebird Dr (Zillow source)
+                waterFrontage: 55,    // ft on Huron River (GIS)
                 westBoundary: 230,    // ft
                 eastBoundary: 238,    // ft
                 depth: 234,           // ft average north to south
@@ -15469,98 +15468,97 @@ Same Solutions LLC
                 owner: 'Sam Foran',
                 partner: 'Celestia Heady',
                 children: ['Windsor'],
-                pets: [{ name: 'Dog', type: 'Dachshund' }]
+                pets: [
+                    { name: 'Dunkin', type: 'Westie' },
+                    { name: 'Teagan', type: 'Long-haired Dachshund' }
+                ]
             },
             rooms: {
-                // ========== BEDROOM WING (WEST side - left when facing house) ==========
-                master: { name: 'Master Bedroom', w: 14, l: 12, x: 0, y: 0, floor: 'main', color: '#3b82f6', ceiling: 8,
+                // ========== BEDROOM WING (NORTHWEST side) ==========
+                master: { name: 'Master Bedroom', w: 14, l: 13, x: 0, y: 0, floor: 'main', color: '#3b82f6', ceiling: 8,
                     verified: false,
-                    orientation: 'northwest corner',
-                    features: ['Shares north wall with Family Room', 'Walk-in closet', 'Hardwood floors', 'Baseboard heat', 'Being painted Forestwood SW 7730'],
+                    orientation: 'northwest corner, shares interior wall directly with living room — no hallway between them',
+                    features: ['Doorwall on southwest wall (river side)', 'Shares wall directly with living room', 'Walk-in closet', 'Hardwood floors', 'Baseboard heat', 'Being painted Forestwood SW 7730'],
                     wallColor: 'Forestwood SW 7730 (in progress)',
                     paintInProgress: { color: 'Forestwood SW 7730', brand: 'Sherwin-Williams' },
                     floorType: 'Oak hardwood'
                 },
-                masterCloset: { name: 'Master Closet', w: 4, l: 5.875, x: 14, y: 0, floor: 'main', color: '#475569', ceiling: 8,
+                masterCloset: { name: 'Master Closet', w: 5, l: 2, x: 14, y: 0, floor: 'main', color: '#475569', ceiling: 8,
                     verified: false,
-                    features: ['Back-to-back with Windsor closet', 'White dresser', 'Clothes rod']
+                    type: 'reach-in',
+                    features: ['Reach-in (2ft deep)', 'North interior wall of master, center of house', 'Back-to-back with Windsor closet', 'White dresser', 'Clothes rod']
                 },
-                windsorCloset: { name: 'Windsor Closet', w: 4, l: 5.875, x: 14, y: 5.875, floor: 'main', color: '#475569', ceiling: 8,
+                windsorCloset: { name: 'Windsor Closet', w: 5, l: 2, x: 14, y: 2, floor: 'main', color: '#475569', ceiling: 8,
                     verified: false,
-                    features: ['Back-to-back with Master closet']
+                    type: 'reach-in',
+                    features: ['Reach-in (2ft deep)', 'Back-to-back with Master closet', 'Ends at doorway']
                 },
-                windsor: { name: "Windsor's Room", w: 11, l: 10, x: 0, y: 12, floor: 'main', color: '#a78bfa', ceiling: 8, 
+                windsor: { name: "Windsor's Room", w: 11, l: 10, x: 0, y: 13, floor: 'main', color: '#a78bfa', ceiling: 8,
                     verified: false,
-                    orientation: 'southwest corner',
-                    features: ['Lavender/light purple walls', 'Baseboard heater', 'Double-hung windows', 'Gray curtains'],
+                    orientation: 'northeast corner of house',
+                    features: ['Windows face into gap between house and garage', 'Lavender/light purple walls', 'Baseboard heater', 'Double-hung windows', 'Gray curtains'],
                     wallColor: 'Lavender/Light purple',
                     floorType: 'Oak hardwood'
                 },
-                bath: { name: 'Full Bathroom', w: 7, l: 7.88, x: 11, y: 12, floor: 'main', color: '#8b5cf6', ceiling: 8, 
+                bath: { name: 'Full Bathroom', w: 7, l: 7.88, x: 11, y: 13, floor: 'main', color: '#8b5cf6', ceiling: 8,
                     verified: false,
-                    features: ['White square tile floor', 'Light blue/white walls', 'Gold-framed mirror', 'Tub/shower combo'],
+                    orientation: 'south of Windsor (not between bedroom wing and living area). East wall aligns with Windsor east wall; east wall borders basement stairs/dead area. Windows face gap between house and garage.',
+                    features: ['White square tile floor', 'Light blue/white walls', 'Gold-framed mirror', 'Tub/shower combo', 'Windows face exterior gap'],
                     wallColor: 'Light blue/white',
                     floorType: 'White square tile',
                     fixtures: ['Toilet', 'Vanity sink', 'Tub/shower']
                 },
-                
+                office: { name: 'Office', w: 10, l: 10, x: 11, y: 20.88, floor: 'main', color: '#6366f1', ceiling: 8,
+                    verified: false,
+                    orientation: 'south of bathroom, east of chimney. East wall aligns with Windsor and bath east walls. Basement stairs run along south wall (= north wall of kitchen).',
+                    features: ['Windows face exterior gap between house and garage', 'Zillow lists this room as "Dining Room 10x10"', 'East wall aligns with Windsor and bath', 'South wall is above basement stairs']
+                },
+
                 // ========== HALLWAY - VERIFIED FROM SKETCHUP ==========
                 hall: { name: 'Hallway', w: 7.86, l: 2.42, x: 18, y: 10, floor: 'main', color: '#22c55e', ceiling: 8,
                     verified: true, // FROM SKETCHUP: 7'10-3/8" × ~2'5"
                     sketchupDims: "7' 10 3/8\" × ~2' 5\"",
+                    orientation: 'Connects bedroom wing to living area. Does NOT cut between master bedroom and living room — those share a direct wall. Hallway runs along the east side of the bedroom wing.',
                     features: ['Sage green walls', 'Sage green ceiling', 'Black door frames', 'Black doors', 'Brass/glass ceiling fixture', 'Oak hardwood floors'],
                     wallColor: 'Sage green',
                     ceilingColor: 'Sage green',
                     trimColor: 'Black',
                     floorType: 'Oak hardwood'
                 },
-                
+
                 // ========== LIVING AREA - VERIFIED FROM SKETCHUP ==========
-                family: { name: 'Family Room', w: 14.32, l: 12.6, x: 18, y: 12.6, floor: 'main', color: '#ef4444', ceiling: 10, 
+                family: { name: 'Family Room', w: 14.32, l: 12.6, x: 18, y: 12.6, floor: 'main', color: '#ef4444', ceiling: 12,
                     verified: true, // FROM SKETCHUP: 14'3-13/16" × 12'7-3/16"
                     sketchupDims: "14' 3 13/16\" × 12' 7 3/16\"",
-                    sqFt: 180.4, // calculated
-                    features: ['Cathedral ceiling (white tongue-and-groove)', 'Two exposed dark wood beams', 'Two-tone knotty pine paneling', 'Brass ceiling fan', 'Slate fireplace (dark blue-gray)', 'TV over fireplace', 'Sliding glass doors (large, river view)', 'Oak hardwood floor'],
+                    sqFt: 180.4,
+                    orientation: 'Shares wall directly with master bedroom (no hallway between). Chimney/fireplace on southeast wall (front door side). Doorwall on southwest wall (river side).',
+                    features: ['Shares wall directly with master bedroom (no hallway between)', 'Cathedral ceiling (white tongue-and-groove) vaulted peak ~12-13ft at ridge (4:12 pitch over ~12.5ft half-span)', 'Two exposed dark wood beams', 'Two-tone knotty pine paneling', 'Brass ceiling fan', 'Slate fireplace on southeast wall (dark blue-gray)', 'TV over fireplace', 'Doorwall on southwest wall (river view)', 'Oak hardwood floor'],
                     hasFireplace: true,
                     fireplaceType: 'Wood burning, slate surround, painted dark blue-gray',
-                    ceilingType: 'Cathedral - white T&G planks with 2 exposed beams',
+                    ceilingType: 'Cathedral - white T&G planks with 2 exposed beams, vaulted peak ~12-13ft',
                     wallColor: 'Knotty pine paneling (two-tone)',
                     floorType: 'Oak hardwood'
                 },
-                kitchen: { name: 'Kitchen', w: 11.25, l: 12.6, x: 32.32, y: 12.6, floor: 'main', color: '#22c55e', ceiling: 8, 
-                    verified: true, // FROM SKETCHUP: 11'3" × 12'7-3/16"  
-                    sketchupDims: "11' 3\" × 12' 7 3/16\"",
-                    sqFt: 141.75,
-                    features: ['Knotty pine cabinets (original 1950s)', 'Yellow/green tile backsplash', 'Electric range (white)', 'Refrigerator (white)', 'Window over sink', 'Red door to basement'],
+                kitchen: { name: 'Kitchen', w: 11.25, l: 25, x: 32.32, y: 0, floor: 'main', color: '#22c55e', ceiling: 8,
+                    verified: true, // Merged — full east section ~11'3" × 25' (kitchen + eating area + entry bump-out; no separating walls)
+                    sketchupDims: "~11' 3\" × ~25' (merged)",
+                    sqFt: 281.25,
+                    orientation: 'One open room spanning the full east section. Chimney in NW corner (touching living room). Basement stairs along north wall of kitchen (= south wall of office). Entry bump-out on southeast.',
+                    features: ['1950s knotty pine cabinets', 'Table/eating area integrated (no separate dining room)', 'Entry bump-out is part of kitchen (rarely used front door)', 'Red door to basement', 'Garage interior door on east wall', 'Kitchen window faces exterior gap between house and garage', 'Counter runs along gap-facing wall and wraps to garage-shared wall', 'Basement stairs door next to refrigerator', 'Chimney in northwest corner of kitchen touching living room', 'Yellow/green tile backsplash', 'Electric range (white)', 'Refrigerator (white)', 'Black steel entry door with diamond pattern sidelight'],
                     appliances: ['Electric range', 'Refrigerator', 'Dishwasher', 'Disposal'],
                     wallColor: 'Sage green',
                     floorType: 'Painted concrete (green/gray)'
                 },
-                dining: { name: 'Dining Room', w: 7.88, l: 7.88, x: 32.32, y: 4.72, floor: 'main', color: '#f59e0b', ceiling: 8, 
-                    verified: true, // FROM SKETCHUP: ~7'10-1/2" × 7'10-1/2"
-                    sketchupDims: "7' 10 1/2\" × 7' 10 1/2\"",
-                    sqFt: 62.1,
-                    features: ['70s floral wallpaper (orange/yellow)', 'Sage green accent walls', 'Industrial pendant light'],
-                    wallColor: 'Sage green + 70s floral wallpaper',
-                    floorType: 'Painted concrete (green/gray)'
-                },
-                entry: { name: 'Entry', w: 5.875, l: 7.88, x: 40.2, y: 0, floor: 'main', color: '#64748b', ceiling: 8,
-                    verified: true, // FROM SKETCHUP: 5'10-1/2" × 7'10-1/2"
-                    sketchupDims: "5' 10 1/2\" × 7' 10 1/2\"",
-                    sqFt: 46.3,
-                    features: ['Black steel entry door', 'Diamond pattern sidelight', 'Bumped out from main footprint'],
-                    wallColor: 'Sage green',
-                    note: 'Projects forward from main house line'
-                },
-                
+
                 // ========== GARAGE - Separate structure ==========
-                garage: { name: 'Garage', w: 30, l: 24, x: 51, y: 0, floor: 'main', color: '#475569', ceiling: 10, 
-                    verified: false, // Need SketchUp data
-                    features: ['3-car attached', 'Exposed rafters', 'Foil insulation', 'Ringside heavy bag', 'Workshop'],
+                garage: { name: 'Garage', w: 30, l: 24, x: 51, y: 0, floor: 'main', color: '#475569', ceiling: 10,
+                    verified: false,
+                    orientation: 'Garage doors face northeast (toward Bluebird Dr and driveway). Man door on west wall connects to kitchen east wall.',
+                    features: ['3-car attached', 'Garage doors face northeast (road/driveway)', 'Man door connects to kitchen (east wall of kitchen)', 'Exposed rafters', 'Foil insulation', 'Ringside heavy bag', 'Workshop'],
                     isGarage: true,
                     vehicles: ['1946 Chevy AK Pickup (classic)', 'Space for 2 more']
                 },
-                
+
                 // ========== BASEMENT ==========
                 laundry: { name: 'Laundry', w: 10, l: 10, x: 0, y: 0, floor: 'basement', color: '#06b6d4', ceiling: 7, verified: false, features: ['Washer', 'Dryer', 'Toilet + sink (half bath equivalent)'], hasHalfBath: true },
                 basementMain: { name: 'Main Area', w: 26, l: 17, x: 10, y: 0, floor: 'basement', color: '#334155', ceiling: 7, verified: false,
@@ -15568,11 +15566,11 @@ Same Solutions LLC
                     features: ['Partially finished dugout', 'Walkout door on west side (under deck)', 'Freezers', 'Active paint project: 9×10 area being painted Privilege Green SW 6193'],
                     activePaint: { area: '9×10', color: 'Privilege Green SW 6193', brand: 'Sherwin-Williams' }
                 },
-                mechanical: { name: 'Mechanical', w: 10, l: 10, x: 0, y: 10, floor: 'basement', color: '#94a3b8', ceiling: 7, 
+                mechanical: { name: 'Mechanical', w: 10, l: 10, x: 0, y: 10, floor: 'basement', color: '#94a3b8', ceiling: 7,
                     verified: true, // Equipment verified from photos
                     features: ['Burnham P-205-W Boiler (2017)', 'State 40gal Water Heater (1984)', 'Square D 225A Panel', 'Flotec Well Pump']
                 },
-                office: { name: 'Office', w: 10, l: 10, x: 36, y: 0, floor: 'basement', color: '#6366f1', ceiling: 7, verified: false },
+                basementOffice: { name: 'Basement Office', w: 10, l: 10, x: 36, y: 0, floor: 'basement', color: '#6366f1', ceiling: 7, verified: false },
                 storage: { name: 'Storage', w: 16, l: 10, x: 10, y: 17, floor: 'basement', color: '#64748b', ceiling: 7, verified: false }
             },
             // Exterior features — CORRECTED 2026-04 from field walkthrough
@@ -15836,16 +15834,33 @@ Same Solutions LLC
                     status: 'good'
                 }
             },
-            // What's missing - for gap analysis
+            // Exterior gap between main house and garage
+            exteriorGap: {
+                description: 'Exterior gap/dead space between main house and garage',
+                location: 'Between northeast wall of house (Windsor/bath/office) and garage west wall',
+                windowsInto: ['windsor', 'bath', 'office', 'kitchen'],
+                note: 'Kitchen window and counter face this gap. Consistent width from Windsor down to kitchen top wall.'
+            },
+            // Chimney — physical structure in kitchen footprint, opens into living room
+            chimney: {
+                location: 'Northwest corner of kitchen, touching living room',
+                type: 'Masonry',
+                fireplace: 'Living room — wood burning, slate surround, painted dark blue-gray',
+                note: 'Chimney is in the kitchen footprint square but the fireplace opens into the living room on the southeast wall'
+            },
+            // Basement access
+            basementAccess: {
+                stairsLocation: 'Inside kitchen, along north wall of kitchen / south wall of office',
+                doorLocation: 'Next to refrigerator, accessed from east side of kitchen',
+                sequence: 'West to east across top of kitchen: chimney → stairs → basement door',
+                externalWalkout: 'Southwest side under deck (river side)'
+            },
+            // What's missing - for gap analysis (verified items removed 2026-04-20)
             unknowns: [
-                { field: 'Electrical panel amperage', priority: 'high', howToGet: 'Photo of panel with door open' },
-                { field: 'Water heater age/model', priority: 'high', howToGet: 'Photo of water heater label' },
-                { field: 'Boiler age/model', priority: 'high', howToGet: 'Photo of boiler nameplate' },
-                { field: 'Well depth/pump', priority: 'medium', howToGet: 'Check well head, locate pressure tank' },
-                { field: 'Septic tank location', priority: 'medium', howToGet: 'Check county records or probe yard' },
+                { field: 'Septic tank location + pump history', priority: 'medium', howToGet: 'Check county records or probe yard' },
                 { field: 'Roof age/condition', priority: 'medium', howToGet: 'Photo of roof, check permit records' },
+                { field: 'Well depth', priority: 'medium', howToGet: 'Check well head, locate pressure tank' },
                 { field: 'Window types/ages', priority: 'low', howToGet: 'Walk around and note each window' },
-                { field: 'Exact room dimensions', priority: 'low', howToGet: 'Measure each room with tape' },
                 { field: 'Attic access/condition', priority: 'medium', howToGet: 'Photo from attic access point' },
                 { field: 'Foundation condition', priority: 'medium', howToGet: 'Walk basement perimeter, photo any cracks' }
             ],
