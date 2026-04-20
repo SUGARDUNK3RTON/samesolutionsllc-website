@@ -1507,46 +1507,42 @@
                         
                         <!-- L-Shape Layout Grid -->
                         <div style="display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(4,50px);gap:3px;font-size:0.7rem;">
-                            <!-- Row 1: Bedrooms + Hall + Kitchen/Dining -->
-                            <div onclick="showRoomDetail('sam','master')" class="clickable" style="background:#3b82f6;color:white;padding:0.4rem;border-radius:4px;text-align:center;grid-column:span 2;display:flex;flex-direction:column;justify-content:center;">
+                            <!-- Row 1: Master + Windsor closets + Windsor -->
+                            <div onclick="showRoomDetail('sam','master')" class="clickable" style="background:#3b82f6;color:white;padding:0.4rem;border-radius:4px;text-align:center;grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column;justify-content:center;">
                                 <div class="font-semibold">Master BR</div>
-                                <div style="opacity:0.8;font-size:0.65rem;">~14×12</div>
+                                <div style="opacity:0.8;font-size:0.65rem;">~14×13</div>
+                            </div>
+                            <div style="background:#475569;color:white;padding:0.2rem;border-radius:4px;text-align:center;font-size:0.55rem;display:flex;align-items:center;justify-content:center;">M Closet</div>
+                            <div onclick="showRoomDetail('sam','windsor')" class="clickable" style="background:#a78bfa;color:white;padding:0.4rem;border-radius:4px;text-align:center;grid-column:span 3;display:flex;flex-direction:column;justify-content:center;">
+                                <div class="font-semibold">Windsor's Room (NE)</div>
+                                <div style="opacity:0.8;font-size:0.65rem;">~11×10 💜</div>
+                            </div>
+
+                            <!-- Row 2: (master cont) + Windsor closet + bath + office + kitchen top -->
+                            <div style="background:#475569;color:white;padding:0.2rem;border-radius:4px;text-align:center;font-size:0.55rem;display:flex;align-items:center;justify-content:center;">W Closet</div>
+                            <div onclick="showRoomDetail('sam','bath')" class="clickable" style="background:#8b5cf6;color:white;padding:0.4rem;border-radius:4px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+                                <div class="font-semibold">Bath</div>
+                                <div style="opacity:0.8;font-size:0.55rem;">Full</div>
+                            </div>
+                            <div onclick="showRoomDetail('sam','office')" class="clickable" style="background:#6366f1;color:white;padding:0.4rem;border-radius:4px;text-align:center;grid-column:span 2;display:flex;flex-direction:column;justify-content:center;">
+                                <div class="font-semibold">Office</div>
+                                <div style="opacity:0.8;font-size:0.55rem;">~10×10</div>
+                            </div>
+
+                            <!-- Row 3: Family Room + Hall + Kitchen (merged) -->
+                            <div onclick="showRoomDetail('sam','family')" class="clickable" style="background:#ef4444;color:white;padding:0.4rem;border-radius:4px;text-align:center;grid-column:span 2;display:flex;flex-direction:column;justify-content:center;border:2px solid #dc2626;">
+                                <div class="font-semibold">Family Room (SW)</div>
+                                <div style="opacity:0.8;font-size:0.65rem;">✓14'4"×12'7" 🔥</div>
+                                <div style="font-size:0.55rem;">Cathedral ceiling (~12ft peak)</div>
                             </div>
                             <div onclick="showRoomDetail('sam','hall')" class="clickable" style="background:#22c55e;color:white;padding:0.3rem;border-radius:4px;text-align:center;display:flex;flex-direction:column;justify-content:center;border:2px solid #16a34a;">
                                 <div style="font-weight:600;font-size:0.65rem;">Hall</div>
                                 <div style="font-size:0.55rem;">✓7'10"</div>
                             </div>
-                            <div onclick="showRoomDetail('sam','kitchen')" class="clickable" style="background:#22c55e;color:white;padding:0.4rem;border-radius:4px;text-align:center;grid-column:span 2;display:flex;flex-direction:column;justify-content:center;border:2px solid #16a34a;">
-                                <div class="font-semibold">Kitchen</div>
-                                <div style="opacity:0.8;font-size:0.65rem;">✓11'3"×12'7"</div>
+                            <div onclick="showRoomDetail('sam','kitchen')" class="clickable" style="background:#22c55e;color:white;padding:0.4rem;border-radius:4px;text-align:center;grid-column:span 3;display:flex;flex-direction:column;justify-content:center;border:2px solid #16a34a;">
+                                <div class="font-semibold">Kitchen (merged)</div>
+                                <div style="opacity:0.8;font-size:0.65rem;">✓11'3"×12'7" • Table + Entry bump-out</div>
                             </div>
-                            <div onclick="showRoomDetail('sam','entry')" class="clickable" style="background:#64748b;color:white;padding:0.3rem;border-radius:4px;text-align:center;display:flex;flex-direction:column;justify-content:center;border:2px solid #475569;">
-                                <div style="font-weight:600;font-size:0.65rem;">Entry</div>
-                                <div style="font-size:0.55rem;">✓5'10"</div>
-                            </div>
-                            
-                            <!-- Row 2: Closets + Family/Dining -->
-                            <div onclick="showRoomDetail('sam','windsor')" class="clickable" style="background:#a78bfa;color:white;padding:0.4rem;border-radius:4px;text-align:center;grid-column:span 2;display:flex;flex-direction:column;justify-content:center;">
-                                <div class="font-semibold">Windsor's Room</div>
-                                <div style="opacity:0.8;font-size:0.65rem;">~11×10 💜</div>
-                            </div>
-                            <div style="background:#475569;color:white;padding:0.2rem;border-radius:4px;text-align:center;font-size:0.55rem;display:flex;align-items:center;justify-content:center;">Closets</div>
-                            <div onclick="showRoomDetail('sam','dining')" class="clickable" style="background:#f59e0b;color:white;padding:0.4rem;border-radius:4px;text-align:center;display:flex;flex-direction:column;justify-content:center;border:2px solid #d97706;">
-                                <div class="font-semibold">Dining</div>
-                                <div style="font-size:0.55rem;">✓7'10"×7'10"</div>
-                            </div>
-                            <div onclick="showRoomDetail('sam','family')" class="clickable" style="background:#ef4444;color:white;padding:0.4rem;border-radius:4px;text-align:center;grid-column:span 2;grid-row:span 2;display:flex;flex-direction:column;justify-content:center;border:2px solid #dc2626;">
-                                <div class="font-semibold">Family Room</div>
-                                <div style="opacity:0.8;font-size:0.65rem;">✓14'4"×12'7"</div>
-                                <div style="font-size:0.55rem;">🔥 Cathedral ceiling</div>
-                            </div>
-                            
-                            <!-- Row 3: Bath + Open -->
-                            <div onclick="showRoomDetail('sam','bath')" class="clickable" style="background:#8b5cf6;color:white;padding:0.4rem;border-radius:4px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
-                                <div class="font-semibold">Bath</div>
-                                <div style="opacity:0.8;font-size:0.65rem;">Full</div>
-                            </div>
-                            <div style="background:transparent;grid-column:span 3;"></div>
                             
                             <!-- Row 4: Deck/River -->
                             <div style="background:transparent;grid-column:span 2;"></div>
@@ -4719,7 +4715,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.11';
+        const APP_VERSION = 'v1.7.12';
         
         // Data schema version - increment when structure changes
         const DATA_VERSION = 15;
@@ -13457,13 +13453,15 @@ Same Solutions LLC
                 sqFt: 1242, beds: 3, baths: 1, yearBuilt: 1954,
                 exteriorLength: 50.5, exteriorWidth: 25.17,
                 lot: 0.29,
-                // GIS-VERIFIED LOT DIMENSIONS (Oakland County Property Gateway)
+                parcelNumber: 'E-17-10-476-008',
+                // LOT DIMENSIONS — Zillow street frontage 53ft, GIS water frontage 55ft
                 lotDimensions: {
-                    streetFrontage: 55,   // ft on Bluebird Dr (north)
-                    waterFrontage: 55,    // ft on Huron River (south)
+                    frontage: 53,         // ft on Bluebird Dr (Zillow source) — used by stat tiles
+                    depth: 234,           // ft average north to south
+                    streetFrontage: 53,   // ft on Bluebird Dr (Zillow)
+                    waterFrontage: 55,    // ft on Huron River (GIS)
                     westBoundary: 230,    // ft (from GIS label)
                     eastBoundary: 238,    // ft (from GIS label)
-                    depth: 234,           // ft average north to south
                     shape: 'trapezoidal - slightly wider at river'
                 },
                 // ORIENTATION FROM GIS AERIAL + 2026-04 field walkthrough
@@ -13476,7 +13474,7 @@ Same Solutions LLC
                     deckSide: 'north',        // Main deck runs E-W along north side
                     walkwaySide: 'south'      // South walkway wraps along south
                 },
-                zestimate: 447000, lastSold: 370000, lastSoldDate: '2021-10',
+                zestimate: 467800, lastSold: 370000, lastSoldDate: '2021-10',
                 features: ['L-shaped ranch', 'Huron River direct frontage (55ft GIS)', '3-car attached garage (east, man door to deck)', 'Full walkout basement (west door under deck)', 'Wood fireplace', 'Main deck (north side, 10×57ft)', 'South walkway (5×65ft)', 'Dock at waterfront', 'Mature trees'],
                 systems: {
                     heat: 'Gas boiler (Burnham 2017)',
@@ -15398,7 +15396,7 @@ Same Solutions LLC
             waterfront: { type: 'Huron River', frontage: 55 },
             purchaseDate: '2021-10-01',
             purchasePrice: 370000,
-            zestimate: 447000,
+            zestimate: 467800,
             taxAssessment: null,
             annualTaxes: 6618.09, // From 2025 US Bank 1098
             parcelNumber: 'E-17-10-476-008',
@@ -15493,14 +15491,14 @@ Same Solutions LLC
                     type: 'reach-in',
                     features: ['Reach-in (2ft deep)', 'Back-to-back with Master closet', 'Ends at doorway']
                 },
-                windsor: { name: "Windsor's Room", w: 11, l: 10, x: 0, y: 13, floor: 'main', color: '#a78bfa', ceiling: 8,
+                windsor: { name: "Windsor's Room", w: 11, l: 10, x: 14, y: 0, floor: 'main', color: '#a78bfa', ceiling: 8,
                     verified: false,
                     orientation: 'northeast corner of house',
                     features: ['Windows face into gap between house and garage', 'Lavender/light purple walls', 'Baseboard heater', 'Double-hung windows', 'Gray curtains'],
                     wallColor: 'Lavender/Light purple',
                     floorType: 'Oak hardwood'
                 },
-                bath: { name: 'Full Bathroom', w: 7, l: 7.88, x: 11, y: 13, floor: 'main', color: '#8b5cf6', ceiling: 8,
+                bath: { name: 'Full Bathroom', w: 7, l: 7.88, x: 14, y: 10, floor: 'main', color: '#8b5cf6', ceiling: 8,
                     verified: false,
                     orientation: 'south of Windsor (not between bedroom wing and living area). East wall aligns with Windsor east wall; east wall borders basement stairs/dead area. Windows face gap between house and garage.',
                     features: ['White square tile floor', 'Light blue/white walls', 'Gold-framed mirror', 'Tub/shower combo', 'Windows face exterior gap'],
@@ -15508,14 +15506,14 @@ Same Solutions LLC
                     floorType: 'White square tile',
                     fixtures: ['Toilet', 'Vanity sink', 'Tub/shower']
                 },
-                office: { name: 'Office', w: 10, l: 10, x: 11, y: 20.88, floor: 'main', color: '#6366f1', ceiling: 8,
+                office: { name: 'Office', w: 10, l: 10, x: 14, y: 17.88, floor: 'main', color: '#6366f1', ceiling: 8,
                     verified: false,
                     orientation: 'south of bathroom, east of chimney. East wall aligns with Windsor and bath east walls. Basement stairs run along south wall (= north wall of kitchen).',
                     features: ['Windows face exterior gap between house and garage', 'Zillow lists this room as "Dining Room 10x10"', 'East wall aligns with Windsor and bath', 'South wall is above basement stairs']
                 },
 
                 // ========== HALLWAY - VERIFIED FROM SKETCHUP ==========
-                hall: { name: 'Hallway', w: 7.86, l: 2.42, x: 18, y: 10, floor: 'main', color: '#22c55e', ceiling: 8,
+                hall: { name: 'Hallway', w: 7.86, l: 2.42, x: 12, y: 13, floor: 'main', color: '#22c55e', ceiling: 8,
                     verified: true, // FROM SKETCHUP: 7'10-3/8" × ~2'5"
                     sketchupDims: "7' 10 3/8\" × ~2' 5\"",
                     orientation: 'Connects bedroom wing to living area. Does NOT cut between master bedroom and living room — those share a direct wall. Hallway runs along the east side of the bedroom wing.',
@@ -15527,7 +15525,7 @@ Same Solutions LLC
                 },
 
                 // ========== LIVING AREA - VERIFIED FROM SKETCHUP ==========
-                family: { name: 'Family Room', w: 14.32, l: 12.6, x: 18, y: 12.6, floor: 'main', color: '#ef4444', ceiling: 12,
+                family: { name: 'Family Room', w: 14.32, l: 12.6, x: 0, y: 13, floor: 'main', color: '#ef4444', ceiling: 12,
                     verified: true, // FROM SKETCHUP: 14'3-13/16" × 12'7-3/16"
                     sketchupDims: "14' 3 13/16\" × 12' 7 3/16\"",
                     sqFt: 180.4,
@@ -15539,10 +15537,10 @@ Same Solutions LLC
                     wallColor: 'Knotty pine paneling (two-tone)',
                     floorType: 'Oak hardwood'
                 },
-                kitchen: { name: 'Kitchen', w: 11.25, l: 25, x: 32.32, y: 0, floor: 'main', color: '#22c55e', ceiling: 8,
-                    verified: true, // Merged — full east section ~11'3" × 25' (kitchen + eating area + entry bump-out; no separating walls)
-                    sketchupDims: "~11' 3\" × ~25' (merged)",
-                    sqFt: 281.25,
+                kitchen: { name: 'Kitchen', w: 11.25, l: 12.6, x: 14.32, y: 13, floor: 'main', color: '#22c55e', ceiling: 8,
+                    verified: true, // Merged east section — kitchen + eating area + entry bump-out; no separating walls. Depth matches family room (12.6ft).
+                    sketchupDims: "~11' 3\" × ~12' 7\" (merged with eating area + entry)",
+                    sqFt: 141.75,
                     orientation: 'One open room spanning the full east section. Chimney in NW corner (touching living room). Basement stairs along north wall of kitchen (= south wall of office). Entry bump-out on southeast.',
                     features: ['1950s knotty pine cabinets', 'Table/eating area integrated (no separate dining room)', 'Entry bump-out is part of kitchen (rarely used front door)', 'Red door to basement', 'Garage interior door on east wall', 'Kitchen window faces exterior gap between house and garage', 'Counter runs along gap-facing wall and wraps to garage-shared wall', 'Basement stairs door next to refrigerator', 'Chimney in northwest corner of kitchen touching living room', 'Yellow/green tile backsplash', 'Electric range (white)', 'Refrigerator (white)', 'Black steel entry door with diamond pattern sidelight'],
                     appliances: ['Electric range', 'Refrigerator', 'Dishwasher', 'Disposal'],
@@ -15551,7 +15549,7 @@ Same Solutions LLC
                 },
 
                 // ========== GARAGE - Separate structure ==========
-                garage: { name: 'Garage', w: 30, l: 24, x: 51, y: 0, floor: 'main', color: '#475569', ceiling: 10,
+                garage: { name: 'Garage', w: 30, l: 24, x: 25.57, y: 0, floor: 'main', color: '#475569', ceiling: 10,
                     verified: false,
                     orientation: 'Garage doors face northeast (toward Bluebird Dr and driveway). Man door on west wall connects to kitchen east wall.',
                     features: ['3-car attached', 'Garage doors face northeast (road/driveway)', 'Man door connects to kitchen (east wall of kitchen)', 'Exposed rafters', 'Foil insulation', 'Ringside heavy bag', 'Workshop'],
