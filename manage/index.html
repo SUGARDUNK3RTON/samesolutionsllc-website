@@ -3737,7 +3737,7 @@
         });
         
         // Test customer portal mode (for development)
-        function enterTestMode(customerId) {
+        async function enterTestMode(customerId) {
             if (!customerId) {
                 customerId = prompt('Enter customer ID to test (e.g., jeff-mcgibbons, mike-letvin):');
             }
@@ -3758,7 +3758,7 @@
                 toast(`🧪 TEST MODE: Viewing as ${customer.name}`);
             } else {
                 // Customer not in current data - offer to load demo
-                const loadDemo = confirm(`Customer "${customerId}" not found in current data.\n\nWould you like to load the demo data which includes all test customers?`);
+                const loadDemo = await confirmModal(`Customer "${customerId}" not found in current data.<br><br>Would you like to load the demo data which includes all test customers?`, { title: 'Load Demo Data?', confirmText: 'Load Demo' });
                 if (loadDemo) {
                     resetToDemo();
                     // Try again after demo loads
@@ -4661,14 +4661,6 @@ Same Solutions LLC
         }
         
         // ========== UI UTILITIES ==========
-        // Styled confirm dialog (returns Promise)
-        function confirmAction(message, title = 'Confirm') {
-            return new Promise((resolve) => {
-                // Simple confirm for now - could be upgraded to modal
-                resolve(confirm(message));
-            });
-        }
-        
         // Escape HTML to prevent XSS
         function escapeHtml(str) {
             if (!str) return '';
@@ -4727,7 +4719,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.9';
+        const APP_VERSION = 'v1.7.10';
         
         // Data schema version - increment when structure changes
         const DATA_VERSION = 15;
@@ -6826,7 +6818,7 @@ Same Solutions LLC
         }
         
         // DELETE CUSTOMER (with safety checks)
-        function deleteCustomer(customerId) {
+        async function deleteCustomer(customerId) {
             if (!isAdmin()) { toast("Admin access required", "error"); return; }
             if (!data.customers[customerId]) {
                 toast('Customer not found', 'error');
@@ -6838,10 +6830,10 @@ Same Solutions LLC
             const linkedInvoices = (data.invoices || []).filter(i => i.customer === customerId);
             
             if (linkedJobs.length > 0 || linkedInvoices.length > 0) {
-                const proceed = confirm(`This customer has ${linkedJobs.length} jobs and ${linkedInvoices.length} invoices. Delete anyway? This cannot be undone.`);
+                const proceed = await confirmModal(`This customer has ${linkedJobs.length} jobs and ${linkedInvoices.length} invoices. Delete anyway? This cannot be undone.`, { title: 'Delete Customer?', confirmText: 'Delete', danger: true });
                 if (!proceed) return false;
             } else {
-                if (!confirm(`Delete customer "${data.customers[customerId].name}"? This cannot be undone.`)) return false;
+                if (!(await confirmModal(`Delete customer "${data.customers[customerId].name}"? This cannot be undone.`, { title: 'Delete Customer?', confirmText: 'Delete', danger: true }))) return false;
             }
             
             const customerName = data.customers[customerId].name;
@@ -7079,18 +7071,18 @@ Same Solutions LLC
             reader.onerror = function() {
                 toast('Failed to read file', 'error');
             };
-            reader.onload = function(e) {
+            reader.onload = async function(e) {
                 try {
                     const imported = JSON.parse(e.target.result);
-                    
+
                     // Validate structure
                     if (!imported.data || !imported.data.customers) {
                         toast('Invalid backup file format', 'error');
                         return;
                     }
-                    
+
                     // Confirm before overwriting
-                    if (confirm(`Import backup from ${imported.exportDate || 'unknown date'}?\n\nThis will replace all current data.`)) {
+                    if (await confirmModal(`Import backup from ${imported.exportDate || 'unknown date'}?<br><br>This will replace all current data.`, { title: 'Import Backup?', confirmText: 'Import', danger: true })) {
                         data = imported.data;
                         saveData();
                         updateUI();
@@ -21869,7 +21861,7 @@ Same Solutions LLC
                     // Confirm before overwriting
                     const confirmMsg = `This will replace ALL current data with backup from ${backup.exportedAt || 'unknown date'}.\n\nCurrent data:\n- ${Object.keys(data.customers || {}).length} customers\n- ${(data.jobs || []).length} jobs\n- ${(data.invoices || []).length} invoices\n\nBackup data:\n- ${Object.keys(backup.data.customers || {}).length} customers\n- ${(backup.data.jobs || []).length} jobs\n- ${(backup.data.invoices || []).length} invoices\n\nContinue?`;
                     
-                    if (!confirm(confirmMsg)) return;
+                    if (!(await confirmModal(confirmMsg.replace(/\n/g, '<br>'), { title: 'Restore from Backup?', confirmText: 'Restore', danger: true }))) return;
                     
                     // Save current as safety backup
                     localStorage.setItem('sameSolutionsData_preRestore', JSON.stringify(data));
@@ -25167,8 +25159,8 @@ Same Solutions LLC
         }
         
         // Reset to demo data
-        function resetToDemo() {
-            if (confirm('⚠️ This will clear your current data and load demo data with all customers, jobs, and properties.\n\nAre you sure?')) {
+        async function resetToDemo() {
+            if (await confirmModal('⚠️ This will clear your current data and load demo data with all customers, jobs, and properties.<br><br>Are you sure?', { title: 'Reset to Demo Data?', confirmText: 'Reset', danger: true })) {
                 localStorage.removeItem('sameSolutionsData');
                 toast('🔄 Loading demo data...', 'success');
                 setTimeout(() => {
@@ -27737,8 +27729,8 @@ Generated: ${new Date().toLocaleString()}
                     toast(`📷 Photo captured for ${room}!`);
                     
                     // Offer to extract model data from photo
-                    setTimeout(() => {
-                        if (confirm(`Would you like to extract measurements and details from this ${room} photo to update your model?`)) {
+                    setTimeout(async () => {
+                        if (await confirmModal(`Would you like to extract measurements and details from this ${room} photo to update your model?`, { title: 'Extract from Photo?', confirmText: 'Extract' })) {
                             extractModelFromPhoto(propId, photoData, room);
                         }
                     }, 500);
