@@ -3347,11 +3347,9 @@
         
         // Initialize auth and check user state
         async function initAuth() {
-            // console.log('🚀 Starting app initialization...');
             
             // Check if Firebase config is valid
             if (FIREBASE_CONFIG.apiKey === "YOUR_API_KEY_HERE" || !FIREBASE_CONFIG.apiKey) {
-                // console.log('Firebase not configured - using local storage only');
                 firebaseEnabled = false;
                 updateSyncStatus('local');
                 showLoginScreen();
@@ -3362,14 +3360,11 @@
             try {
                 if (!firebase.apps.length) {
                     firebase.initializeApp(FIREBASE_CONFIG);
-                    // console.log('🔥 Firebase app initialized');
                 } else {
-                    // console.log('🔥 Firebase app already exists');
                 }
                 
                 // Initialize Firestore
                 db = firebase.firestore();
-                // console.log('📦 Firestore connected');
                 
             } catch (e) {
                 console.error('Firebase init failed:', e.message);
@@ -3382,12 +3377,10 @@
             try {
                 auth = firebase.auth();
                 firebaseEnabled = true;
-                // console.log('🔐 Firebase Auth ready');
                 
                 // Listen for auth state changes
                 auth.onAuthStateChanged(async (user) => {
                     if (user) {
-                        // console.log('✅ User signed in:', user.email);
                         currentUser = user;
                         loadData();
                         
@@ -3401,7 +3394,6 @@
                                 // Check if it's a permission error (Auth not enabled in console)
                                 if (syncErr.code === 'permission-denied' || syncErr.message?.includes('permission')) {
                                     updateSyncStatus('local');
-                                    // console.log('💡 Firestore rules may not allow access yet');
                                 } else {
                                     updateSyncStatus('error');
                                 }
@@ -3422,7 +3414,6 @@
                         applyRoleRestrictions();
                         updateUI();
                     } else {
-                        // console.log('👤 No user signed in');
                         currentUser = null;
                         userRole = null;
                         customerScope = null;
@@ -3437,10 +3428,8 @@
                 
                 // Check specific error types
                 if (e.code === 'auth/configuration-not-found' || e.message?.includes('auth/configuration')) {
-                    // console.log('💡 Firebase Auth not enabled in console yet');
                     updateSyncStatus('local');
                 } else if (e.message?.includes('network')) {
-                    // console.log('🌐 Network error - working offline');
                     updateSyncStatus('error');
                 } else {
                     updateSyncStatus('local');
@@ -3932,7 +3921,7 @@
                             <div class="text-body-muted">${inv.date}</div>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-weight:700;font-size:1.1rem;">$${inv.total.toFixed(2)}</div>
+                            <div style="font-weight:700;font-size:1.1rem;">$${parseFloat(inv.total || 0).toFixed(2)}</div>
                             <div style="font-size:0.8rem;color:${statusColor};">${statusIcon} ${inv.status.toUpperCase()}</div>
                         </div>
                     </div>
@@ -4193,7 +4182,6 @@
                     return; // Success - onAuthStateChanged will handle the rest
                 } catch (e) {
                     // If Firebase fails, try preset accounts
-                    // console.log('Firebase auth failed, trying preset accounts:', e.code);
                 }
             }
             
@@ -4739,7 +4727,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.6';
+        const APP_VERSION = 'v1.7.9';
         
         // Data schema version - increment when structure changes
         const DATA_VERSION = 15;
@@ -4755,7 +4743,6 @@ Same Solutions LLC
                     // Data migration based on version
                     const savedVersion = data._version || 1;
                     if (savedVersion < DATA_VERSION) {
-                        // console.log(`📦 Migrating data from v${savedVersion} to v${DATA_VERSION}`);
                         migrateData(savedVersion);
                     }
                     
@@ -5395,7 +5382,6 @@ Same Solutions LLC
         
         // Data migration function
         function migrateData(fromVersion) {
-            // console.log(`Starting migration from v${fromVersion}...`);
             
             // v1 -> v2: Add unified assets system, feedback, ensure all arrays
             if (fromVersion < 2) {
@@ -5417,18 +5403,15 @@ Same Solutions LLC
                     });
                 }
                 
-                // console.log('✅ Migration to v2 complete');
             }
             
             // Add future migrations here:
             // v2 -> v3: Fix jobs, quotes, addresses, equipment for v1.4.1
             if (fromVersion < 3) {
-                // console.log('📦 Running v2→v3 migration...');
                 
                 // 1. Remove incorrectly entered jobs H-013, H-014, H-016
                 const removeIds = ['H-013', 'H-014', 'H-016'];
                 data.jobs = data.jobs.filter(j => !removeIds.includes(j.id));
-                // console.log('  ✅ Removed H-013, H-014, H-016 (accounted for elsewhere)');
                 
                 // 2. Update H-012 (shower diagnostic) — keep service charge, labor $0 as one-time courtesy
                 const h012 = data.jobs.find(j => j.id === 'H-012');
@@ -5436,7 +5419,6 @@ Same Solutions LLC
                     h012.description = 'Shower diagnostic + partial temp repair — labor waived as one-time courtesy';
                     h012.amount = 75;
                     h012.notes = 'SERVICE CALL: $75 diagnostic fee (charged). LABOR: Waived ($0) as a one-time friendly courtesy. Partial repairs completed on-site including temporary fix to restore function. Full repair to be quoted separately if needed. This is a one-time goodwill gesture — future service calls and labor will be billed at standard rates.';
-                    // console.log('  ✅ Updated H-012 shower — diagnostic $75 charged, labor waived (friendly gesture)');
                 }
                 
                 // 3. Update Haim Talmid — add property2 address
@@ -5454,7 +5436,6 @@ Same Solutions LLC
                         }
                     }
                     haim.notes = 'Mashgiach. Multiple properties. Has outstanding balance.';
-                    // console.log('  ✅ Updated Haim address — 25710 Eton Avenue');
                 }
                 
                 // 4. Force-update SS-Q003 with full on-site scope (replaces any existing version)
@@ -5501,7 +5482,6 @@ Same Solutions LLC
                     createdAt: new Date().toISOString(),
                     createdBy: 'sam@samesolutionsllc.com'
                 });
-                // console.log('  ✅ SS-Q003 updated with full 22-item scope ($1,597.50)');
                 
                 // 5. Ensure Pegasus CR-5E equipment exists with Galaxy Group docs
                 if (!data.equipment) data.equipment = {};
@@ -5527,7 +5507,6 @@ Same Solutions LLC
                     created: '2026-03-11T00:00:00.000Z',
                     notes: 'Commercial chicken rotisserie at Westside Kosher Butcher. DIAGNOSIS: Mounting stud bottom-left of internal gear panel sheared from housing. Panel flexes under load, chain catches motor sprocket, causes binding and motor stress. Needs remount (re-tap/helicoil/weld), chain inspection, realignment.'
                 };
-                // console.log('  ✅ Pegasus CR-5E equipment with Galaxy Group docs');
                 
                 // 6. Force-update SS-Q002 with full diagnosis
                 const q002 = (data.quotes || []).find(q => q.id === 'SS-Q002');
@@ -5545,15 +5524,12 @@ Same Solutions LLC
                     q002.description = 'Repair of Pegasus CR-5E rotisserie — gear panel mount stud sheared, chain binding on motor sprocket';
                     q002.notes = 'DIAGNOSIS: Mounting stud at bottom-left of internal gear panel sheared/ripped from housing. Panel flexes under rotisserie load, chain catches motor sprocket, binds motor. FIX: Re-secure mount (re-tap/helicoil/weld), inspect chain, realign tension, test all 5 spits under load. Diagnostic waived if repair accepted. Hardware: M10 or 3/8" grade 8 + nyloc. Call Galaxy Group (908) 315-3222 for OEM parts diagram.';
                     q002.linkedEquipment = 'EQ-PEGASUS-CR5E';
-                    // console.log('  ✅ SS-Q002 updated with full diagnosis ($467.50)');
                 }
                 
-                // console.log('✅ Migration to v3 complete');
             }
             
             // v3 -> v4: Fix seed duplication, create Haim property, force-update quotes
             if (fromVersion < 4) {
-                // console.log('📦 Running v3→v4 migration...');
                 
                 // 1. DEDUPLICATE JOBS — remove any jobs with duplicate IDs (keep first occurrence)
                 const seenJobIds = new Set();
@@ -5564,7 +5540,6 @@ Same Solutions LLC
                     return true;
                 });
                 if (data.jobs.length < beforeJobCount) {
-                    // console.log(`  ✅ Removed ${beforeJobCount - data.jobs.length} duplicate jobs`);
                 }
                 
                 // 2. DEDUPLICATE QUOTES — same treatment
@@ -5576,7 +5551,6 @@ Same Solutions LLC
                     return true;
                 });
                 if (data.quotes.length < beforeQuoteCount) {
-                    // console.log(`  ✅ Removed ${beforeQuoteCount - data.quotes.length} duplicate quotes`);
                 }
                 
                 // 3. Ensure H-013, H-014, H-016 are removed (may have been re-added by seeds)
@@ -5605,7 +5579,6 @@ Same Solutions LLC
                     if (!haim4.addresses) haim4.addresses = {};
                     haim4.addresses.property2 = { address: '25710 Eton Avenue', city: '', state: 'MI', zip: '', type: 'residential', name: 'Talmid Property - Eton Ave' };
                 }
-                // console.log('  ✅ Created talmid-eton property in KB');
                 
                 // 5. FORCE-REPLACE SS-Q003 with correct full scope
                 data.quotes = data.quotes.filter(q => q.id !== 'SS-Q003');
@@ -5649,7 +5622,6 @@ Same Solutions LLC
                     createdAt: new Date().toISOString(),
                     createdBy: 'sam@samesolutionsllc.com'
                 });
-                // console.log('  ✅ SS-Q003 force-replaced ($1,597.50)');
                 
                 // 6. Ensure SS-Q002 exists with full diagnosis
                 if (!data.quotes.find(q => q.id === 'SS-Q002')) {
@@ -5685,12 +5657,10 @@ Same Solutions LLC
                     notes: 'DIAGNOSIS: Gear panel mount stud sheared. Panel flexes, chain catches motor sprocket. Needs remount + chain inspection.'
                 };
                 
-                // console.log('✅ Migration to v4 complete');
             }
             
             // v4 -> v5: Add 3 closet options to SS-Q003
             if (fromVersion < 5) {
-                // console.log('📦 Running v4→v5 migration...');
                 
                 const q003 = (data.quotes || []).find(q => q.id === 'SS-Q003');
                 if (q003) {
@@ -5721,15 +5691,12 @@ Same Solutions LLC
                     if (!q003.changeLog) q003.changeLog = [];
                     q003.changeLog.push({ date: new Date().toISOString(), by: 'sam@samesolutionsllc.com', reason: 'Added 3 closet options (A/B/C) for 3 bedrooms', changes: ['6 new line items (3 options x labor+material)', 'Option B selected as default', 'Total updated'] });
                     
-                    // console.log('  ✅ SS-Q003 closet options added, total: $' + newTotal.toFixed(2));
                 }
                 
-                // console.log('✅ Migration to v5 complete');
             }
             
             // v5 -> v6: Add Aceves stain quote SS-Q004 + Alexander Suttman customer + property
             if (fromVersion < 6) {
-                // console.log('📦 Running v5→v6 migration...');
                 
                 // 1. SS-Q004 — Aceves peak staining
                 if (!data.quotes) data.quotes = [];
@@ -5758,7 +5725,6 @@ Same Solutions LLC
                     createdAt: new Date().toISOString(),
                     createdBy: 'sam@samesolutionsllc.com'
                 });
-                // console.log('  ✅ SS-Q004 Aceves peak staining ($301.50)');
                 
                 // 2. Alexander "Alec" Suttman — customer + property
                 if (!data.customers['alexander-suttman']) {
@@ -5801,13 +5767,10 @@ Same Solutions LLC
                     systems: {},
                     rooms: {}
                 };
-                // console.log('  ✅ Alexander Suttman customer + suttman-home property');
                 
-                // console.log('✅ Migration to v6 complete');
             }
             
             if (fromVersion < 7) {
-                // console.log('📦 v7: Suttman MONROE blueprint model + parcel');
                 if (data.properties && data.properties['suttman-home']) {
                     const sp = data.properties['suttman-home'];
                     sp.style = '2-Story';
@@ -5837,7 +5800,6 @@ Same Solutions LLC
                     sp.unverified = ['lot dimensions', 'orientation', 'HVAC make/model', 'water heater'];
                     sp.notes = 'MONROE Elev C, WYN-83. Full blueprints on file. Parcel O67 03803 0162. Purchased 5/9/22. ~$800K est.';
                 }
-                // console.log('✅ v7 complete — suttman MONROE + parcel');
             }
             
             // v7 -> v8: SS-Q003 corrected line items + closets broken out (Sam reviewed on-site)
@@ -5888,7 +5850,6 @@ Same Solutions LLC
                     createdAt: '2026-03-11T00:00:00.000Z',
                     createdBy: 'sam@samesolutionsllc.com'
                 });
-                // console.log('✅ v8 complete — SS-Q003 corrected + closets');
             }
             
             // v8 -> v9: Add Losi Mini-T 2.0 RC car to machines (sam-home)
@@ -5966,7 +5927,6 @@ Same Solutions LLC
                 };
                 // Also remove old incorrect entry if it exists
                 if (data.equipment['EQ-LOSI-MINI-T']) delete data.equipment['EQ-LOSI-MINI-T'];
-                // console.log('✅ v9 complete — Losi Micro-T 2S (LOS-1392T1) added to machines');
             }
             
             // v9 -> v10: Add SCX24, Traxxas Slash 4x4, ARRMA Typhon GROM to machines
@@ -6098,7 +6058,6 @@ Same Solutions LLC
                     notes: 'ARRMA Typhon GROM — 1/18 scale 4WD brushed buggy (ARA2106). MEGA 380 motor, metal gear drivetrain, Spektrum Smart electronics, clipless body. Battery and USB-C charger included. 20+ mph stock.'
                 };
                 
-                // console.log('✅ v10 complete — SCX24 C10, Slash 4X4, Typhon GROM added');
             }
             
             // v10 -> v11: Haim multi-property quotes, updated materials, new bathroom work, 3 new properties
@@ -6279,7 +6238,6 @@ Same Solutions LLC
                     notes: 'General handyman rate $75/hr.'
                 });
                 
-                // console.log('✅ v11 complete — Haim multi-property: Q003 updated, Q005-Q007 created, 8hrs logged, 3 properties added');
             }
             
             // v11 -> v12: Finalize SS-Q003 Eton Ave — actual work done, ready for invoice
@@ -6338,7 +6296,6 @@ Same Solutions LLC
                 const q = data.quotes.find(q => q.id === 'SS-Q003');
                 if (q) q.amount = q.lineItems.reduce((s, i) => s + (i.qty * i.unitPrice), 0);
                 
-                // console.log('✅ v12 complete — SS-Q003 finalized: $' + (q ? q.amount : '?'));
             }
             // v12 -> v13: Aceves lake property + SS-Q008 deck replacement quote
             if (fromVersion < 13) {
@@ -6450,7 +6407,6 @@ Same Solutions LLC
                 const q008 = data.quotes.find(q => q.id === 'SS-Q008');
                 if (q008) q008.amount = q008.lineItems.reduce((s, i) => s + ((i.qty || 0) * (i.unitPrice || 0)), 0);
                 
-                // console.log('✅ v13 complete — Aceves lake property + SS-Q008 deck quote: $' + (q008 ? q008.amount : '?'));
             }
 
             // v13 -> v14: Tessman customer + property + SS-Q009 painting quote
@@ -6515,7 +6471,6 @@ Same Solutions LLC
                     createdBy: 'sam@samesolutionsllc.com'
                 });
 
-                // console.log('✅ v14 complete — Tessman customer + tessman-home property + SS-Q009 painting quote: $455');
             }
 
             // v14 -> v15: Add recurring events data structure
@@ -6535,7 +6490,6 @@ Same Solutions LLC
                         category: 'personal'
                     });
                 }
-                // console.log('✅ v15 complete — recurring events data structure added');
             }
 
 
@@ -8811,7 +8765,6 @@ Same Solutions LLC
             try {
                 emailjs.init(EMAILJS_CONFIG.publicKey);
                 emailJSInitialized = true;
-                // console.log('📧 EmailJS initialized');
             } catch (e) {
                 console.warn('EmailJS not available:', e);
             }
@@ -11358,7 +11311,6 @@ Same Solutions LLC
             
             if (migrated > 0) {
                 saveData();
-                // console.log(`✅ Auto-populated links for ${migrated} equipment items`);
             }
             
             return migrated;
@@ -13511,9 +13463,10 @@ Same Solutions LLC
                 county: 'Oakland',
                 type: 'residential', style: 'Ranch', stories: 1,
                 sqFt: 1242, beds: 3, baths: 1, yearBuilt: 1954,
-                lot: 0.29, 
+                exteriorLength: 50.5, exteriorWidth: 25.17,
+                lot: 0.29,
                 // GIS-VERIFIED LOT DIMENSIONS (Oakland County Property Gateway)
-                lotDimensions: { 
+                lotDimensions: {
                     streetFrontage: 55,   // ft on Bluebird Dr (north)
                     waterFrontage: 55,    // ft on Huron River (south)
                     westBoundary: 230,    // ft (from GIS label)
@@ -13521,23 +13474,37 @@ Same Solutions LLC
                     depth: 234,           // ft average north to south
                     shape: 'trapezoidal - slightly wider at river'
                 },
-                // ORIENTATION FROM GIS AERIAL
+                // ORIENTATION FROM GIS AERIAL + 2026-04 field walkthrough
                 orientation: {
-                    streetSide: 'north',      // House faces Bluebird Dr
-                    waterSide: 'south',       // River at rear
-                    garageSide: 'east',       // Garage on right side
-                    bedroomWing: 'west',      // Bedrooms on left side
-                    deckSide: 'south'         // Deck faces river
+                    streetSide: 'north',      // Bluebird Dr
+                    waterSide: 'south',       // Huron River
+                    mainEntrance: 'south',    // Primary entrance on south side
+                    garageSide: 'east',       // Garage (with man door leading to deck)
+                    bedroomWing: 'west',      // Bedrooms + doorwall + basement walkout
+                    deckSide: 'north',        // Main deck runs E-W along north side
+                    walkwaySide: 'south'      // South walkway wraps along south
                 },
                 zestimate: 447000, lastSold: 370000, lastSoldDate: '2021-10',
-                features: ['L-shaped ranch', 'Huron River direct frontage (53ft)', '3-car attached garage (east)', 'Full walkout basement', 'Wood fireplace', 'Deck (south/river side)', 'Dock at waterfront', 'Mature trees'],
-                systems: { 
-                    heat: 'Gas boiler (Burnham 2017)', 
-                    cool: 'Window AC', 
-                    water: 'Well (Flotec pump)', 
-                    sewer: 'Septic', 
+                features: ['L-shaped ranch', 'Huron River direct frontage (55ft GIS)', '3-car attached garage (east, man door to deck)', 'Full walkout basement (west door under deck)', 'Wood fireplace', 'Main deck (north side, 10×57ft)', 'South walkway (5×65ft)', 'Dock at waterfront', 'Mature trees'],
+                systems: {
+                    heat: 'Gas boiler (Burnham 2017)',
+                    cool: 'Window AC',
+                    water: 'Well (Flotec pump)',
+                    sewer: 'Septic',
                     electrical: 'Square D 225A',
-                    waterHeater: { type: 'Tank', brand: 'AO Smith', capacity: '50 gal', fuel: 'Gas' }
+                    waterHeater: { type: 'Tank', brand: 'AO Smith', capacity: '50 gal', fuel: 'Electric' }
+                },
+                // 2025 Mortgage (from 1098 — US Bank)
+                mortgage: {
+                    lender: 'US Bank',
+                    originated: '2021-09-14',
+                    outstandingPrincipal: 327449,
+                    monthlyPayment: 2224.78,
+                    monthlyEscrow: 744.74,
+                    interestPaid2025: 9680.59,
+                    annualPMI: 773.28,
+                    annualPropertyTax: 6618.09,
+                    annualInsurance: 1609.29
                 },
                 // Owner vehicles at this property
                 ownerVehicles: {
@@ -13592,7 +13559,7 @@ Same Solutions LLC
                         notes: 'Stored in garage bay 1'
                     }
                 },
-                parcel: '17-10-476-008', // CORRECTED FROM GIS
+                parcel: 'E-17-10-476-008', // Full format from 2025 tax records
                 township: 'Charter Township of Commerce',
                 gisVerified: true,
                 gisSource: 'Oakland County Property Gateway',
@@ -13655,7 +13622,20 @@ Same Solutions LLC
                 },
                 nextSteps: ['Get parcel from Oakland County GIS', 'Document orientation', 'Draft floor plan'],
                 verified: ['sqFt', 'beds', 'baths', 'yearBuilt', 'features'],
-                unverified: ['parcel', 'exact lot dimensions', 'exact room dimensions']
+                unverified: ['parcel', 'exact lot dimensions', 'exact room dimensions'],
+                scheduledWork: [
+                    {
+                        date: '2026-04-20', // Monday
+                        type: 'painting',
+                        description: 'Master bedroom paint — colors selected by customer',
+                        paintSpec: {
+                            walls: { color: 'Swiss Coffee', brand: 'Benjamin Moore', finish: 'eggshell' },
+                            trim: { color: 'Classic Gray', brand: 'Benjamin Moore', finish: 'eggshell', scope: 'closet + bathroom + bedroom doors' },
+                            accentWall: { color: 'Blackboard', brand: 'Magnolia Home', finish: 'eggshell', location: 'behind bed' }
+                        },
+                        status: 'scheduled'
+                    }
+                ]
             },
             'burt-home': {
                 id: 'burt-home', owner: 'tony-burt', ownerId: 'tony-burt',
@@ -15422,32 +15402,39 @@ Same Solutions LLC
             baths: 1,
             lotSize: 0.29, // acres
             lotSqFt: 12632, // calculated
-            lotDimensions: { frontage: 53, depth: 238 }, // Huron River frontage
-            waterfront: { type: 'Huron River', frontage: 53 },
+            lotDimensions: { frontage: 55, depth: 234 }, // GIS-verified (Oakland County)
+            waterfront: { type: 'Huron River', frontage: 55 },
             purchaseDate: '2021-10-01',
             purchasePrice: 370000,
             zestimate: 447000,
             taxAssessment: null,
-            annualTaxes: null,
+            annualTaxes: 6618.09, // From 2025 US Bank 1098
             parcelNumber: 'E-17-10-476-008',
-            // Verified dimensions from Zillow listing
-            exteriorLength: 52, // ft (estimated from sqft)
-            exteriorWidth: 28,  // ft
-            wallThickness: 0.5, // ft (6" walls)
-            ceilingHeight: 8,   // ft (standard)
-            roofPitch: '4:12',
+            // 2025 Mortgage (from US Bank 1098)
+            mortgage: {
+                lender: 'US Bank',
+                originated: '2021-09-14',
+                outstandingPrincipal: 327449,
+                monthlyPayment: 2224.78,
+                monthlyEscrow: 744.74,
+                interestPaid2025: 9680.59,
+                annualPMI: 773.28,
+                annualPropertyTax: 6618.09,
+                annualInsurance: 1609.29
+            },
             features: [
-                'Huron River waterfront',
-                '3-car attached garage',
-                'Full walkout basement',
-                'Partially finished basement',
+                'Huron River waterfront (55ft GIS)',
+                '3-car attached garage (east, man door to deck)',
+                'Full walkout basement (west door under deck)',
+                'Partially finished dugout basement',
                 'Wood burning fireplace',
                 'Hardwood floors',
                 'Gas hot water heat (boiler)',
                 'Window AC',
                 'Well water',
                 'Septic system',
-                'Deck',
+                'Main deck (north side, 10×57ft)',
+                'South walkway (5×65ft)',
                 'Dock'
             ],
             // Room dimensions - VERIFIED FROM SKETCHUP MODEL + GIS AERIAL March 2026
@@ -15463,23 +15450,28 @@ Same Solutions LLC
             roofPitch: '4:12',
             sketchupVerified: true,
             gisVerified: true,
-            // GIS-VERIFIED ORIENTATION
+            // GIS-VERIFIED ORIENTATION + 2026-04 field walkthrough corrections
             orientation: {
-                front: 'north',       // Faces Bluebird Dr
-                rear: 'south',        // Faces Huron River
-                left: 'west',         // Bedroom wing
-                right: 'east',        // Garage side
-                deckFaces: 'south',   // River views
-                driveway: 'north'     // From street
+                front: 'south',       // Main entrance on south side
+                rear: 'north',        // Bluebird Dr side (street)
+                streetSide: 'north',  // Bluebird Dr
+                waterSide: 'south',   // Huron River
+                left: 'west',         // Bedroom wing, doorwall, basement walkout
+                right: 'east',        // Garage (with man door to deck)
+                deckFaces: 'north',   // Main deck runs E-W along north side
+                walkwaySide: 'south', // South walkway wraps along south
+                driveway: 'north'     // From Bluebird Dr
             },
-            // GIS-VERIFIED LOT
+            // GIS-VERIFIED LOT (Oakland County Property Gateway)
             lot: {
-                parcel: '17-10-476-008',
-                streetFrontage: 53,   // ft on Bluebird Dr
-                waterFrontage: 53,    // ft on Huron River
-                depth: 240,           // ft north to south
+                parcel: 'E-17-10-476-008',
+                streetFrontage: 55,   // ft on Bluebird Dr (north)
+                waterFrontage: 55,    // ft on Huron River (south)
+                westBoundary: 230,    // ft
+                eastBoundary: 238,    // ft
+                depth: 234,           // ft average north to south
                 acres: 0.29,
-                shape: 'rectangular long narrow'
+                shape: 'trapezoidal - slightly wider at river'
             },
             household: {
                 owner: 'Sam Foran',
@@ -15489,11 +15481,12 @@ Same Solutions LLC
             },
             rooms: {
                 // ========== BEDROOM WING (WEST side - left when facing house) ==========
-                master: { name: 'Master Bedroom', w: 14, l: 12, x: 0, y: 0, floor: 'main', color: '#3b82f6', ceiling: 8, 
+                master: { name: 'Master Bedroom', w: 14, l: 12, x: 0, y: 0, floor: 'main', color: '#3b82f6', ceiling: 8,
                     verified: false,
                     orientation: 'northwest corner',
-                    features: ['Shares north wall with Family Room', 'Walk-in closet', 'Hardwood floors', 'Baseboard heat'],
-                    wallColor: 'Unknown - need photo',
+                    features: ['Shares north wall with Family Room', 'Walk-in closet', 'Hardwood floors', 'Baseboard heat', 'Being painted Forestwood SW 7730'],
+                    wallColor: 'Forestwood SW 7730 (in progress)',
+                    paintInProgress: { color: 'Forestwood SW 7730', brand: 'Sherwin-Williams' },
                     floorType: 'Oak hardwood'
                 },
                 masterCloset: { name: 'Master Closet', w: 4, l: 5.875, x: 14, y: 0, floor: 'main', color: '#475569', ceiling: 8,
@@ -15577,8 +15570,12 @@ Same Solutions LLC
                 },
                 
                 // ========== BASEMENT ==========
-                laundry: { name: 'Laundry', w: 10, l: 10, x: 0, y: 0, floor: 'basement', color: '#06b6d4', ceiling: 7, verified: false, features: ['Washer', 'Dryer'] },
-                basementMain: { name: 'Main Area', w: 26, l: 17, x: 10, y: 0, floor: 'basement', color: '#334155', ceiling: 7, verified: false, features: ['Partially finished', 'Walkout', 'Freezers'] },
+                laundry: { name: 'Laundry', w: 10, l: 10, x: 0, y: 0, floor: 'basement', color: '#06b6d4', ceiling: 7, verified: false, features: ['Washer', 'Dryer', 'Toilet + sink (half bath equivalent)'], hasHalfBath: true },
+                basementMain: { name: 'Main Area', w: 26, l: 17, x: 10, y: 0, floor: 'basement', color: '#334155', ceiling: 7, verified: false,
+                    basementType: 'partially finished dugout',
+                    features: ['Partially finished dugout', 'Walkout door on west side (under deck)', 'Freezers', 'Active paint project: 9×10 area being painted Privilege Green SW 6193'],
+                    activePaint: { area: '9×10', color: 'Privilege Green SW 6193', brand: 'Sherwin-Williams' }
+                },
                 mechanical: { name: 'Mechanical', w: 10, l: 10, x: 0, y: 10, floor: 'basement', color: '#94a3b8', ceiling: 7, 
                     verified: true, // Equipment verified from photos
                     features: ['Burnham P-205-W Boiler (2017)', 'State 40gal Water Heater (1984)', 'Square D 225A Panel', 'Flotec Well Pump']
@@ -15586,12 +15583,30 @@ Same Solutions LLC
                 office: { name: 'Office', w: 10, l: 10, x: 36, y: 0, floor: 'basement', color: '#6366f1', ceiling: 7, verified: false },
                 storage: { name: 'Storage', w: 16, l: 10, x: 10, y: 17, floor: 'basement', color: '#64748b', ceiling: 7, verified: false }
             },
-            // Exterior features
+            // Exterior features — CORRECTED 2026-04 from field walkthrough
             exterior: {
-                deck: { name: 'Deck', w: 20, l: 12, position: 'rear', features: ['Overlooks river'] },
+                deck: {
+                    name: 'Main Deck',
+                    w: 10, l: 57, // 10ft deep × 57ft long
+                    position: 'north',
+                    side: 'north',
+                    runs: 'east-west',
+                    totalSqFt: 895, // deck + walkway surfaces
+                    railingLF: 135,
+                    stairs: { count: '3-4', material: 'wood', location: 'west side' },
+                    features: ['Runs east-west along north side', 'Mix of old stain and new replacement boards', 'Man door from garage (east)', 'Connects to west-side doorwall'],
+                    plannedStain: { product: 'SuperDeck Forest Brown DD 3120', brand: 'Sherwin-Williams' }
+                },
+                southWalkway: {
+                    name: 'South Walkway',
+                    w: 5, l: 65, // 5ft wide × 65ft long
+                    position: 'south',
+                    side: 'south',
+                    features: ['Wraps along south side of house']
+                },
                 dock: { name: 'Dock', w: 4, l: 20, position: 'waterfront', features: ['River access', 'Boat mooring'] },
                 driveway: { surface: 'concrete', width: 12, length: 40 },
-                landscaping: ['Mature trees', 'Lawn', 'River frontage']
+                landscaping: ['Mature trees', 'Lawn', '55ft Huron River frontage']
             },
             // Watercraft - Complete with registrations and documentation
             watercraft: {
@@ -19950,7 +19965,6 @@ Same Solutions LLC
                     ocrText = result.data.text;
                 }
             } catch (e) {
-                // console.log('Tesseract not available, using manual entry');
             }
             
             // Extract values using patterns
@@ -21152,14 +21166,14 @@ Same Solutions LLC
                     <h1>Same Solutions LLC</h1>
                     <div class="card">
                         <h3>👤 ${c.name}</h3>
-                        <p>Total Paid: <span class="amount green">$${paid.toFixed(2)}</span></p>
-                        <p>Outstanding: <span class="amount ${owed > 0 ? 'red' : ''}">$${owed.toFixed(2)}</span></p>
+                        <p>Total Paid: <span class="amount green">$${parseFloat(paid || 0).toFixed(2)}</span></p>
+                        <p>Outstanding: <span class="amount ${owed > 0 ? 'red' : ''}">$${parseFloat(owed || 0).toFixed(2)}</span></p>
                     </div>
                     <div class="card">
                         <h3>Recent Invoices</h3>
                         <table>
                             <tr><th>Invoice</th><th>Date</th><th>Amount</th><th>Status</th></tr>
-                            ${customerInvoices.slice(0, 5).map(i => `<tr><td>${i.number}</td><td>${i.date}</td><td>$${i.total.toFixed(2)}</td><td>${i.status}</td></tr>`).join('')}
+                            ${customerInvoices.slice(0, 5).map(i => `<tr><td>${i.number}</td><td>${i.date}</td><td>$${parseFloat(i.total || 0).toFixed(2)}</td><td>${i.status}</td></tr>`).join('')}
                         </table>
                     </div>
                     <p style="text-align:center;color:#666;font-size:0.8rem;">Questions? Call (248) 568-5861</p>
@@ -21452,7 +21466,6 @@ Same Solutions LLC
         function initFirebase() {
             // Skip if already initialized by initAuth
             if (firebase.apps.length > 0) {
-                // console.log('Firebase already initialized');
                 if (!db) {
                     try {
                         db = firebase.firestore();
@@ -21464,7 +21477,6 @@ Same Solutions LLC
             }
             
             if (FIREBASE_CONFIG.apiKey === "YOUR_API_KEY_HERE" || !FIREBASE_CONFIG.apiKey) {
-                // console.log('Firebase not configured - using local storage only');
                 updateSyncStatus('local');
                 return;
             }
@@ -21472,7 +21484,6 @@ Same Solutions LLC
                 firebase.initializeApp(FIREBASE_CONFIG);
                 db = firebase.firestore();
                 firebaseEnabled = true;
-                // console.log('🔥 Firebase connected!');
                 updateSyncStatus('synced');
             } catch (e) {
                 console.warn('Firebase init note:', e.message);
@@ -21583,7 +21594,6 @@ Same Solutions LLC
             
             // Check if actually authenticated to Firebase (not just preset accounts)
             if (!auth?.currentUser) {
-                // console.log('⚠️ Not signed into Firebase Auth - using local storage only');
                 updateSyncStatus('local');
                 return;
             }
@@ -21604,13 +21614,11 @@ Same Solutions LLC
                     });
                 }, 3, 1000);
                 updateSyncStatus('synced');
-                // console.log('☁️ Synced to cloud');
             } catch (e) {
                 console.error('Sync failed after retries:', e);
                 
                 // Check for specific error types
                 if (e.code === 'permission-denied') {
-                    // console.log('🔒 Firestore permission denied - check rules or sign in');
                     updateSyncStatus('local');
                     // Don't show error toast for permission issues - just use local
                 } else {
@@ -21630,7 +21638,6 @@ Same Solutions LLC
             
             // Check if actually authenticated to Firebase
             if (!auth?.currentUser) {
-                // console.log('⚠️ Not signed into Firebase Auth - using local storage');
                 updateSyncStatus('local');
                 return;
             }
@@ -21653,7 +21660,6 @@ Same Solutions LLC
                         toast('☁️ Synced from cloud');
                     } else if (localTimestamp > cloudTimestamp) {
                         // Local is newer, push to cloud
-                        // console.log('Local data is newer, syncing to cloud');
                         await syncToCloud();
                         return; // syncToCloud will set status
                     }
@@ -21664,7 +21670,6 @@ Same Solutions LLC
                 // Check error type
                 if (e.code === 'permission-denied' || e.message?.includes('permission')) {
                     updateSyncStatus('local');
-                    // console.log('💡 Firestore permission denied - check rules');
                 } else {
                     updateSyncStatus('error');
                     toast('Could not sync from cloud. Using local data.', 'error');
@@ -23159,7 +23164,6 @@ Same Solutions LLC
             
             // Auth state check
             const authenticated = currentUser !== null || !firebaseEnabled;
-            // console.log('Auth state:', authenticated ? 'authenticated' : 'not authenticated');
             
             // Offline/Online handling
             function updateOnlineStatus() {
@@ -23202,7 +23206,6 @@ Same Solutions LLC
                 try {
                     pendingQueue = JSON.parse(saved);
                     if (pendingQueue.length > 0 && navigator.onLine) {
-                        // console.log(`Processing ${pendingQueue.length} queued operations...`);
                         syncToCloud();
                         pendingQueue = [];
                         localStorage.removeItem('pendingQueue');
@@ -23570,7 +23573,6 @@ Same Solutions LLC
                 }
                 
                 // Show notification
-                // console.log(`Recurring job "${r.name}" is due today!`);
             });
         }
         
@@ -23848,7 +23850,6 @@ Same Solutions LLC
         function checkLowStock() {
             const lowStock = (data.inventory || []).filter(p => p.quantity <= (p.reorderPoint || 5));
             if (lowStock.length > 0) {
-                // console.log(`⚠️ ${lowStock.length} parts are low on stock`);
             }
         }
         
@@ -23945,7 +23946,6 @@ Same Solutions LLC
             (window.scheduledReminders || []).forEach(r => {
                 if (r.sendDate <= now && !r.sent) {
                     // Would send reminder here
-                    // console.log('Reminder due:', r.type, r.data);
                     r.sent = true;
                 }
             });
@@ -24028,7 +24028,6 @@ Same Solutions LLC
             
             toast('Opening QuickBooks authorization...', 'info');
             // In production, this would open OAuth flow
-            // console.log('QuickBooks OAuth URL:', authUrl);
         }
         
         // Helper to sync currently viewed invoice
@@ -24074,7 +24073,6 @@ Same Solutions LLC
             };
             
             // Would POST to QuickBooks API
-            // console.log('Syncing to QuickBooks:', qbInvoice);
             toast(`Invoice ${invoiceNum} synced to QuickBooks!`, 'success');
             
             inv.qbSynced = new Date().toISOString();
@@ -24098,7 +24096,6 @@ Same Solutions LLC
                 }]
             };
             
-            // console.log('Syncing expense to QuickBooks:', qbExpense);
             toast('Expense synced to QuickBooks!', 'success');
         }
         
@@ -24174,7 +24171,6 @@ Same Solutions LLC
             try {
                 // Note: This would need a server-side proxy due to CORS
                 // For demo, we'll simulate success
-                // console.log(`SMS to ${toNumber}: ${message}`);
                 toast(`SMS sent to ${toNumber}`, 'success');
                 return true;
             } catch (e) {
@@ -24549,9 +24545,7 @@ Same Solutions LLC
             if (typeof firebase !== 'undefined' && firebase.storage) {
                 try {
                     storageRef = firebase.storage().ref();
-                    // console.log('📷 Firebase Storage ready');
                 } catch(e) {
-                    // console.log('Photo storage using local fallback');
                 }
             }
         }
