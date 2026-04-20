@@ -4715,7 +4715,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.12';
+        const APP_VERSION = 'v1.7.13';
         
         // Data schema version - increment when structure changes
         const DATA_VERSION = 15;
@@ -13464,18 +13464,19 @@ Same Solutions LLC
                     eastBoundary: 238,    // ft (from GIS label)
                     shape: 'trapezoidal - slightly wider at river'
                 },
-                // ORIENTATION FROM GIS AERIAL + 2026-04 field walkthrough
+                // ORIENTATION — corrected 2026-04-20 (house sits diagonally; cardinal directions ~45deg rotated)
                 orientation: {
-                    streetSide: 'north',      // Bluebird Dr
-                    waterSide: 'south',       // Huron River
-                    mainEntrance: 'south',    // Primary entrance on south side
-                    garageSide: 'east',       // Garage (with man door leading to deck)
-                    bedroomWing: 'west',      // Bedrooms + doorwall + basement walkout
-                    deckSide: 'north',        // Main deck runs E-W along north side
-                    walkwaySide: 'south'      // South walkway wraps along south
+                    streetSide: 'northeast',   // Bluebird Dr
+                    waterSide: 'southwest',    // Huron River
+                    garageFaces: 'northeast',  // Garage doors face road/driveway
+                    deckFaces: 'southwest',    // Doorwalls face river
+                    frontDoor: 'southeast',    // Rarely used entrance
+                    bedroomWing: 'northwest',  // Master + Windsor exterior walls
+                    driveway: 'northeast',     // From Bluebird Dr to garage
+                    compassNote: 'House sits diagonally on lot. True compass approximately 45deg rotated from cardinal directions.'
                 },
                 zestimate: 467800, lastSold: 370000, lastSoldDate: '2021-10',
-                features: ['L-shaped ranch', 'Huron River direct frontage (55ft GIS)', '3-car attached garage (east, man door to deck)', 'Full walkout basement (west door under deck)', 'Wood fireplace', 'Main deck (north side, 10×57ft)', 'South walkway (5×65ft)', 'Dock at waterfront', 'Mature trees'],
+                features: ['L-shaped ranch', 'Huron River direct frontage (55ft GIS)', '3-car attached garage (NE side, man door to kitchen)', 'Full walkout basement (SW door under deck)', 'Wood fireplace', 'Main deck (SW side, 10×57ft) facing river', 'SE walkway (5×65ft)', 'Dock at waterfront', 'Mature trees'],
                 systems: {
                     heat: 'Gas boiler (Burnham 2017)',
                     cool: 'Window AC',
@@ -13619,9 +13620,10 @@ Same Solutions LLC
                         type: 'painting',
                         description: 'Master bedroom paint — colors selected by customer',
                         paintSpec: {
-                            walls: { color: 'Swiss Coffee', brand: 'Benjamin Moore', finish: 'eggshell' },
-                            trim: { color: 'Classic Gray', brand: 'Benjamin Moore', finish: 'eggshell', scope: 'closet + bathroom + bedroom doors' },
-                            accentWall: { color: 'Blackboard', brand: 'Magnolia Home', finish: 'eggshell', location: 'behind bed' }
+                            walls: { color: 'Swiss Coffee', code: 'OC-17', brand: 'Benjamin Moore', finish: 'eggshell' },
+                            trim: { color: 'Classic Gray', code: 'OC-23', brand: 'Benjamin Moore', finish: 'eggshell', scope: 'closet + bathroom + bedroom doors' },
+                            accentWall: { color: 'Blackboard', brand: 'Magnolia Home', line: 'Home Depot', finish: 'eggshell', location: 'behind bed' },
+                            notes: 'BM colors from BM dealer or color-matched at SW. Magnolia Home is Home Depot line.'
                         },
                         status: 'scheduled'
                     }
@@ -15414,8 +15416,8 @@ Same Solutions LLC
             },
             features: [
                 'Huron River waterfront (55ft GIS)',
-                '3-car attached garage (east, man door to deck)',
-                'Full walkout basement (west door under deck)',
+                '3-car attached garage (NE side, man door to kitchen)',
+                'Full walkout basement (SW door under deck)',
                 'Partially finished dugout basement',
                 'Wood burning fireplace',
                 'Hardwood floors',
@@ -15423,17 +15425,15 @@ Same Solutions LLC
                 'Window AC',
                 'Well water',
                 'Septic system',
-                'Main deck (north side, 10×57ft)',
-                'South walkway (5×65ft)',
+                'Main deck (SW side, 10×57ft) facing river',
+                'SE walkway (5×65ft)',
                 'Dock'
             ],
-            // Room dimensions - VERIFIED FROM SKETCHUP MODEL + GIS AERIAL March 2026
-            // Exact measurements from 3D model
-            // Layout: L-shaped - Bedroom wing (WEST) + Living area (EAST)
-            // ORIENTATION FROM GIS: House faces NORTH (Bluebird Dr), River to SOUTH
+            // Room dimensions - VERIFIED FROM SKETCHUP MODEL + GIS AERIAL, corrected 2026-04-20 field walkthrough
+            // Layout: L-shaped — Bedroom wing (NW) + Living area (SE). House sits diagonally on lot; compass ~45deg rotated.
             exteriorLength: 50.5, // ft total (25' living + bedroom wing)
             exteriorWidth: 25.17, // ft (12'7-3/16" × 2 sections)
-            garageLength: 30,   // ft (attached on EAST side)
+            garageLength: 30,   // ft (attached on NE side)
             garageWidth: 24,    // ft
             wallThickness: 0.5, // ft (6" walls)
             ceilingHeight: 8,   // ft (standard rooms)
@@ -15476,7 +15476,7 @@ Same Solutions LLC
                 master: { name: 'Master Bedroom', w: 14, l: 13, x: 0, y: 0, floor: 'main', color: '#3b82f6', ceiling: 8,
                     verified: false,
                     orientation: 'northwest corner, shares interior wall directly with living room — no hallway between them',
-                    features: ['Doorwall on southwest wall (river side)', 'Shares wall directly with living room', 'Walk-in closet', 'Hardwood floors', 'Baseboard heat', 'Being painted Forestwood SW 7730'],
+                    features: ['Doorwall on southwest wall (river side)', 'Shares wall directly with living room', 'Reach-in closet (5x2, back-to-back with Windsor closet)', 'Hardwood floors', 'Baseboard heat', 'Being painted Forestwood SW 7730'],
                     wallColor: 'Forestwood SW 7730 (in progress)',
                     paintInProgress: { color: 'Forestwood SW 7730', brand: 'Sherwin-Williams' },
                     floorType: 'Oak hardwood'
@@ -15494,8 +15494,9 @@ Same Solutions LLC
                 windsor: { name: "Windsor's Room", w: 11, l: 10, x: 14, y: 0, floor: 'main', color: '#a78bfa', ceiling: 8,
                     verified: false,
                     orientation: 'northeast corner of house',
-                    features: ['Windows face into gap between house and garage', 'Lavender/light purple walls', 'Baseboard heater', 'Double-hung windows', 'Gray curtains'],
-                    wallColor: 'Lavender/Light purple',
+                    features: ['Windows face into gap between house and garage', 'Steelers theme — 2 walls Goldfinch yellow, 2 walls Tricorn Black', 'Baseboard heater', 'Double-hung windows', 'Gray curtains'],
+                    wallColor: 'Steelers theme — 2 walls Goldfinch SW 6905 (yellow), 2 walls Tricorn Black SW 6258 (black)',
+                    paintPlanned: { yellow: 'Goldfinch SW 6905', black: 'Tricorn Black SW 6258', brand: 'Sherwin-Williams', line: 'Emerald Interior', sheen: 'Satin' },
                     floorType: 'Oak hardwood'
                 },
                 bath: { name: 'Full Bathroom', w: 7, l: 7.88, x: 14, y: 10, floor: 'main', color: '#8b5cf6', ceiling: 8,
@@ -15558,18 +15559,18 @@ Same Solutions LLC
                 },
 
                 // ========== BASEMENT ==========
-                laundry: { name: 'Laundry', w: 10, l: 10, x: 0, y: 0, floor: 'basement', color: '#06b6d4', ceiling: 7, verified: false, features: ['Washer', 'Dryer', 'Toilet + sink (half bath equivalent)'], hasHalfBath: true },
-                basementMain: { name: 'Main Area', w: 26, l: 17, x: 10, y: 0, floor: 'basement', color: '#334155', ceiling: 7, verified: false,
+                laundry: { name: 'Laundry', w: 10, l: 10, x: 0, y: 0, floor: 'basement', color: '#06b6d4', ceiling: 8, verified: false, features: ['Washer', 'Dryer', 'Toilet + sink (half bath equivalent)'], hasHalfBath: true },
+                basementMain: { name: 'Main Area', w: 26, l: 17, x: 10, y: 0, floor: 'basement', color: '#334155', ceiling: 8, verified: false,
                     basementType: 'partially finished dugout',
                     features: ['Partially finished dugout', 'Walkout door on west side (under deck)', 'Freezers', 'Active paint project: 9×10 area being painted Privilege Green SW 6193'],
                     activePaint: { area: '9×10', color: 'Privilege Green SW 6193', brand: 'Sherwin-Williams' }
                 },
-                mechanical: { name: 'Mechanical', w: 10, l: 10, x: 0, y: 10, floor: 'basement', color: '#94a3b8', ceiling: 7,
+                mechanical: { name: 'Mechanical', w: 10, l: 10, x: 0, y: 10, floor: 'basement', color: '#94a3b8', ceiling: 8,
                     verified: true, // Equipment verified from photos
                     features: ['Burnham P-205-W Boiler (2017)', 'State 40gal Water Heater (1984)', 'Square D 225A Panel', 'Flotec Well Pump']
                 },
-                basementOffice: { name: 'Basement Office', w: 10, l: 10, x: 36, y: 0, floor: 'basement', color: '#6366f1', ceiling: 7, verified: false },
-                storage: { name: 'Storage', w: 16, l: 10, x: 10, y: 17, floor: 'basement', color: '#64748b', ceiling: 7, verified: false }
+                basementOffice: { name: 'Basement Office', w: 10, l: 10, x: 36, y: 0, floor: 'basement', color: '#6366f1', ceiling: 8, verified: false },
+                storage: { name: 'Storage', w: 16, l: 10, x: 10, y: 17, floor: 'basement', color: '#64748b', ceiling: 8, verified: false }
             },
             // Exterior features — CORRECTED 2026-04 from field walkthrough
             exterior: {
@@ -15730,6 +15731,22 @@ Same Solutions LLC
                     plateState: 'MI',
                     linkedEquipment: { id: 'PWC-SAM-001', type: 'jetski' },
                     status: 'needs-info'
+                },
+                // Four Winns bowrider — placeholder, needs details
+                fourWinns: {
+                    id: 'BOAT-SAM-002',
+                    type: 'bowrider',
+                    year: null,
+                    make: 'Four Winns',
+                    model: null,
+                    length: null,
+                    hin: null,
+                    registration: null,
+                    registrationState: 'MI',
+                    motor: { type: null, hp: null, brand: null },
+                    trailerId: null,
+                    status: 'needs-info',
+                    notes: 'Four Winns boat — need year, model, length, engine details, registration'
                 }
             },
             // Systems - VERIFIED FROM EQUIPMENT PHOTOS March 2026
