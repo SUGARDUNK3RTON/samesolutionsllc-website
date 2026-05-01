@@ -10,6 +10,24 @@ Single-file PWA business management app for Same Solutions LLC, a handyman/techn
 - **Deploy**: GitHub → Cloudflare auto-deploy on push
 - **File**: `manage/index.html` (~28,599 lines, single file — all HTML, CSS, and JS)
 
+## Source-of-truth boundaries
+
+This repo participates in a multi-store architecture. Each concern has exactly one authoritative location:
+
+- Global priorities, weekly focus, today's plan → PLANNER.md (this repo, this file)
+- Major architectural milestones, shipped work, history → CHANGELOG.md (this repo)
+- Repo rules, conventions, codebase guidance → CLAUDE.md (this repo, this file)
+- Repo structure / what-lives-where → REPO.md (this repo)
+- Customer/quote/invoice/property/equipment data → /manage app data model (localStorage, DATA_VERSION 15)
+- Methodology, session protocol, kind-specific behavior → substrate METHODOLOGY.md + SESSION-PRELUDE.md
+- Per-entity next-steps and dossiers → substrate index/<kind>/<id>.md
+- Customer-jobs research artifacts → substrate customer-jobs/<property-id>-<job-type>-<YYYY-MM>/
+- Cross-session architectural decisions → substrate architecture/pending/ then architecture/<date>-<topic>.md when resolved
+- Personal projects research → substrate personal/<topic-id>/
+- Service guides for Sam's equipment → substrate guides/<id>/
+
+Chat memories are informational continuity only — never authoritative. When in doubt about where something belongs, check this list first.
+
 ## Brand Standards
 
 - **Colors**: Black `#101820` + Gold `#FFB612` — NO gradients ever
