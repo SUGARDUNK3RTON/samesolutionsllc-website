@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Same Solutions LLC interlocking S logo (v38)
+
+  This single logo works on both light and dark backgrounds.
+  A thin white halo surrounds the outer perimeter at all times.
+  On light/white backgrounds the halo is invisible (white on white).
+  On dark backgrounds the halo provides the separation needed for the
+  black border to read.
+
+  HOW TO EDIT
+  Change CSS variables inside the style block below.
+    gold          primary brand color
+    black         border, cross arm, dark accents
+    white         light S body and outer halo
+    halo-width    thickness of the halo. Default 8.5 gives a 1.0 unit
+                  visible halo per side. Set equal to border-width to
+                  disable the halo.
+    border-width  6.5 default. Increase to thicken black outline.
+    color-width   must stay 4. Filler vertices are baked at this width.
+
+  LAYER ORDER (do not reorder)
+  1. White halo (drawn first, underneath)
+  2. Black border (covers center of halo)
+  3. Color strokes (white S, gold S, black cross arm)
+  4. Transition fillers at E and P
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="-4.5 -5.5 75 103"
+     shape-rendering="geometricPrecision"
+     class="ssol-logo">
+  <style>
+    .ssol-logo {
+      --gold: #FFB612;
+      --black: #101820;
+      --white: #ffffff;
+      --halo-width: 8.5;
+      --border-width: 6.5;
+      --color-width: 4;
+    }
+    .ssol-halo   { fill: none; stroke: var(--white); stroke-width: var(--halo-width); stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; }
+    .ssol-border { fill: none; stroke: var(--black); stroke-width: var(--border-width); stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; }
+    .ssol-body   { fill: none; stroke-width: var(--color-width); stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; }
+    .ssol-white  { stroke: var(--white); }
+    .ssol-gold   { stroke: var(--gold); }
+    .ssol-black  { stroke: var(--black); }
+    .fill-black  { fill: var(--black); }
+    .fill-gold   { fill: var(--gold); }
+    .fill-white  { fill: var(--white); }
+  </style>
+
+  <g class="ssol-halo">
+    <path d="M33,7.5 L22,0 L0,15 L0,38 L22,54 L22,77 L33,84.5"/>
+    <path d="M22,38 L0,54 L0,77 L22,92 L33,84.5"/>
+    <path d="M33,7.5 L44,0 L66,15 L66,38 L44,54"/>
+    <path d="M33,7.5 L44,15 L44,38 L66,54 L66,77 L44,92 L33,84.5"/>
+    <path d="M44,15 L33,7.5 L22,15 L22,38 L44,54 L44,77 L33,84.5 L22,77"/>
+  </g>
+
+  <g class="ssol-border">
+    <path d="M33,7.5 L22,0 L0,15 L0,38 L22,54 L22,77 L33,84.5"/>
+    <path d="M22,38 L0,54 L0,77 L22,92 L33,84.5"/>
+    <path d="M33,7.5 L44,0 L66,15 L66,38 L44,54"/>
+    <path d="M33,7.5 L44,15 L44,38 L66,54 L66,77 L44,92 L33,84.5"/>
+    <path d="M44,15 L33,7.5 L22,15 L22,38 L44,54 L44,77 L33,84.5 L22,77"/>
+  </g>
+
+  <path class="ssol-body ssol-white" d="M33,7.5 L22,0 L0,15 L0,38 L22,54 L22,77"/>
+  <path class="ssol-body ssol-white" d="M22,38 L0,54 L0,77 L22,92 L33,84.5"/>
+  <path class="ssol-body ssol-gold"  d="M33,7.5 L44,0 L66,15 L66,38 L44,54"/>
+  <path class="ssol-body ssol-gold"  d="M44,15 L44,38 L66,54 L66,77 L44,92 L33,84.5"/>
+  <path class="ssol-body ssol-black" d="M44,15 L33,7.5 L22,15 L22,38 L44,54 L44,77 L33,84.5 L22,77"/>
+
+  <polygon class="fill-black" points="44,15 44.878,13.179 46,13.948"/>
+  <polygon class="fill-gold"  points="44,15 43.122,16.821 42,16.052"/>
+  <polygon class="fill-black" points="22,77 21.122,78.821 20,78.056"/>
+  <polygon class="fill-white" points="22,77 22.878,75.179 24,75.943"/>
+  <polygon class="fill-gold"  points="44,15 46,13.948 46,15.3 44,15.3"/>
+  <polygon class="fill-white" points="22,77 20,78.057 20,76.7 22,76.7"/>
+</svg>
