@@ -8,7 +8,7 @@ Single-file PWA business management app for Same Solutions LLC, a handyman/techn
 - **App URL**: samesolutionsllc.com/manage
 - **Stack**: Vanilla JS, Firebase (project: same-solutions-app), localStorage with versioned migrations, service worker cache
 - **Deploy**: GitHub → Cloudflare auto-deploy on push
-- **File**: `manage/index.html` (~28,500 lines, single file — all HTML, CSS, and JS)
+- **File**: `manage/index.html` (~28,599 lines, single file — all HTML, CSS, and JS)
 
 ## Brand Standards
 
@@ -21,7 +21,7 @@ Single-file PWA business management app for Same Solutions LLC, a handyman/techn
 ### Data Migrations
 
 - ALL data changes go through versioned `migrateData()` — NEVER seed data blocks in the data-exists path
-- Current: `DATA_VERSION 15`, 14 migrations (line ~4744 of manage/index.html)
+- Current: `DATA_VERSION 15`, 14 migrations (line ~4721 of manage/index.html)
 - Increment DATA_VERSION for every new migration
 - Each migration checks `if (fromVersion < N)` and runs once
 
@@ -56,7 +56,7 @@ Serve `manage/` over HTTP(S) with any static file server.
 - **Customer Portal**: Customers log in, see "My Property" + "My Billing" tabs. Admin sees all tabs.
 - **Unified Renderer**: `renderDocument(doc, {theme, editable, showHistory, ...})` — ONE function for all quote/invoice display (dark, light, print themes)
 - **Print**: `renderPrintDocument(docId, docType)` opens clean white-background window.print() view
-- **Service Worker**: `manage/sw.js` — cache version v41. Must update all three cache names when static assets change. Skips Firebase/external API calls.
+- **Service Worker**: `manage/sw.js` — cache version v50. Must update all three cache names when static assets change. Skips Firebase/external API calls.
 
 ### Data Stores
 
