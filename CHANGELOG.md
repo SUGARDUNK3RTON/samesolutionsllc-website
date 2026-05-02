@@ -4,6 +4,10 @@
 
 Format: each entry is dated, names the milestone, and gives a one-sentence summary plus links to the relevant artifacts.
 
+## 2026-05-01 — Landing page v3 ships
+
+Public landing page rebuilt with engineer-first positioning. New: hybrid 7-service list (Technical Consulting, Automotive Service, Electrical, Plumbing, Equipment Repair, Handyman Services, Cleaning Services) with custom SVG icons replacing emoji; "15+ Years Engineering at Major Automakers" credential pill in About section; structured contact cards with phone/email/location SVG icons; non-functional booking form placeholder for visual completeness (submit button does nothing — backend deferred to v4); Commerce Township eyebrow in hero; refined editorial typography and spacing throughout. Recovered v115 original archived at `archive/landing-page-v115-original.html` for design reference. Brand colors verified: #101820 black, #FFB612 gold, no #000000.
+
 ## 2026-05-01 — First personal-project HTML guide ships
 
 Pirates/Phillies 3D print plan and reference deployed to substrate at personal/pirates-phillies-3d-print-2026-05/print-guide.html. Hybrid format covering print plan (project-specific 7-day queue, 24 manual pauses across 16 logos), filament reference (6-brand landscape, brand-mixing risk addressed via PLA+ family discipline), and post-print care (reusable across future 3D print projects). First test of the personal-project HTML guide pattern. Filament order placed Sat 5/2; print sprint begins Wed 5/6 once filament arrives.

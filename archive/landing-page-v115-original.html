@@ -1,0 +1,1066 @@
+<!-- Recovered original landing page from samesolutionsllc-v115.zip (March 2026). NOT DEPLOYED. Reference for design merges. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Same Solutions LLC | Technical Consulting • Engineering • Maintenance & Repair</title>
+    <meta name="description" content="Same Solutions LLC provides technical consulting, automotive service, equipment repair, commercial cleaning, and contracting services in Commerce, MI and surrounding areas.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #000000;
+            --gold: #FFB612;
+            --gold-dark: #E5A410;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray: #E5E5E5;
+            --gray-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        /* Remove any default link blue colors */
+        a {
+            color: inherit;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Header */
+        header {
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 50px;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--white);
+        }
+
+        .logo-text span {
+            color: var(--gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .nav-cta {
+            background: var(--gold);
+            color: var(--black) !important;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold-dark);
+            color: var(--black) !important;
+        }
+
+        /* Mobile menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            background-color: #000000;
+            color: var(--white);
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/png;base64,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");
+            background-repeat: repeat;
+            background-size: 80px auto;
+            opacity: 0.06;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 182, 18, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* Services */
+        .services {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header .accent-line {
+            width: 60px;
+            height: 4px;
+            background: var(--gold);
+            margin: 1rem auto;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--gray-light);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left-color: var(--gold);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--black);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .service-card ul {
+            list-style: none;
+            color: #666;
+        }
+
+        .service-card li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .service-card li::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* About */
+        .about {
+            padding: 5rem 2rem;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about h2 span {
+            color: var(--gold);
+        }
+
+        .about p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            font-size: 1.05rem;
+        }
+
+        .credentials {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .credential {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .credential-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--black);
+            font-weight: bold;
+        }
+
+        .credential h4 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .credential p {
+            font-size: 0.95rem;
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 5rem 2rem;
+            background: var(--gray-light);
+        }
+
+        .contact-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-item h4 {
+            color: var(--black);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-item a {
+            color: var(--gray-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--gold-dark);
+        }
+
+        .service-area {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .service-area h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .service-area p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .area-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .area-tag {
+            background: var(--gray);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 3rem 2rem 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-tagline {
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .footer-tagline span {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 5rem 2rem;
+            background: var(--gray-light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Booking Form */
+        .booking-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .booking-form h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+            color: var(--black);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(255,182,18,0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+
+        .form-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .credentials {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.1rem;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--black);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+                border-top: 1px solid #333;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                border-bottom: 1px solid #333;
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+
+            nav ul a {
+                display: block;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            nav ul .nav-cta {
+                margin: 1rem 0;
+                display: inline-block;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="data:image/png;base64,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" alt="Same Solutions Logo" style="height:40px;width:auto;">
+                <span class="logo-text">SAME <span>SOLUTIONS</span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="/manage" class="nav-cta">Customer Portal</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Same Solutions for <span>Different Problems</span></h1>
+            <p class="tagline">Technical Consulting • Engineering • Maintenance & Repair</p>
+            <p class="subtitle">15+ years of automotive engineering expertise combined with hands-on problem-solving.<br>Same quality, every time — we get it done right.</p>
+            <div class="hero-cta">
+                <a href="tel:2485685861" class="btn btn-primary">📞 (248) 568-5861</a>
+                <a href="#services" class="btn btn-secondary">View Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="services">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <div class="accent-line"></div>
+                <p>Professional solutions across multiple domains — from technical consulting to hands-on repairs.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Technical Consulting</h3>
+                    <p>Engineering analysis and problem-solving for complex technical challenges.</p>
+                    <ul>
+                        <li>High-voltage system diagnostics</li>
+                        <li>Battery controls & calibration</li>
+                        <li>Equipment programming & setup</li>
+                        <li>Technical documentation</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h3>Automotive Service</h3>
+                    <p>Professional automotive maintenance and repair from an industry expert.</p>
+                    <ul>
+                        <li>Oil changes & fluid services</li>
+                        <li>Brake system service</li>
+                        <li>Diagnostic scanning & analysis</li>
+                        <li>Multi-point inspections</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Equipment Repair</h3>
+                    <p>Diagnosis and repair of commercial and residential equipment.</p>
+                    <ul>
+                        <li>Appliance troubleshooting</li>
+                        <li>Commercial equipment repair</li>
+                        <li>Electrical installations</li>
+                        <li>Computer & laptop repair</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>Commercial Cleaning</h3>
+                    <p>Professional steam cleaning for commercial kitchens and equipment.</p>
+                    <ul>
+                        <li>Commercial oven cleaning</li>
+                        <li>Kitchen equipment sanitization</li>
+                        <li>Grills & cooking surfaces</li>
+                        <li>Refrigeration units</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3>Handyman Services</h3>
+                    <p>Quality residential repairs and improvements you can count on.</p>
+                    <ul>
+                        <li>Electrical outlets & fixtures</li>
+                        <li>Door & window repairs</li>
+                        <li>Shelving & storage solutions</li>
+                        <li>General home repairs</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3>Custom Projects</h3>
+                    <p>Have a unique problem? Let's find a solution together.</p>
+                    <ul>
+                        <li>Custom fabrication</li>
+                        <li>Project consulting</li>
+                        <li>Problem diagnosis</li>
+                        <li>Solution implementation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <div>
+                <h2>Why <span>Same Solutions?</span></h2>
+                <p>With 15+ years in the automotive industry at GM and other major manufacturers, I bring professional engineering expertise to every job — big or small.</p>
+                <p>My background in high-voltage diagnostics, battery controls calibration, and vehicle systems gives me a unique ability to diagnose and solve complex problems that others can't.</p>
+                <p>But I also believe in rolling up my sleeves. Whether it's an oil change, a commercial oven that needs deep cleaning, or a laptop that won't cooperate — I approach every job with the same attention to detail and commitment to getting it done right.</p>
+                <div class="credentials">
+                    <div class="credential">
+                        <div class="credential-icon">15+</div>
+                        <div>
+                            <h4>Years Experience</h4>
+                            <p>Automotive engineering & hands-on repair</p>
+                        </div>
+                    </div>
+                    <div class="credential">
+                        <div class="credential-icon">⚡</div>
+                        <div>
+                            <h4>HV Certified</h4>
+                            <p>High-voltage systems specialist</p>
+                        </div>
+                    </div>
+                    <div class="credential">
+                        <div class="credential-icon">🎯</div>
+                        <div>
+                            <h4>Problem Solver</h4>
+                            <p>Engineering mindset, practical solutions</p>
+                        </div>
+                    </div>
+                    <div class="credential">
+                        <div class="credential-icon">🤝</div>
+                        <div>
+                            <h4>Local & Reliable</h4>
+                            <p>Commerce, MI based business</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <!-- Placeholder for image or additional content -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Gallery -->
+    <section id="gallery" class="gallery">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Our Work</h2>
+                <div class="accent-line"></div>
+                <p>Quality work, every time. Here are some recent projects.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder" style="background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;min-height:200px;">
+                        <div style="font-size:3rem;margin-bottom:1rem;">🔧</div>
+                        <div style="font-weight:600;color:#FFB612;">Automotive</div>
+                        <div style="font-size:0.85rem;color:#aaa;">Oil changes, diagnostics, repairs</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder" style="background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;min-height:200px;">
+                        <div style="font-size:3rem;margin-bottom:1rem;">✨</div>
+                        <div style="font-weight:600;color:#FFB612;">Commercial Cleaning</div>
+                        <div style="font-size:0.85rem;color:#aaa;">Steam cleaning, sanitation</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder" style="background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;min-height:200px;">
+                        <div style="font-size:3rem;margin-bottom:1rem;">🏠</div>
+                        <div style="font-weight:600;color:#FFB612;">Home Repairs</div>
+                        <div style="font-size:0.85rem;color:#aaa;">Electrical, handyman, insulation</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder" style="background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;min-height:200px;">
+                        <div style="font-size:3rem;margin-bottom:1rem;">💻</div>
+                        <div style="font-weight:600;color:#FFB612;">Tech Repair</div>
+                        <div style="font-size:0.85rem;color:#aaa;">Laptops, equipment, diagnostics</div>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align:center;margin-top:2rem;color:#666;font-size:0.9rem;">📷 Photos coming soon! Check back for before & after shots of our projects.</p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <div class="accent-line"></div>
+                <p>Ready to solve your problem? Give us a call or send an email.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg width="20" height="20" fill="#FFB612" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <a href="tel:2485685861">(248) 568-5861</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg width="20" height="20" fill="#FFB612" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:sam@samesolutionsllc.com">sam@samesolutionsllc.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg width="20" height="20" fill="#FFB612" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        </div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Commerce Township, MI 48382</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-area">
+                    <h3>Service Area</h3>
+                    <p>Based in Commerce Township, serving Oakland County and surrounding areas.</p>
+                    <div class="area-tags">
+                        <span class="area-tag">Commerce</span>
+                        <span class="area-tag">Wixom</span>
+                        <span class="area-tag">Walled Lake</span>
+                        <span class="area-tag">Novi</span>
+                        <span class="area-tag">West Bloomfield</span>
+                        <span class="area-tag">Milford</span>
+                        <span class="area-tag">Farmington Hills</span>
+                        <span class="area-tag">Dearborn</span>
+                    </div>
+                    <p style="margin-top: 1.5rem; font-size: 0.95rem; color: #888;">
+                        <em>Travel available for larger projects — just ask!</em>
+                    </p>
+                </div>
+                <div class="booking-form">
+                    <h3>📅 Request a Quote</h3>
+                    <form id="booking-form" onsubmit="submitBooking(event)">
+                        <div class="form-group">
+                            <label>Your Name *</label>
+                            <input type="text" id="book-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="book-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="book-email">
+                        </div>
+                        <div class="form-group">
+                            <label>Service Type *</label>
+                            <select id="book-service" required>
+                                <option value="">Select a service...</option>
+                                <option value="automotive">Automotive Service</option>
+                                <option value="cleaning">Commercial Cleaning</option>
+                                <option value="handyman">Handyman / Home Repair</option>
+                                <option value="electrical">Electrical Work</option>
+                                <option value="tech">Tech / Equipment Repair</option>
+                                <option value="consulting">Technical Consulting</option>
+                                <option value="other">Other / Not Sure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Describe Your Project *</label>
+                            <textarea id="book-details" required placeholder="Tell us what you need help with..."></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">📩 Send Request</button>
+                        <p class="form-note">We'll get back to you within 24 hours!</p>
+                    </form>
+                    <div id="booking-success" style="display:none;text-align:center;padding:2rem;">
+                        <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+                        <h4 style="color:#28a745;margin-bottom:0.5rem;">Request Sent!</h4>
+                        <p>Thanks! We'll be in touch soon.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="data:image/png;base64,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" alt="Same Solutions Logo" style="width: 40px; height: 50px;">
+                <span class="logo-text">SAME <span>SOLUTIONS</span> LLC</span>
+            </div>
+            <p class="footer-tagline">Same quality, every time — <span>we get it done right.</span></p>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Same Solutions LLC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function submitBooking(event) {
+            event.preventDefault();
+            const form = document.getElementById('booking-form');
+            const success = document.getElementById('booking-success');
+            
+            // Get form data
+            const name = document.getElementById('book-name').value;
+            const phone = document.getElementById('book-phone').value;
+            const email = document.getElementById('book-email').value;
+            const service = document.getElementById('book-service').value;
+            const details = document.getElementById('book-details').value;
+            
+            // Create mailto link (simple solution without backend)
+            const subject = encodeURIComponent(`Quote Request: ${service} - ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nService: ${service}\n\nProject Details:\n${details}`);
+            
+            // Open email client
+            window.location.href = `mailto:sam@samesolutionsllc.com?subject=${subject}&body=${body}`;
+            
+            // Show success message
+            form.style.display = 'none';
+            success.style.display = 'block';
+        }
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn')?.addEventListener('click', function() {
+            const navUl = document.querySelector('nav ul');
+            navUl.classList.toggle('active');
+            this.textContent = navUl.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('nav ul a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('nav ul').classList.remove('active');
+                document.querySelector('.mobile-menu-btn').textContent = '☰';
+            });
+        });
+    </script>
+</body>
+</html>

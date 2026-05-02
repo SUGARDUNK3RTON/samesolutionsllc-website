@@ -31,7 +31,7 @@
 Priorities below are ordered. Substrate-managed entities (equipment, customer jobs) link out to their dossiers; quote and billing detail lives in /manage.
 
 1. **Pirates/Phillies 3D print for Dad** — plan and reference shipped 2026-05-01, filament ordered, awaiting Tue 5/5 - Wed 5/6 arrival to begin print sprint. See substrate `personal/pirates-phillies-3d-print-2026-05/`.
-2. **Recover original landing page** — search local for `samesolutionsllc-v115.zip` (likely in Downloads or OneDrive). Backup recovery: open the March 10, 2026 Claude chat "Separating dad's website from main codebase" (URL `https://claude.ai/chat/2c03c29f-37a9-4c81-af4e-0e353007e1c6`) and re-download the zip from message history. Once recovered, drop the root `index.html` from the zip into the repo as `index-original.html` for reference and tell Claude Code to merge desired design elements into the current `index.html`.
+2. **Landing page v3 merge** — v115 original archived at `archive/landing-page-v115-original.html` 2026-05-01; v3 shipped same day with hybrid 7-service list, structured contact cards, engineer-credential framing, and non-functional booking form placeholder. Booking form backend and work gallery deferred to v4.
 3. **Janice Fisk evaluation** — 200 Cardinal St, Janet Tessman's neighbor, bigger job
 4. **Collect Talmid ~$813** — bring up at next interaction (see /manage Billing)
 5. **Invoice Haim SS-Q003 → SS-012** — completed work, not yet invoiced (see /manage Billing)

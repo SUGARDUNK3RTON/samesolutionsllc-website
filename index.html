@@ -1,375 +1,527 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Same Solutions LLC - Handyman, electrical, plumbing, IT support, and technical services in Commerce Township, MI. Same Solutions for Different Problems.">
-    <meta name="theme-color" content="#101820">
-    <title>Same Solutions LLC — Handyman &amp; Technical Services</title>
-    <link rel="apple-touch-icon" href="manage/icon-192.png">
-    <link rel="icon" href="manage/icon-192.png">
-    <style>
-        :root {
-            --black: #101820;
-            --gold: #FFB612;
-            --white: #FFFFFF;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Same Solutions LLC — Proposed v3 Page (Preview)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --black: #101820;
+  --gold: #FFB612;
+  --gold-soft: #FFCB45;
+  --bg: #fafaf7;
+  --card: #ffffff;
+  --line: #e8e6e0;
+  --text: #1c1c1c;
+  --muted: #666;
+}
+body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: var(--text); line-height: 1.6; background: var(--bg); }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ===== HEADER ===== */
+header {
+  background: var(--black);
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid var(--gold);
+}
+header img { height: 44px; }
+nav { display: flex; gap: 1.75rem; align-items: center; }
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+nav a:hover { color: var(--gold); }
+nav a.btn-portal {
+  background: var(--gold);
+  color: var(--black);
+  padding: 0.55rem 1.1rem;
+  border-radius: 3px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+nav a.btn-portal:hover { background: var(--gold-soft); color: var(--black); }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--black);
-            color: var(--white);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
+/* ===== HERO ===== */
+.hero {
+  background: var(--black);
+  color: #fff;
+  padding: 5rem 2rem 6rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255,182,18,0.08), transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255,182,18,0.06), transparent 50%);
+  pointer-events: none;
+}
+.hero-content { position: relative; max-width: 900px; margin: 0 auto; }
+.hero .eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.hero h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--gold);
+}
+.hero p {
+  font-size: 1.15rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.85;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn {
+  padding: 0.95rem 1.8rem;
+  border-radius: 3px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-gold {
+  background: var(--gold);
+  color: var(--black);
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255,182,18,0.3); }
+.btn-outline {
+  border: 2px solid var(--gold);
+  color: var(--gold);
+}
+.btn-outline:hover { background: var(--gold); color: var(--black); transform: translateY(-2px); }
 
-        a { color: var(--gold); text-decoration: none; }
-        a:hover { text-decoration: underline; }
+/* ===== SECTIONS ===== */
+section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+section > h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+section .subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  font-size: 1.05rem;
+}
 
-        /* Header */
-        header {
-            background: var(--black);
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--gold);
-        }
+/* ===== SERVICES ===== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.service-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 2rem 1.75rem;
+  border-radius: 6px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  position: relative;
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(16,24,32,0.08);
+  border-color: var(--gold);
+}
+.service-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,182,18,0.12);
+  border-radius: 8px;
+  padding: 10px;
+}
+.service-icon svg { width: 100%; height: 100%; }
+.service-card h3 {
+  margin-bottom: 0.6rem;
+  font-size: 1.2rem;
+  color: var(--black);
+  font-weight: 700;
+}
+.service-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+/* ===== ABOUT ===== */
+.about {
+  background: var(--black);
+  color: #fff;
+  max-width: none;
+  margin: 0;
+  padding: 5rem 2rem;
+}
+.about-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.about h2 { color: #fff; }
+.about .section-eyebrow { color: var(--gold); }
+.about p { font-size: 1.1rem; max-width: 720px; margin: 0 auto 1.25rem; opacity: 0.9; }
+.credential-line {
+  display: inline-block;
+  background: rgba(255,182,18,0.15);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
 
-        .logo-area img {
-            width: auto;
-            height: 48px;
-            border-radius: 8px;
-        }
+/* ===== CONTACT ===== */
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+}
+.contact-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: border-color 0.2s;
+}
+.contact-card:hover { border-color: var(--gold); }
+.contact-icon {
+  background: var(--black);
+  border-radius: 6px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.contact-icon svg { width: 22px; height: 22px; }
+.contact-info h4 {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+.contact-info a, .contact-info p {
+  color: var(--black);
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.contact-info a:hover { color: var(--gold); }
 
-        .logo-area h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
+.service-area {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+}
+.service-area h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--black); }
+.service-area p { color: var(--muted); font-size: 0.95rem; }
 
-        .logo-area h1 span {
-            color: var(--gold);
-        }
+/* ===== BOOKING FORM (non-functional) ===== */
+.booking-form {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: 6px;
+  padding: 2.5rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.booking-form h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+  color: var(--black);
+  text-align: center;
+}
+.booking-form .form-subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background: var(--black);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: inherit;
+}
+.form-submit:hover { background: var(--gold); color: var(--black); }
 
-        header nav a {
-            margin-left: 1.5rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
+/* ===== FOOTER ===== */
+footer {
+  background: var(--black);
+  color: #ccc;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 3px solid var(--gold);
+}
+footer p { margin-bottom: 0.5rem; }
+footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
 
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 5rem 2rem 4rem;
-        }
-
-        .hero h2 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .hero h2 span {
-            color: var(--gold);
-        }
-
-        .hero .tagline {
-            font-size: 1.3rem;
-            color: #ccc;
-            margin-bottom: 2.5rem;
-            font-style: italic;
-        }
-
-        .hero .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.85rem 2rem;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: opacity 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover { opacity: 0.9; text-decoration: none; }
-
-        .btn-gold {
-            background: var(--gold);
-            color: var(--black);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
-        }
-
-        /* Services */
-        .services {
-            padding: 4rem 2rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .services h3 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .services h3 span { color: var(--gold); }
-
-        .services .subtitle {
-            text-align: center;
-            color: #aaa;
-            margin-bottom: 3rem;
-            font-size: 1.05rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .service-card {
-            background: #1a2230;
-            border: 1px solid #2a3444;
-            border-radius: 10px;
-            padding: 2rem;
-            transition: border-color 0.2s;
-        }
-
-        .service-card:hover {
-            border-color: var(--gold);
-        }
-
-        .service-card .icon {
-            font-size: 2rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .service-card h4 {
-            font-size: 1.15rem;
-            margin-bottom: 0.5rem;
-            color: var(--gold);
-        }
-
-        .service-card p {
-            color: #bbb;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* About */
-        .about {
-            padding: 4rem 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .about h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .about h3 span { color: var(--gold); }
-
-        .about p {
-            color: #bbb;
-            font-size: 1.05rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Contact */
-        .contact {
-            padding: 4rem 2rem;
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .contact h3 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .contact h3 span { color: var(--gold); }
-
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .contact-item {
-            background: #1a2230;
-            border-radius: 10px;
-            padding: 1.5rem;
-            border: 1px solid #2a3444;
-        }
-
-        .contact-item .label {
-            font-size: 0.85rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-item .value {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 2px solid var(--gold);
-            text-align: center;
-            padding: 2rem;
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        footer .portal-link {
-            display: inline-block;
-            margin-top: 0.75rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            header nav a { margin-left: 0; margin: 0 0.75rem; }
-
-            .hero h2 { font-size: 2rem; }
-            .hero .tagline { font-size: 1.1rem; }
-            .hero { padding: 3rem 1.5rem 2.5rem; }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-info {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .hero h2 { font-size: 1.2rem; }
+  section > h2 { font-size: 2rem; }
+  .form-grid { grid-template-columns: 1fr; }
+  nav { gap: 0.75rem; }
+  nav a:not(.btn-portal) { display: none; }
+}
+</style>
 </head>
 <body>
 
 <header>
-    <div class="logo-area">
-        <img src="same-solutions-logo.svg" alt="Same Solutions LLC logo">
-        <h1>Same <span>Solutions</span> LLC</h1>
-    </div>
-    <nav>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="/manage" class="btn btn-gold" style="margin-left: 1rem; padding: 0.5rem 1.2rem; font-size: 0.9rem;">Customer Portal</a>
-    </nav>
+<img src="https://samesolutionsllc.com/same-solutions-logo.svg" alt="Same Solutions LLC" />
+<nav>
+<a href="#services">Services</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+<a href="https://www.samesolutionsllc.com/manage" class="btn-portal">Customer Portal</a>
+</nav>
 </header>
 
 <section class="hero">
-    <h2>Same <span>Solutions</span> for<br>Different Problems</h2>
-    <p class="tagline">Handyman &amp; technical services in Commerce Township, MI</p>
-    <div class="cta-buttons">
-        <a href="tel:+12485685861" class="btn btn-gold">Call (248) 568-5861</a>
-        <a href="mailto:sam@samesolutionsllc.com" class="btn btn-outline">Email Us</a>
-    </div>
+<div class="hero-content">
+<div class="eyebrow">Commerce Township, Michigan</div>
+<h1>Same Solutions LLC</h1>
+<h2>Same Solutions for Different Problems</h2>
+<p>Engineering-grade technical and handyman services for homeowners and small businesses across Southeast Michigan.</p>
+<div class="hero-ctas">
+<a href="tel:+12485685861" class="btn btn-gold">Call (248) 568-5861</a>
+<a href="mailto:sam@samesolutionsllc.com" class="btn btn-outline">Email Us</a>
+</div>
+</div>
 </section>
 
-<section class="services" id="services">
-    <h3>Our <span>Services</span></h3>
-    <p class="subtitle">Residential and commercial solutions across Southeast Michigan</p>
-    <div class="services-grid">
-        <div class="service-card">
-            <div class="icon">&#9889;</div>
-            <h4>Electrical</h4>
-            <p>Outlets, switches, lighting, panel work, ceiling fans, and troubleshooting. Safe, code-compliant electrical service.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">&#128167;</div>
-            <h4>Plumbing</h4>
-            <p>Faucet repair, fixture installation, leak fixes, garbage disposals, and general plumbing maintenance.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">&#128295;</div>
-            <h4>Handyman</h4>
-            <p>Drywall, painting, trim, shelving, furniture assembly, door and window repairs, and general maintenance.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">&#128187;</div>
-            <h4>IT &amp; Technical Support</h4>
-            <p>Network setup, computer repair, smart home installation, security cameras, and tech troubleshooting.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">&#10024;</div>
-            <h4>Cleaning</h4>
-            <p>Move-in/move-out deep cleaning, property turnovers, and regular maintenance cleaning for residential and rental properties.</p>
-        </div>
-        <div class="service-card">
-            <div class="icon">&#128202;</div>
-            <h4>Consulting</h4>
-            <p>Project planning, cost estimates, property assessments, and technical advisory for homeowners and landlords.</p>
-        </div>
-    </div>
+<section id="services">
+<div class="section-eyebrow">What We Do</div>
+<h2>Our Services</h2>
+<p class="subtitle">Residential and commercial solutions across Southeast Michigan</p>
+<div class="services-grid">
+
+<div class="service-card">
+<div class="service-icon"><svg fill="#FFB612" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 1 2.236V20H8v2h8v-2h-2v-6.764A3 3 0 0 0 15 11V5a3 3 0 0 0-3-3zm-1 3a1 1 0 0 1 2 0v6a1 1 0 0 1-2 0V5z"/></svg></div>
+<h3>Technical Consulting</h3>
+<p>Engineering analysis, project planning, and problem-solving for complex technical challenges.</p>
+</div>
+
+<div class="service-card">
+<div class="service-icon"><svg fill="#FFB612" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></div>
+<h3>Automotive Service</h3>
+<p>Professional automotive maintenance and repair from an industry expert with 15+ years at major automakers.</p>
+</div>
+
+<div class="service-card">
+<div class="service-icon"><svg fill="#FFB612" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8H7z"/></svg></div>
+<h3>Electrical</h3>
+<p>Outlets, switches, lighting, panel work, ceiling fans, and troubleshooting. Safe, code-compliant electrical service.</p>
+</div>
+
+<div class="service-card">
+<div class="service-icon"><svg fill="#FFB612" viewBox="0 0 24 24"><path d="M12 2c-5 5-7 8-7 12a7 7 0 0 0 14 0c0-4-2-7-7-12zm0 17a5 5 0 0 1-5-5c0-1.43.61-2.97 1.7-4.7L12 5.5l3.3 3.8c1.09 1.73 1.7 3.27 1.7 4.7a5 5 0 0 1-5 5z"/></svg></div>
+<h3>Plumbing</h3>
+<p>Faucet repair, fixture installation, leak fixes, garbage disposals, and general plumbing maintenance.</p>
+</div>
+
+<div class="service-card">
+<div class="service-icon"><svg fill="#FFB612" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65A.488.488 0 0 0 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg></div>
+<h3>Equipment Repair</h3>
+<p>Diagnosis and repair of commercial and residential equipment, from kitchen appliances to outdoor power equipment.</p>
+</div>
+
+<div class="service-card">
+<div class="service-icon"><svg fill="#FFB612" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg></div>
+<h3>Handyman Services</h3>
+<p>Drywall, painting, trim, shelving, furniture assembly, door and window repairs, and general maintenance.</p>
+</div>
+
+<div class="service-card">
+<div class="service-icon"><svg fill="#FFB612" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg></div>
+<h3>Cleaning Services</h3>
+<p>Commercial steam cleaning for kitchens and equipment, plus move-in/out deep cleaning and property turnovers.</p>
+</div>
+
+</div>
 </section>
 
-<section class="about" id="about">
-    <h3>About <span>Us</span></h3>
-    <p>Same Solutions LLC is a full-service handyman and technical services company based in Commerce Township, Michigan. We provide reliable, high-quality work for homeowners, landlords, and small businesses across Southeast Michigan.</p>
-    <p>Whether it's an electrical issue, a plumbing fix, IT setup, or a full property turnover, we bring the same professional solutions to every job — no matter how different the problem.</p>
+<section id="about" class="about">
+<div class="about-inner">
+<div class="section-eyebrow">Who We Are</div>
+<h2>About Us</h2>
+<p>Same Solutions LLC is a full-service technical and handyman company based in Commerce Township, Michigan, owned by Sam Foran — bringing engineering rigor to homeowner and small-business problems across Southeast Michigan.</p>
+<p>Whether it's diagnosing why your equipment won't run, fixing an electrical issue, or handling a property turnover, we apply professional methodology to every job — no matter how different the problem.</p>
+<div class="credential-line">15+ Years Engineering at Major Automakers</div>
+</div>
 </section>
 
-<section class="contact" id="contact">
-    <h3>Get in <span>Touch</span></h3>
-    <div class="contact-info">
-        <div class="contact-item">
-            <div class="label">Phone</div>
-            <div class="value"><a href="tel:+12485685861">(248) 568-5861</a></div>
-        </div>
-        <div class="contact-item">
-            <div class="label">Email</div>
-            <div class="value"><a href="mailto:sam@samesolutionsllc.com">sam@samesolutionsllc.com</a></div>
-        </div>
-        <div class="contact-item">
-            <div class="label">Owner</div>
-            <div class="value">Samuel Foran</div>
-        </div>
-        <div class="contact-item">
-            <div class="label">Location</div>
-            <div class="value">Commerce Township, MI 48382</div>
-        </div>
-    </div>
+<section id="contact">
+<div class="section-eyebrow">Get In Touch</div>
+<h2>Contact Us</h2>
+<p class="subtitle">Three ways to reach us — choose what works for you</p>
+
+<div class="contact-cards">
+<div class="contact-card">
+<div class="contact-icon"><svg width="20" height="20" fill="#FFB612" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+<div class="contact-info"><h4>Phone</h4><a href="tel:+12485685861">(248) 568-5861</a></div>
+</div>
+
+<div class="contact-card">
+<div class="contact-icon"><svg width="20" height="20" fill="#FFB612" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+<div class="contact-info"><h4>Email</h4><a href="mailto:sam@samesolutionsllc.com">sam@samesolutionsllc.com</a></div>
+</div>
+
+<div class="contact-card">
+<div class="contact-icon"><svg width="20" height="20" fill="#FFB612" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+<div class="contact-info"><h4>Location</h4><p>Commerce Township, MI 48382</p></div>
+</div>
+</div>
+
+<div class="service-area">
+<h3>Service Area</h3>
+<p>Based in Commerce Township, serving Oakland County and surrounding areas in Southeast Michigan.</p>
+</div>
+
+<div class="booking-form">
+<h3>Request a Quote</h3>
+<p class="form-subtitle">Tell us about your project — we will follow up by phone or email.</p>
+<div class="form-grid">
+<div class="form-group">
+<label for="name">Name</label>
+<input type="text" id="name" name="name" autocomplete="name">
+</div>
+<div class="form-group">
+<label for="phone">Phone</label>
+<input type="tel" id="phone" name="phone" autocomplete="tel">
+</div>
+<div class="form-group full">
+<label for="email">Email</label>
+<input type="email" id="email" name="email" autocomplete="email">
+</div>
+<div class="form-group full">
+<label for="service">Service Needed</label>
+<select id="service" name="service">
+<option value="">Select a service</option>
+<option>Technical Consulting</option>
+<option>Automotive Service</option>
+<option>Electrical</option>
+<option>Plumbing</option>
+<option>Equipment Repair</option>
+<option>Handyman Services</option>
+<option>Cleaning Services</option>
+<option>Other / Multiple</option>
+</select>
+</div>
+<div class="form-group full">
+<label for="details">Project Details</label>
+<textarea id="details" name="details" placeholder="Brief description of what you need..."></textarea>
+</div>
+</div>
+<button type="button" class="form-submit">Send Request</button>
+</div>
+
 </section>
 
 <footer>
-    <p>&copy; 2025 Same Solutions LLC. All rights reserved.</p>
-    <a href="/manage" class="portal-link">Customer Portal &rarr;</a>
+<p>© 2026 Same Solutions LLC. All rights reserved.</p>
+<p><a href="https://www.samesolutionsllc.com/manage">Customer Portal →</a></p>
 </footer>
 
 </body>
