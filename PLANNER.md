@@ -42,7 +42,7 @@ Priorities below are ordered. Substrate-managed entities (equipment, customer jo
 10. **Lychee CI bug fix** — `--exclude-mail` → `--include-mail` v0.23
 11. **Aceves-lake property record verification** — confirm Union St Hubbard Lake property in /manage
 12. **Tessman SS-Q009 follow-up** — see /manage Billing, confirm color/schedule
-13. **Aceves fence quote corrections** — see substrate `customer-jobs/aceves-home-fence-2026-04/` (diagram orientation, scope 154.5 LF not 210)
+13. **Aceves fence quote corrections** — overview shipped 2026-05-01, awaiting Jon's lane decisions on scope/material/gate before tightening final quote in /manage. See substrate `customer-jobs/aceves-home-fence-2026-04/`.
 14. **Aceves deck SS-Q008 follow-up** — see substrate `customer-jobs/aceves-home-deck-2026-04/` and /manage SS-Q008; Jon decision past due [?]
 15. **Letvin appliance model numbers → KB** — see /manage Knowledge Base → Appliances
 16. **Tankless water heater entry → KB** — replacing 1984 State CV 40 at sam-home, see /manage KB

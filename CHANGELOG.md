@@ -4,6 +4,10 @@
 
 Format: each entry is dated, names the milestone, and gives a one-sentence summary plus links to the relevant artifacts.
 
+## 2026-05-01 — First customer-jobs HTML overview ships
+
+Aceves fence replacement overview deployed to substrate at customer-jobs/aceves-home-fence-2026-04/overview.html. Decision-support format covering scope/material/gate decisions, with corrected 154.5 LF total and corrected E-W diagram orientation. First test of the customer-jobs HTML guide pattern; template abstraction deferred until a second example exists.
+
 ## 2026-05-01 — Logo v38 ships site-wide
 
 Two interlocking S logo finalized after 38 geometry iterations. Single SVG variant works on both light and dark backgrounds via thin white outer halo. Deployed everywhere: root index.html hero, /manage app icons (192/512), inline base64 embed in /manage for print/PDF, favicon. APP_VERSION bumped v1.7.13 → v1.7.14. SW cache bumped v49 → v50. SW cleanup-filter bug fixed (hardcoded "v44" was deleting active caches on activate; now uses CURRENT_CACHES array).
