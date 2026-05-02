@@ -4,6 +4,10 @@
 
 Format: each entry is dated, names the milestone, and gives a one-sentence summary plus links to the relevant artifacts.
 
+## 2026-05-01 — First personal-project HTML guide ships
+
+Pirates/Phillies 3D print plan and reference deployed to substrate at personal/pirates-phillies-3d-print-2026-05/print-guide.html. Hybrid format covering print plan (project-specific 7-day queue, 24 manual pauses across 16 logos), filament reference (6-brand landscape, brand-mixing risk addressed via PLA+ family discipline), and post-print care (reusable across future 3D print projects). First test of the personal-project HTML guide pattern. Filament order placed Sat 5/2; print sprint begins Wed 5/6 once filament arrives.
+
 ## 2026-05-01 — First customer-jobs HTML overview ships
 
 Aceves fence replacement overview deployed to substrate at customer-jobs/aceves-home-fence-2026-04/overview.html. Decision-support format covering scope/material/gate decisions, with corrected 154.5 LF total and corrected E-W diagram orientation. First test of the customer-jobs HTML guide pattern; template abstraction deferred until a second example exists.
