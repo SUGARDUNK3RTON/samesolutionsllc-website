@@ -4715,10 +4715,10 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.14';
+        const APP_VERSION = 'v1.7.15';
         
         // Data schema version - increment when structure changes
-        const DATA_VERSION = 15;
+        const DATA_VERSION = 16;
         
         let data = { customers: {}, jobs: [], invoices: [], expenses: [], quotes: [], mileage: [], _version: DATA_VERSION };
 
@@ -6477,6 +6477,23 @@ Same Solutions LLC
                         recurring: 'weekly',
                         category: 'personal'
                     });
+                }
+            }
+
+            // v15 -> v16: Add Jason McCabe customer (research-stage, no portal login). Property mccabe-home lives in const PROPERTIES.
+            if (fromVersion < 16) {
+                if (!data.customers) data.customers = {};
+                if (!data.customers['jason-mccabe']) {
+                    data.customers['jason-mccabe'] = {
+                        id: 'jason-mccabe',
+                        name: 'Jason McCabe',
+                        phone: '',
+                        email: '',
+                        address: '8268 Fox Bay Dr, White Lake, MI 48386',
+                        type: 'research',
+                        notes: 'Personal connection — Sam visited 2026-05-02 to help understand water softener and filtration setup. Research-stage customer. No portal login. May or may not become a paying customer.',
+                        created: '2026-05-02'
+                    };
                 }
             }
 
@@ -14191,6 +14208,28 @@ Same Solutions LLC
                 nextSteps: ['Confirm orientation', 'Document HVAC make/model', 'Document water heater', 'Reference photos'],
                 verified: ['sqFt', 'beds', 'baths', 'yearBuilt', 'address', 'builder', 'builderPlan', 'parcel', 'construction', 'rooms', 'layout'],
                 unverified: ['lot dimensions', 'orientation', 'HVAC details', 'water heater']
+            },
+
+            'mccabe-home': {
+                id: 'mccabe-home', owner: 'jason-mccabe', ownerId: 'jason-mccabe',
+                address: '8268 Fox Bay Dr', city: 'White Lake', state: 'MI', zip: '48386',
+                county: 'Oakland', township: 'White Lake Charter Township', subdivision: 'Fox Bay',
+                type: 'residential', style: 'Colonial', stories: 2,
+                sqFt: 1759, sqFtSource: 'MLS listing 2026',
+                beds: 4, baths: 2, yearBuilt: 1966,
+                parcel: 'TBD-verify-OaklandGIS', // verify at oakgov.com/gis
+                gisVerified: false,
+                construction: { exterior: 'Verify with Jason', plumbing: 'Verify with Jason — assume copper or galvanized given 1966 build', insulation: 'Verify with Jason', foundation: 'Verify with Jason — likely full basement given era and price point', roof: 'Verify with Jason' },
+                systems: { water: 'Private well (assume — White Lake Twp Fox Bay area is typically NOT on municipal water)', sewer: 'Verify — could be septic or municipal depending on connection year', heat: 'Verify with Jason', cool: 'Verify with Jason', electrical: 'Verify with Jason', waterHeater: 'Verify with Jason', waterSoftener: 'Yes — primary research focus this visit', waterFiltration: 'Yes — primary research focus this visit' },
+                features: ['Fox Bay subdivision — Alan Lake beach/park privileges (per MLS history)', 'Updated kitchen (2022): KraftMaid maple cabinetry, quartz countertops, farmers sink, motion-detector faucet, black stainless appliances', '4 bed / 2 bath colonial floor plan', '1,759 sf (verify with Jason — could be different finished basement count)'],
+                modelProgress: {
+                    lotVerified: false, orientationSet: false, floorPlanDrafted: false,
+                    roomsMeasured: false, systemsDocumented: false, equipmentLogged: false, photosLinked: false
+                },
+                verified: ['address', 'city', 'state', 'zip', 'county', 'township', 'subdivision', 'yearBuilt', 'style', 'sqFt', 'beds', 'baths'],
+                unverified: ['parcel', 'lotDimensions', 'orientation', 'construction details', 'plumbing material', 'water heater make/model/year', 'softener make/model/year', 'filtration make/model/year', 'septic vs municipal sewer', 'finished basement', 'HVAC make/model/year'],
+                nextSteps: ['On-site visit — get Jason walkthrough on water systems', 'Photograph and document water softener (brand, model, age, salt type)', 'Photograph and document filtration system (RO? whole-house? sediment?)', 'Locate well head and pressure tank', 'Get water heater make/model/year', 'Confirm well vs municipal water', 'Confirm septic vs sewer', 'Verify Oakland County parcel ID at oakgov.com/gis', 'Photograph mechanical/utility room layout for diagram refinement'],
+                notes: 'Jason McCabe property. First on-site research visit by Sam. Primary purpose: help Jason understand his water softener and filtration setup. Secondary: capture house data for future reference. Fox Bay subdivision is an established lakefront-adjacent neighborhood (Alan Lake) built primarily mid-1960s, typically on private well water with septic or older municipal connections.'
             }
 
         };
