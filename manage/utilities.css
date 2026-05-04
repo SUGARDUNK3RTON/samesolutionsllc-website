@@ -1,0 +1,86 @@
+/* utilities.css — single source of truth for utility classes
+ * Loaded by manage/index.html via <link rel="stylesheet" href="utilities.css">
+ * Brand color tokens (--black, --gold, --gray, --green, --red) are defined
+ * in :root inside manage/index.html and inherit here automatically.
+ */
+
+/* ===== LAYOUT ===== */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-1 { gap: 0.5rem; }
+.gap-2 { gap: 1rem; }
+.gap-3 { gap: 1.5rem; }
+
+/* Composed row primitives — replace common flex patterns */
+.row { display: flex; gap: 0.5rem; }
+.row-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.row-split { display: flex; justify-content: space-between; }
+.row-between { display: flex; justify-content: space-between; align-items: center; }
+.row-between-top { display: flex; justify-content: space-between; align-items: start; }
+.col { display: flex; flex-direction: column; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+
+/* ===== SPACING ===== */
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.m-0 { margin: 0; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+
+/* ===== TYPOGRAPHY ===== */
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+.text-lg { font-size: 1.125rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-xl { font-size: 1.25rem; }
+.text-xs-muted { font-size: 0.75rem; color: #64748b; }
+.text-sm-muted { font-size: 0.8rem; color: #64748b; }
+.text-body-muted { font-size: 0.85rem; color: #64748b; }
+.text-xxs-dim { font-size: 0.65rem; opacity: 0.8; }
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: #64748b; }
+.text-success { color: var(--green); }
+.text-danger { color: var(--red); }
+.text-gold { color: var(--gold); }
+
+/* ===== BACKGROUND ===== */
+.bg-light { background: var(--gray-light); }
+.bg-white { background: white; }
+
+/* ===== BORDER & RADIUS ===== */
+.rounded { border-radius: 8px; }
+.rounded-sm { border-radius: 4px; }
+.shadow-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.border { border: 1px solid var(--gray); }
+.border-gold { border-left: 4px solid var(--gold); }
+
+/* ===== SIZING & DISPLAY ===== */
+.w-full { width: 100%; }
+.flex-grow { flex: 1; }
+.hidden { display: none; }
+.overflow-auto { overflow: auto; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ===== INTERACTION ===== */
+.cursor-pointer { cursor: pointer; }
+.no-events { pointer-events: none; }
+.transition { transition: all 0.2s ease; }
+
+/* ===== ALERTS ===== */
+.alert { padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+.alert-info { background: #dbeafe; border-left: 4px solid #3b82f6; color: #1e40af; }
+.alert-success { background: #dcfce7; border-left: 4px solid var(--green); color: #166534; }
+.alert-warning { background: #fef3c7; border-left: 4px solid #f59e0b; color: #92400e; }
+.alert-danger { background: #fee2e2; border-left: 4px solid var(--red); color: #991b1b; }

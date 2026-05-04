@@ -9,6 +9,7 @@
     <meta name="theme-color" content="#101820">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="stylesheet" href="utilities.css">
     <title>Same Solutions LLC - Business Manager</title>
     <!-- App Version: v1.5.2 | 2026-03-12 | SS-Q003 corrected, line item checkboxes for quick totaling, FINAL floor switching -->
     <!-- Firebase SDK - Auth must come before Firestore for auth-based rules -->
@@ -357,62 +358,8 @@
             background: #475569;
         }
         
-        /* Utility Classes for Consistency */
-        .flex { display: flex; }
-        .flex-col { flex-direction: column; }
-        .flex-wrap { flex-wrap: wrap; }
-        .items-center { align-items: center; }
-        .justify-between { justify-content: space-between; }
-        .justify-center { justify-content: center; }
-        .gap-1 { gap: 0.5rem; }
-        .gap-2 { gap: 1rem; }
-        .gap-3 { gap: 1.5rem; }
-        .p-1 { padding: 0.5rem; }
-        .p-2 { padding: 1rem; }
-        .p-3 { padding: 1.5rem; }
-        .m-0 { margin: 0; }
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mt-1 { margin-top: 0.5rem; }
-        .mt-2 { margin-top: 1rem; }
-        .text-sm { font-size: 0.875rem; }
-        .text-xs { font-size: 0.75rem; }
-        .text-lg { font-size: 1.125rem; }
-        .text-2xl { font-size: 1.5rem; }
-        .text-xl { font-size: 1.25rem; }
-        .text-xs-muted { font-size: 0.75rem; color: #64748b; }
-        .text-sm-muted { font-size: 0.8rem; color: #64748b; }
-        .text-body-muted { font-size: 0.85rem; color: #64748b; }
-        .text-xxs-dim { font-size: 0.65rem; opacity: 0.8; }
-        .font-bold { font-weight: 700; }
-        .font-semibold { font-weight: 600; }
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
-        .text-muted { color: #64748b; }
-        .text-success { color: var(--green); }
-        .text-danger { color: var(--red); }
-        .text-gold { color: var(--gold); }
-        .bg-light { background: var(--gray-light); }
-        .bg-white { background: white; }
-        .rounded { border-radius: 8px; }
-        .rounded-sm { border-radius: 4px; }
-        .shadow-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-        .border { border: 1px solid var(--gray); }
-        .border-gold { border-left: 4px solid var(--gold); }
-        .w-full { width: 100%; }
-        .overflow-auto { overflow: auto; }
-        .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .cursor-pointer { cursor: pointer; }
-        .transition { transition: all 0.2s ease; }
-        
-        /* Info/Alert boxes */
-        .alert { padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
-        .alert-info { background: #dbeafe; border-left: 4px solid #3b82f6; color: #1e40af; }
-        .alert-success { background: #dcfce7; border-left: 4px solid var(--green); color: #166534; }
-        .alert-warning { background: #fef3c7; border-left: 4px solid #f59e0b; color: #92400e; }
-        .alert-danger { background: #fee2e2; border-left: 4px solid var(--red); color: #991b1b; }
-        
+        /* Utility classes & alerts moved to utilities.css */
+
         /* Property card improvements */
         .prop-card { background: white; border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem; border: 1px solid var(--gray); transition: all 0.2s; }
         .prop-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
@@ -447,8 +394,8 @@
                 <div class="header-stat-label">Outstanding</div>
                 <div class="header-stat-value" id="header-owed">$0</div>
             </div>
-            <div class="header-stat" style="cursor:pointer;" onclick="syncFromCloud()" title="Click to sync">
-                <div id="sync-indicator" class="sync-indicator sync-local" onclick="showSyncStatus()" style="cursor:pointer;">💾 Local Only</div>
+            <div class="header-stat cursor-pointer" onclick="syncFromCloud()" title="Click to sync">
+                <div id="sync-indicator" class="sync-indicator sync-local cursor-pointer" onclick="showSyncStatus()">💾 Local Only</div>
             </div>
             <div class="header-stat" id="test-mode-indicator" style="display:none;cursor:pointer;background:#8b5cf6;border-radius:6px;padding:0.25rem 0.5rem;" onclick="exitTestMode()">
                 <div style="color:white;font-size:0.75rem;font-weight:600;">🧪 TEST MODE</div>
@@ -479,7 +426,7 @@
                     <div style="font-size:0.7rem;color:#64748b;margin-bottom:0.25rem;">🛠️ Admin Tools</div>
                     <button onclick="exportAllData();toggleUserDropdown();" style="width:100%;padding:0.4rem;background:#0369a1;color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem;margin-bottom:0.25rem;">📤 Export Data</button>
                     <button onclick="document.getElementById('import-file').click();" style="width:100%;padding:0.4rem;background:#059669;color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem;margin-bottom:0.25rem;">📥 Import Data</button>
-                    <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importData(this)">
+                    <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(this)">
                     <button onclick="viewActivityLog();toggleUserDropdown();" style="width:100%;padding:0.4rem;background:#7c3aed;color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.8rem;">📋 Activity Log</button>
                 </div>
                 <div style="padding:0.5rem;">
@@ -505,7 +452,7 @@
     <main id="main-content" role="main">
         <!-- Dashboard -->
         <div id="dashboard" class="page active">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div class="row-between mb-2">
                 <div></div>
                 <button class="btn btn-secondary" onclick="showExportDialog()">📤 Export CSV</button>
             </div>
@@ -522,17 +469,17 @@
                     <h3 style="font-size:0.9rem;color:#92400e;margin:0;">📌 Needs Attention</h3>
                     <span class="text-xxs-dim" id="action-items-date"></span>
                 </div>
-                <div id="action-items-list" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+                <div id="action-items-list" class="row-wrap"></div>
             </div>
             
             <!-- Active Timer -->
             <div class="card" id="timer-card" style="display:none;background:linear-gradient(135deg,#1e3a5f,#0f172a);color:white;">
-                <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="row-between">
                     <div>
                         <div style="font-size:0.8rem;color:#94a3b8;">⏱️ TIMER ACTIVE</div>
                         <div id="timer-job-name" class="font-semibold"></div>
                     </div>
-                    <div style="text-align:right;">
+                    <div class="text-right">
                         <div id="timer-display" style="font-size:2rem;font-weight:700;color:#fbbf24;font-family:monospace;">00:00:00</div>
                         <div style="display:flex;gap:0.5rem;margin-top:0.5rem;">
                             <button class="btn btn-small" onclick="pauseTimer()" id="timer-pause-btn">⏸️ Pause</button>
@@ -573,9 +520,9 @@
             
             <!-- Calendar View -->
             <div class="card">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                <div class="row-between mb-2">
                     <h2>📅 Schedule</h2>
-                    <div style="display:flex;gap:0.5rem;">
+                    <div class="row">
                         <button class="btn btn-small btn-secondary" onclick="prevWeek()">◀</button>
                         <span id="calendar-week" style="font-weight:600;min-width:150px;text-align:center;"></span>
                         <button class="btn btn-small btn-secondary" onclick="nextWeek()">▶</button>
@@ -598,10 +545,10 @@
             <div class="card" style="background:linear-gradient(135deg,#1e293b,#334155);">
                 <h2 style="color:#fbbf24;">🎤 Voice Note</h2>
                 <div style="display:flex;gap:0.5rem;align-items:center;">
-                    <button class="btn btn-primary" id="estimator-voice-record-btn" onclick="toggleEstimatorVoiceRecording()" style="flex:1;">
+                    <button class="btn btn-primary flex-grow" id="estimator-voice-record-btn" onclick="toggleEstimatorVoiceRecording()">
                         <span id="estimator-voice-btn-text">🎙️ Start Recording</span>
                     </button>
-                    <button class="btn btn-secondary" onclick="playLastRecording()" id="estimator-voice-play-btn" style="display:none;">▶️ Play</button>
+                    <button class="btn btn-secondary hidden" onclick="playLastRecording()" id="estimator-voice-play-btn">▶️ Play</button>
                 </div>
                 <div id="estimator-voice-status" style="color:#94a3b8;font-size:0.85rem;margin-top:0.5rem;"></div>
                 <div id="voice-notes-list" style="margin-top:0.75rem;"></div>
@@ -619,8 +566,8 @@
                 <div id="quote-mode-auto">
                     <div class="form-group">
                         <label for="vin-input">Vehicle (VIN or Year Make Model)</label>
-                        <div style="display:flex;gap:0.5rem;">
-                            <input type="text" id="vin-input" placeholder="Enter 17-digit VIN or '2023 Ford Explorer'" style="flex:1;">
+                        <div class="row">
+                            <input type="text" id="vin-input" placeholder="Enter 17-digit VIN or '2023 Ford Explorer'" class="flex-grow">
                             <button class="btn btn-primary" onclick="smartVehicleLookup()" aria-label="Look up vehicle">🔍 Lookup</button>
                             <button class="btn btn-secondary" onclick="openVINScanner()" title="Scan VIN with camera" aria-label="Scan VIN with camera">📷</button>
                         </div>
@@ -633,16 +580,16 @@
                                 <span style="color:#fbbf24;font-weight:600;">📷 VIN Scanner</span>
                                 <button class="btn btn-small btn-secondary" onclick="closeVINScanner()" aria-label="Close VIN scanner">✕ Close</button>
                             </div>
-                            <video id="vin-video" style="width:100%;border-radius:4px;background:#000;" autoplay playsinline></video>
-                            <canvas id="vin-canvas" style="display:none;"></canvas>
+                            <video id="vin-video" class="w-full" style="border-radius:4px;background:#101820;" autoplay playsinline></video>
+                            <canvas id="vin-canvas" class="hidden"></canvas>
                             <div style="margin-top:0.5rem;display:flex;gap:0.5rem;">
-                                <button class="btn btn-primary" onclick="captureVIN()" style="flex:1;" aria-label="Capture VIN image">📸 Capture</button>
+                                <button class="btn btn-primary flex-grow" onclick="captureVIN()" aria-label="Capture VIN image">📸 Capture</button>
                             </div>
                             <div id="vin-scan-result" style="margin-top:0.5rem;color:#94a3b8;font-size:0.85rem;"></div>
                         </div>
                     </div>
                     
-                    <div id="vehicle-info-display" style="display:none;"></div>
+                    <div id="vehicle-info-display" class="hidden"></div>
                     
                     <div class="form-group">
                         <label for="service-type">Service Type</label>
@@ -671,11 +618,11 @@
                         </select>
                     </div>
                     
-                    <div id="auto-quote-builder" style="display:none;"></div>
+                    <div id="auto-quote-builder" class="hidden"></div>
                 </div>
                 
                 <!-- Handyman Quote Builder -->
-                <div id="quote-mode-handyman" style="display:none;">
+                <div id="quote-mode-handyman" class="hidden">
                     <div class="form-group">
                         <label for="handyman-category">Job Category</label>
                         <select id="handyman-category" onchange="loadHandymanJobs()">
@@ -690,12 +637,12 @@
                         </select>
                     </div>
                     
-                    <div id="handyman-jobs-list" style="display:none;"></div>
-                    <div id="handyman-quote-builder" style="display:none;"></div>
+                    <div id="handyman-jobs-list" class="hidden"></div>
+                    <div id="handyman-quote-builder" class="hidden"></div>
                 </div>
                 
                 <!-- Custom Quote -->
-                <div id="quote-mode-custom" style="display:none;">
+                <div id="quote-mode-custom" class="hidden">
                     <div class="form-group">
                         <label for="custom-description">Job Description</label>
                         <textarea id="custom-description" rows="2" placeholder="Describe the work..."></textarea>
@@ -714,14 +661,14 @@
                         <label for="custom-materials">Materials Cost</label>
                         <input type="number" id="custom-materials" step="0.01" value="0">
                     </div>
-                    <button class="btn btn-primary" onclick="buildCustomQuote()" style="width:100%;" aria-label="Calculate custom quote">Calculate Quote</button>
+                    <button class="btn btn-primary w-full" onclick="buildCustomQuote()" aria-label="Calculate custom quote">Calculate Quote</button>
                     <div id="custom-quote-result" class="mt-2"></div>
                 </div>
             </div>
             
             <!-- Quote Output -->
-            <div class="card" id="quote-output-card" style="display:none;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div class="card hidden" id="quote-output-card">
+                <div class="row-between mb-2">
                     <h2>📋 Quote Ready</h2>
                     <div id="weather-badge" style="font-size:0.8rem;padding:0.25rem 0.5rem;background:#e0f2fe;border-radius:4px;"></div>
                 </div>
@@ -750,24 +697,24 @@
 
         <!-- Parts Database -->
         <div id="parts" class="page">
-            <div class="action-bar"><h2>🔧 Parts & Supplies Database</h2><div style="display:flex;gap:0.5rem;"><button class="btn btn-secondary" onclick="showPage('reports')">← Reports</button><button class="btn btn-primary" onclick="openModal('add-part')">➕ Add Part</button></div></div>
+            <div class="action-bar"><h2>🔧 Parts & Supplies Database</h2><div class="row"><button class="btn btn-secondary" onclick="showPage('reports')">← Reports</button><button class="btn btn-primary" onclick="openModal('add-part')">➕ Add Part</button></div></div>
             
             <!-- Live Price Lookup -->
             <div class="card" style="background:linear-gradient(135deg,#1e3a5f,#0f172a);color:white;">
                 <h2 style="color:#fbbf24;">💲 Live Price Lookup</h2>
                 <p style="color:#94a3b8;font-size:0.85rem;margin-bottom:1rem;">Check current prices at major retailers</p>
                 <div class="form-group">
-                    <div style="display:flex;gap:0.5rem;">
+                    <div class="row">
                         <input type="text" id="price-lookup-input" placeholder="Enter part number or name (e.g., M1C-351A)" style="flex:1;background:#334155;border:1px solid #475569;color:white;">
                         <button class="btn btn-primary" onclick="lookupPartPrices()">🔍 Search</button>
                     </div>
                 </div>
-                <div id="price-lookup-results" style="display:none;"></div>
+                <div id="price-lookup-results" class="hidden"></div>
             </div>
             
             <!-- Price History -->
             <div class="card">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                <div class="row-between mb-2">
                     <h2>📈 Price History</h2>
                     <button class="btn btn-small btn-secondary" onclick="showAllPriceHistory()">View All</button>
                 </div>
@@ -808,7 +755,7 @@
         <!-- Customers -->
         <div id="customers" class="page">
             <div class="action-bar"><h2>👥 Customers</h2><button class="btn btn-primary" onclick="openModal('add-customer')">➕ Add Customer</button></div>
-            <div class="card" style="margin-bottom:1rem;">
+            <div class="card mb-2">
                 <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
                     <span style="font-size:0.85rem;color:#64748b;margin-right:0.5rem;">Filter:</span>
                     <button class="btn btn-small filter-btn active" data-filter="all" onclick="filterCustomers('all')">All</button>
@@ -816,7 +763,7 @@
                     <button class="btn btn-small btn-secondary filter-btn" data-filter="friend" onclick="filterCustomers('friend')">👋 Friends</button>
                     <button class="btn btn-small btn-secondary filter-btn" data-filter="household" onclick="filterCustomers('household')">🏠 Household</button>
                     <button class="btn btn-small btn-secondary filter-btn" data-filter="owes" onclick="filterCustomers('owes')">💰 Has Balance</button>
-                    <div style="flex:1;"></div>
+                    <div class="flex-grow"></div>
                     <input type="text" id="customer-search" placeholder="🔍 Search customers..." oninput="filterCustomers(currentCustomerFilter)" style="padding:0.4rem 0.75rem;border:1px solid #ddd;border-radius:4px;font-size:0.85rem;width:200px;">
                 </div>
             </div>
@@ -865,7 +812,7 @@
 
         <!-- Expenses -->
         <div id="expenses" class="page">
-            <div class="action-bar"><h2>💳 Expenses & Receipts</h2><div style="display:flex;gap:0.5rem;"><button class="btn btn-secondary" onclick="openModal('scan-receipt')">📷 Scan Receipt</button><button class="btn btn-primary" onclick="openModal('add-expense')">➕ Add Expense</button></div></div>
+            <div class="action-bar"><h2>💳 Expenses & Receipts</h2><div class="row"><button class="btn btn-secondary" onclick="openModal('scan-receipt')">📷 Scan Receipt</button><button class="btn btn-primary" onclick="openModal('add-expense')">➕ Add Expense</button></div></div>
             <div class="stats-grid">
                 <div class="stat-card"><div class="stat-label">Total Expenses</div><div class="stat-value red" id="stat-expenses">$0</div></div>
                 <div class="stat-card"><div class="stat-label">Reimbursable</div><div class="stat-value" id="stat-reimbursable">$0</div></div>
@@ -893,11 +840,11 @@
             </div>
             
             <!-- Quote Detail View (like invoice) -->
-            <div class="card" id="quote-detail-card" style="display:none;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div class="card hidden" id="quote-detail-card">
+                <div class="row-between mb-2">
                     <h2 id="quote-detail-title">📝 Quote Details</h2>
-                    <div style="display:flex;gap:0.5rem;">
-                        <span id="quote-admin-actions" style="display:none;">
+                    <div class="row">
+                        <span id="quote-admin-actions" class="hidden">
                             <button class="btn btn-secondary btn-small" onclick="editQuote(document.getElementById('quote-detail-card').dataset.quoteId)">✏️ Edit</button>
                             <button class="btn btn-primary btn-small" onclick="convertQuoteToInvoice()">✅ Convert to Invoice</button>
                             <button class="btn btn-secondary btn-small" onclick="revertQuoteStatus(document.getElementById('quote-detail-card').dataset.quoteId)" title="Reset to pending">↩️ Revert Status</button>
@@ -920,7 +867,7 @@
         <div id="reports" class="page">
             <div class="action-bar">
                 <h2>📈 Reports & Analytics</h2>
-                <div style="display:flex;gap:0.5rem;">
+                <div class="row">
                     <button class="btn btn-secondary" onclick="openModal('generate-statement')">📄 Customer Statement</button>
                     <button class="btn btn-primary" onclick="generateTaxReport()">📋 Tax Report</button>
                 </div>
@@ -955,10 +902,10 @@
                 <div id="vehicle-reports-list"></div>
             </div>
 
-            <div class="card" id="vehicle-report-detail" style="display:none;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div class="card hidden" id="vehicle-report-detail">
+                <div class="row-between mb-2">
                     <h2 id="vehicle-report-title">🚗 Vehicle Report</h2>
-                    <div style="display:flex;gap:0.5rem;">
+                    <div class="row">
                         <button class="btn btn-primary btn-small" id="btn-export-vr-pdf" onclick="exportVehicleReportPDF(this.dataset.reportId)">📄 PDF</button>
                         <button class="btn btn-secondary btn-small" onclick="printVehicleReport()">🖨️ Print</button>
                         <button class="btn btn-secondary btn-small" onclick="document.getElementById('vehicle-report-detail').style.display='none'">✕ Close</button>
@@ -972,10 +919,10 @@
                 <div id="handyman-reports-list"></div>
             </div>
 
-            <div class="card" id="handyman-report-detail" style="display:none;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div class="card hidden" id="handyman-report-detail">
+                <div class="row-between mb-2">
                     <h2 id="handyman-report-title">🔧 Job Report</h2>
-                    <div style="display:flex;gap:0.5rem;">
+                    <div class="row">
                         <button class="btn btn-primary btn-small" onclick="exportHandymanReportPDF()">📄 PDF</button>
                         <button class="btn btn-secondary btn-small" onclick="document.getElementById('handyman-report-detail').style.display='none'">✕ Close</button>
                     </div>
@@ -986,7 +933,7 @@
 
         <!-- Mileage -->
         <div id="mileage" class="page">
-            <div class="action-bar"><h2>🚗 Mileage Tracker</h2><div style="display:flex;gap:0.5rem;"><button class="btn btn-secondary" onclick="showPage('reports')">← Reports</button><button class="btn btn-secondary" onclick="startGPSTrip()">📍 GPS Trip</button><button class="btn btn-primary" onclick="openModal('add-mileage')">➕ Log Trip</button></div></div>
+            <div class="action-bar"><h2>🚗 Mileage Tracker</h2><div class="row"><button class="btn btn-secondary" onclick="showPage('reports')">← Reports</button><button class="btn btn-secondary" onclick="startGPSTrip()">📍 GPS Trip</button><button class="btn btn-primary" onclick="openModal('add-mileage')">➕ Log Trip</button></div></div>
             <div class="stats-grid">
                 <div class="stat-card"><div class="stat-label">Total Miles (YTD)</div><div class="stat-value" id="stat-total-miles">0</div></div>
                 <div class="stat-card"><div class="stat-label">Business Value</div><div class="stat-value green" id="stat-mileage-value">$0</div></div>
@@ -1010,7 +957,7 @@
         <div id="models" class="page">
             <div class="action-bar">
                 <h2>🧠 Knowledge Base</h2>
-                <div style="display:flex;gap:0.5rem;">
+                <div class="row">
                     <button class="btn btn-secondary" onclick="showKBSection('search')">🔍 Search</button>
                     <button class="btn btn-primary" onclick="openModal('add-asset')">➕ Add Asset</button>
                 </div>
@@ -1020,12 +967,12 @@
             <div class="card" id="kb-search-section">
                 <h2>🔍 Quick Lookup</h2>
                 <div class="form-group">
-                    <div style="display:flex;gap:0.5rem;">
-                        <input type="text" id="kb-search" placeholder="Enter VIN, address, model/serial number, or search term..." style="flex:1;">
+                    <div class="row">
+                        <input type="text" id="kb-search" placeholder="Enter VIN, address, model/serial number, or search term..." class="flex-grow">
                         <button class="btn btn-primary" onclick="searchKnowledgeBase()">Search</button>
                     </div>
                 </div>
-                <div id="kb-search-results" style="display:none;"></div>
+                <div id="kb-search-results" class="hidden"></div>
             </div>
             
             <!-- Asset Type Tabs -->
@@ -1050,7 +997,7 @@
                     <button class="btn btn-small btn-secondary kb-tab" onclick="showKBTab('vehicles')" id="kb-tab-vehicles">🚗 Vehicles</button>
                     <button class="btn btn-small btn-secondary kb-tab" onclick="showKBTab('appliances')" id="kb-tab-appliances">🔌 Appliances</button>
                     <button class="btn btn-small btn-secondary kb-tab" onclick="showKBTab('machines')" id="kb-tab-machines">🔧 Machines</button>
-                    <button class="btn btn-small btn-secondary kb-tab admin-only-tab" onclick="showKBTab('issues')" id="kb-tab-issues" style="display:none;">📋 Issues</button>
+                    <button class="btn btn-small btn-secondary kb-tab admin-only-tab hidden" onclick="showKBTab('issues')" id="kb-tab-issues">📋 Issues</button>
                 </div>
                 
                 <!-- Properties Tab -->
@@ -1078,7 +1025,7 @@
                 </div>
                 
                 <!-- Vehicles Tab (Cars, Trucks, Boats, Jetskis - with motors as sub-items) -->
-                <div id="kb-content-vehicles" class="kb-content" style="display:none;">
+                <div id="kb-content-vehicles" class="kb-content hidden">
                     <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;">
                         <button class="btn btn-primary" onclick="openAddVehicleModal('car')">🚗 Add Car/Truck</button>
                         <button class="btn btn-primary" onclick="openAddVehicleModal('boat')">🚤 Add Boat</button>
@@ -1089,7 +1036,7 @@
                 </div>
                 
                 <!-- Appliances Tab (Room equipment - water heater, boiler, HVAC, fridge, washer) -->
-                <div id="kb-content-appliances" class="kb-content" style="display:none;">
+                <div id="kb-content-appliances" class="kb-content hidden">
                     <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;">
                         <button class="btn btn-primary" onclick="openAddApplianceModal()">➕ Add Appliance</button>
                     </div>
@@ -1097,7 +1044,7 @@
                 </div>
                 
                 <!-- Machines Tab (Tools, Electronics - drill press, laptop, smart home) -->
-                <div id="kb-content-machines" class="kb-content" style="display:none;">
+                <div id="kb-content-machines" class="kb-content hidden">
                     <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;">
                         <button class="btn btn-primary" onclick="openAddMachineModal('tool')">🔧 Add Tool</button>
                         <button class="btn btn-primary" onclick="openAddMachineModal('electronic')">💻 Add Electronic</button>
@@ -1106,24 +1053,24 @@
                 </div>
                 
                 <!-- Common Issues Tab (Admin only) -->
-                <div id="kb-content-issues" class="kb-content" style="display:none;">
+                <div id="kb-content-issues" class="kb-content hidden">
                     <div id="issues-list"></div>
                 </div>
             </div>
             
             <!-- Asset Detail View (hidden by default) -->
-            <div class="card" id="kb-asset-detail" style="display:none;">
+            <div class="card hidden" id="kb-asset-detail">
                 <div id="kb-asset-detail-content"></div>
             </div>
             
             <!-- Aceves Property - Full Model -->
-            <div class="card property-detail-card" id="property-card-aceves-home" style="display:none;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div class="card property-detail-card hidden" id="property-card-aceves-home">
+                <div class="row-between mb-2">
                     <div>
                         <h2>📍 4256 Bluebird Dr, Commerce Twp, MI 48382</h2>
                         <div style="color:#64748b;font-size:0.9rem;">Jonathan & Abbey Aceves • Lake Access Property</div>
                     </div>
-                    <div style="display:flex;gap:0.5rem;">
+                    <div class="row">
                         <button class="btn btn-small" onclick="fetchPropertyData('4256 Bluebird Dr Commerce Township MI')">🔄 Refresh</button>
                         <button class="btn btn-small btn-secondary" onclick="editPropertyDetails('aceves')">✏️ Edit</button>
                     </div>
@@ -1186,7 +1133,7 @@
                 <div style="background:#f8fafc;padding:1rem;border-radius:8px;margin-bottom:1.5rem;border:1px solid #e2e8f0;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
                         <h3 style="margin:0;color:#475569;">🔌 Appliances (from MLS)</h3>
-                        <div style="display:flex;gap:0.5rem;">
+                        <div class="row">
                             <button class="btn btn-small" onclick="viewPropertyInventory('aceves')">📦 Inventory</button>
                             <button class="btn btn-small btn-secondary" onclick="openApplianceManager('aceves')">➕ Add</button>
                         </div>
@@ -1228,10 +1175,10 @@
                 </div>
                 
                 <!-- Architectural Model Section for Jon's House -->
-                <div style="margin-bottom:1.5rem;">
+                <div class="mb-3">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
                         <h3>📐 Architectural Blueprint</h3>
-                        <div style="display:flex;gap:0.5rem;">
+                        <div class="row">
                             <button class="btn btn-small" onclick="toggleAcevesModel()">📐 Show Model</button>
                             <button class="btn btn-small btn-secondary" onclick="export3DPrint('aceves')">🖨️ 3D Print</button>
                         </div>
@@ -1283,7 +1230,7 @@
                 </div>
                 
                 <!-- Documented Systems -->
-                <div style="margin-bottom:1.5rem;">
+                <div class="mb-3">
                     <h3 style="margin-bottom:0.75rem;">🏗️ Documented Systems</h3>
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.5rem;">
                         <div class="clickable" onclick="showSystemDetail('aceves', 'attic')" style="padding:0.75rem;background:#dcfce7;border-radius:6px;text-align:center;border:2px solid #22c55e;">
@@ -1380,7 +1327,7 @@
                     
                     <!-- Quote & Materials -->
                     <div style="background:#fef3c7;padding:1rem;border-radius:8px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div class="row-between">
                             <div>
                                 <div style="font-weight:700;color:#92400e;">Quote SS-Q001: Attic Insulation</div>
                                 <div style="font-size:0.85rem;color:#78350f;">Materials: $629 | Labor: $400 | Quote: $2,225-$2,275</div>
@@ -1399,7 +1346,7 @@
                             <div class="text-body-muted">VIN: 1FM5K8GC8PGA08133 • 74,000 mi</div>
                             <div style="font-size:0.8rem;color:#f59e0b;margin-top:0.25rem;">⚠️ Needs tires + alignment</div>
                         </div>
-                        <div style="text-align:right;">
+                        <div class="text-right">
                             <div class="text-sm-muted">Last Service</div>
                             <div class="font-semibold">3/2/2026</div>
                         </div>
@@ -1415,13 +1362,13 @@
             </div>
             
             <!-- Sam's House - Full Model -->
-            <div class="card property-detail-card" id="property-card-sam-home" style="display:none;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div class="card property-detail-card hidden" id="property-card-sam-home">
+                <div class="row-between mb-2">
                     <div>
                         <h2>🏠 4289 Bluebird Dr, Commerce Twp, MI 48382</h2>
                         <div style="color:#64748b;font-size:0.9rem;">Sam Foran (Owner) • Huron River Waterfront • <span style="color:#22c55e;">✓ GIS Verified</span></div>
                     </div>
-                    <div style="display:flex;gap:0.5rem;">
+                    <div class="row">
                         <button class="btn btn-small" onclick="window.open('https://gis.oakgov.com/PropertyGateway/Home.mvc','_blank');toast('Search: 4289 Bluebird Dr')">🗺️ GIS</button>
                         <button class="btn btn-small" onclick="openPhotoGuide('sam')">📷 Photos</button>
                         <button class="btn btn-small btn-secondary" onclick="editPropertyDetails('sam')">✏️ Edit</button>
@@ -1495,7 +1442,7 @@
                 </div>
                 
                 <!-- Room-by-Room Model -->
-                <div style="margin-bottom:1.5rem;">
+                <div class="mb-3">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
                         <h3>🗺️ Floor Plan <span style="background:#22c55e;color:white;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.7rem;">SketchUp Verified</span></h3>
                         <button class="btn btn-small" onclick="openPhotoGuide('sam')">📷 Improve Model</button>
@@ -1614,7 +1561,7 @@
                 </div>
                 
                 <!-- Systems Grid - VERIFIED FROM EQUIPMENT PHOTOS -->
-                <div style="margin-bottom:1.5rem;">
+                <div class="mb-3">
                     <h3 style="margin-bottom:0.75rem;">🏗️ Systems & Equipment <span style="background:#22c55e;color:white;padding:0.15rem 0.5rem;border-radius:4px;font-size:0.7rem;">✓ Verified from Photos</span></h3>
                     
                     <!-- Major Equipment Cards -->
@@ -1622,7 +1569,7 @@
                         
                         <!-- Electrical Panel -->
                         <div class="clickable" onclick="showSystemDetail('sam', 'electrical')" style="padding:0.75rem;background:#dcfce7;border-radius:8px;border:2px solid #22c55e;">
-                            <div style="display:flex;justify-content:space-between;align-items:start;">
+                            <div class="row-between-top">
                                 <div class="text-2xl">⚡</div>
                                 <span style="background:#22c55e;color:white;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.6rem;">VERIFIED</span>
                             </div>
@@ -1637,7 +1584,7 @@
                         
                         <!-- Boiler -->
                         <div class="clickable" onclick="showSystemDetail('sam', 'boiler')" style="padding:0.75rem;background:#dcfce7;border-radius:8px;border:2px solid #22c55e;">
-                            <div style="display:flex;justify-content:space-between;align-items:start;">
+                            <div class="row-between-top">
                                 <div class="text-2xl">🌡️</div>
                                 <span style="background:#22c55e;color:white;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.6rem;">VERIFIED</span>
                             </div>
@@ -1652,7 +1599,7 @@
                         
                         <!-- Water Heater - CRITICAL -->
                         <div class="clickable" onclick="showSystemDetail('sam', 'waterheater')" style="padding:0.75rem;background:#fef2f2;border-radius:8px;border:2px solid #dc2626;">
-                            <div style="display:flex;justify-content:space-between;align-items:start;">
+                            <div class="row-between-top">
                                 <div class="text-2xl">🚿</div>
                                 <span style="background:#dc2626;color:white;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.6rem;">⚠️ REPLACE</span>
                             </div>
@@ -1667,7 +1614,7 @@
                         
                         <!-- Well Pump -->
                         <div class="clickable" onclick="showSystemDetail('sam', 'well')" style="padding:0.75rem;background:#dcfce7;border-radius:8px;border:2px solid #22c55e;">
-                            <div style="display:flex;justify-content:space-between;align-items:start;">
+                            <div class="row-between-top">
                                 <div class="text-2xl">💧</div>
                                 <span style="background:#22c55e;color:white;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.6rem;">VERIFIED</span>
                             </div>
@@ -1682,7 +1629,7 @@
                         
                         <!-- Garage Door Opener -->
                         <div class="clickable" onclick="showSystemDetail('sam', 'garage')" style="padding:0.75rem;background:#dcfce7;border-radius:8px;border:2px solid #22c55e;">
-                            <div style="display:flex;justify-content:space-between;align-items:start;">
+                            <div class="row-between-top">
                                 <div class="text-2xl">🚗</div>
                                 <span style="background:#22c55e;color:white;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.6rem;">VERIFIED</span>
                             </div>
@@ -1697,7 +1644,7 @@
                         
                         <!-- Outboard Motor -->
                         <div class="clickable" onclick="showSystemDetail('sam', 'boat')" style="padding:0.75rem;background:#dcfce7;border-radius:8px;border:2px solid #22c55e;">
-                            <div style="display:flex;justify-content:space-between;align-items:start;">
+                            <div class="row-between-top">
                                 <div class="text-2xl">🚤</div>
                                 <span style="background:#22c55e;color:white;padding:0.1rem 0.3rem;border-radius:3px;font-size:0.6rem;">VERIFIED</span>
                             </div>
@@ -1783,10 +1730,10 @@
                 </div>
                 
                 <!-- 2D/3D Architectural Model Section -->
-                <div style="margin-bottom:1.5rem;">
+                <div class="mb-3">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
                         <h3>📐 Architectural Model</h3>
-                        <div style="display:flex;gap:0.5rem;">
+                        <div class="row">
                             <button class="btn btn-small" onclick="toggle3DModel('sam')" id="btn-toggle-3d">🏠 Show 3D</button>
                             <button class="btn btn-small btn-secondary" onclick="showModelGaps('sam')">❓ What's Missing</button>
                         </div>
@@ -1817,7 +1764,7 @@
                         
                         <!-- Model Controls -->
                         <div style="display:flex;justify-content:space-between;margin-top:0.75rem;flex-wrap:wrap;gap:0.5rem;">
-                            <div style="display:flex;gap:0.5rem;">
+                            <div class="row">
                                 <button class="btn btn-small btn-secondary" onclick="rotateModel(-15)">↺</button>
                                 <button class="btn btn-small btn-secondary" onclick="resetModelView()">⟲ Reset</button>
                                 <button class="btn btn-small btn-secondary" onclick="rotateModel(15)">↻</button>
@@ -1845,7 +1792,7 @@
                     </div>
                 </div>
                 
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <div class="row-wrap">
                     <button class="btn btn-primary" onclick="openPhotoGuide('sam')">📷 Photo Walkthrough</button>
                     <button class="btn btn-secondary" onclick="addPropertyChecklist('sam')">📋 Inspection Checklist</button>
                     <button class="btn btn-secondary" onclick="exportPropertyReport('sam')">📄 Export Report</button>
@@ -1853,13 +1800,13 @@
             </div>
             
             <!-- Tony Burt's House - Friend/Collaborator -->
-            <div class="card property-detail-card" id="property-card-burt-home" style="display:none;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div class="card property-detail-card hidden" id="property-card-burt-home">
+                <div class="row-between mb-2">
                     <div>
                         <h2>🏠 23061 Oneida St, Oak Park, MI 48237</h2>
                         <div style="color:#64748b;font-size:0.9rem;">Tony Burt • <span style="color:#22c55e;">Friend/Collaborator</span></div>
                     </div>
-                    <div style="display:flex;gap:0.5rem;">
+                    <div class="row">
                         <button class="btn btn-small" onclick="toggleBurtModel()">📐 View Model</button>
                         <button class="btn btn-small btn-secondary" onclick="openApplianceManager('burt')">📷 Add</button>
                     </div>
@@ -1945,7 +1892,7 @@
                 </div>
                 
                 <!-- Actions -->
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <div class="row-wrap">
                     <button class="btn btn-primary btn-small" onclick="viewPropertyInventory('burt')">📦 View Inventory</button>
                     <button class="btn btn-secondary btn-small" onclick="showCustomerDetail('tony-burt')">👤 Contact</button>
                     <button class="btn btn-secondary btn-small" onclick="toggleBurtModel();setBurtView('plumbing')">🚿 Plumbing</button>
@@ -1955,7 +1902,7 @@
             
             <!-- Mike Letvin Home - 294 Cardinal Ave -->
             <div class="card property-detail-card" id="property-card-letvin-home" style="display:none;border-left:4px solid #22c55e;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                <div class="row-between mb-2">
                     <div>
                         <h2>🏠 294 Cardinal Ave, Commerce Twp, MI 48382</h2>
                         <div style="color:#64748b;font-size:0.9rem;">Mike Letvin • Commerce Lake Access</div>
@@ -1997,7 +1944,7 @@
             
             <!-- Westside Kosher Butcher + Deli -->
             <div class="card property-detail-card" id="property-card-letvin-shop" style="display:none;border-left:4px solid #f59e0b;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                <div class="row-between mb-2">
                     <div>
                         <h2>🥩 Westside Kosher Butcher + Deli</h2>
                         <div style="color:#64748b;font-size:0.9rem;">6221 Orchard Lake Rd, West Bloomfield • Sugar Tree Square</div>
@@ -2033,7 +1980,7 @@
             
             <!-- Michael Foran Home - 550 Lewis St, Minersville PA -->
             <div class="card property-detail-card" id="property-card-foran-home" style="display:none;border-left:4px solid #6366f1;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                <div class="row-between mb-2">
                     <div>
                         <h2>🏠 550 Lewis St, Minersville, PA 17954</h2>
                         <div style="color:#64748b;font-size:0.9rem;">Michael Foran (Brother) • <span style="color:#8b5cf6;">Family</span></div>
@@ -2074,7 +2021,7 @@
             
             <!-- Foran's Transmission & Auto Repair -->
             <div class="card property-detail-card" id="property-card-foran-shop" style="display:none;border-left:4px solid #ef4444;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                <div class="row-between mb-2">
                     <div>
                         <h2>🔧 Foran's Transmission & Auto Repair</h2>
                         <div style="color:#64748b;font-size:0.9rem;">1 N 6th St, Minersville, PA 17954 • (570) 544-6509</div>
@@ -2115,7 +2062,7 @@
             
             <!-- McGibbons Home - Test Property -->
             <div class="card property-detail-card" id="property-card-mcgibbons-home" style="display:none;border-left:4px solid #f59e0b;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                <div class="row-between mb-2">
                     <div>
                         <h2>🏠 29268 Lake Park Dr</h2>
                         <div style="color:#64748b;font-size:0.9rem;">Farmington Hills, MI 48331 • Jeff McGibbons</div>
@@ -2184,7 +2131,7 @@
                 </div>
                 
                 <!-- Room Layout - First Floor -->
-                <div style="margin-bottom:1.5rem;">
+                <div class="mb-3">
                     <h3 style="font-size:0.95rem;margin-bottom:0.75rem;">📐 First Floor Layout</h3>
                     <div style="background:#1e293b;border-radius:8px;padding:1rem;">
                         <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,60px);gap:3px;font-size:0.75rem;">
@@ -2225,7 +2172,7 @@
                 </div>
                 
                 <!-- Room Layout - Second Floor -->
-                <div style="margin-bottom:1.5rem;">
+                <div class="mb-3">
                     <h3 style="font-size:0.95rem;margin-bottom:0.75rem;">📐 Second Floor Layout</h3>
                     <div style="background:#1e293b;border-radius:8px;padding:1rem;">
                         <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,70px);gap:3px;font-size:0.75rem;">
@@ -2313,8 +2260,8 @@
             </div>
             <div class="form-group">
                 <label for="job-photos">📷 Photos (optional)</label>
-                <input type="file" id="job-photos" accept="image/*" multiple style="display:none;" onchange="handleJobPhotos(this)">
-                <button type="button" class="btn btn-secondary" onclick="document.getElementById('job-photos').click()" style="width:100%;" aria-label="Add job photos">
+                <input type="file" id="job-photos" accept="image/*" multiple class="hidden" onchange="handleJobPhotos(this)">
+                <button type="button" class="btn btn-secondary w-full" onclick="document.getElementById('job-photos').click()" aria-label="Add job photos">
                     📷 Add Photos
                 </button>
                 <div id="job-photo-preview" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;"></div>
@@ -2393,11 +2340,11 @@
         </div>
         
         <!-- Vehicle Form -->
-        <div id="asset-form-vehicle" style="display:none;">
+        <div id="asset-form-vehicle" class="hidden">
             <div class="form-group">
                 <label>VIN or Year Make Model *</label>
-                <div style="display:flex;gap:0.5rem;">
-                    <input type="text" id="veh-vin" placeholder="VIN or '2023 Ford Explorer ST'" style="flex:1;">
+                <div class="row">
+                    <input type="text" id="veh-vin" placeholder="VIN or '2023 Ford Explorer ST'" class="flex-grow">
                     <button type="button" class="btn btn-secondary" onclick="decodeVehicleVIN()">🔍 Decode</button>
                 </div>
             </div>
@@ -2414,7 +2361,7 @@
         </div>
         
         <!-- Equipment Form -->
-        <div id="asset-form-equipment" style="display:none;">
+        <div id="asset-form-equipment" class="hidden">
             <div class="form-group"><label>Equipment Name *</label><input type="text" id="equip-name" required placeholder="e.g., Mettler Toledo Scale, Rheem Tankless WH"></div>
             <div class="form-row">
                 <div class="form-group"><label>Brand/Manufacturer</label><input type="text" id="equip-brand" placeholder="Rheem"></div>
@@ -2561,7 +2508,7 @@
         <h2>📷 Capture Receipt</h2>
         <div class="form-group">
             <label>Take Photo or Select Image</label>
-            <input type="file" id="receipt-file" accept="image/*" capture="environment" onchange="previewReceipt(this)" style="width:100%;">
+            <input type="file" id="receipt-file" accept="image/*" capture="environment" onchange="previewReceipt(this)" class="w-full">
         </div>
         <div id="receipt-preview" style="display:none;margin:1rem 0;">
             <img id="receipt-img" alt="Receipt preview" style="max-width:100%;max-height:300px;border-radius:6px;">
@@ -2599,9 +2546,9 @@
 
     <!-- View Invoice Modal -->
     <div class="modal-overlay" id="modal-view-invoice"><div class="modal modal-large">
-        <div class="no-print" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+        <div class="no-print row-between mb-2">
             <h2 style="margin:0;">📄 Invoice Preview</h2>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <div class="row-wrap">
                 <button class="btn btn-secondary" onclick="window.print()">🖨️ Print</button>
                 <button class="btn btn-primary" onclick="downloadPDF()">📥 Save PDF</button>
                 <button class="btn btn-secondary" onclick="syncCurrentInvoiceToQB()">📗 Sync to QB</button>
@@ -2655,18 +2602,18 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group" id="expense-customer-row" style="display:none;">
+            <div class="form-group hidden" id="expense-customer-row">
                 <label>Bill to Customer</label>
                 <select id="expense-customer"></select>
             </div>
             <div class="form-group"><label>Notes (optional)</label><input type="text" id="expense-notes" placeholder="Additional details"></div>
             <div class="form-group">
                 <label>📷 Receipt Photo (optional)</label>
-                <input type="file" id="expense-receipt" accept="image/*" style="display:none;" onchange="handleExpenseReceipt(this)">
-                <button type="button" class="btn btn-secondary" onclick="document.getElementById('expense-receipt').click()" style="width:100%;">
+                <input type="file" id="expense-receipt" accept="image/*" class="hidden" onchange="handleExpenseReceipt(this)">
+                <button type="button" class="btn btn-secondary w-full" onclick="document.getElementById('expense-receipt').click()">
                     📷 Attach Receipt
                 </button>
-                <div id="expense-receipt-preview" style="margin-top:0.5rem;"></div>
+                <div id="expense-receipt-preview" class="mt-1"></div>
             </div>
             <div class="modal-actions">
                 <button type="button" class="btn btn-secondary" aria-label="Close dialog" onclick="closeModal('add-expense')">Cancel</button>
@@ -2723,7 +2670,7 @@
     <div class="modal-overlay" id="modal-scan-receipt"><div class="modal">
         <h2>📷 Scan Receipt</h2>
         <div style="text-align:center;padding:1rem;">
-            <input type="file" id="receipt-file" accept="image/*" capture="environment" style="display:none;" onchange="handleReceiptUpload(event)">
+            <input type="file" id="receipt-file" accept="image/*" capture="environment" class="hidden" onchange="handleReceiptUpload(event)">
             <div id="receipt-preview" style="margin-bottom:1rem;min-height:150px;background:#f5f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;border:2px dashed #ccc;">
                 <div id="receipt-placeholder" style="color:#888;text-align:center;padding:2rem;">
                     <div style="font-size:3rem;margin-bottom:0.5rem;">📷</div>
@@ -2734,19 +2681,19 @@
             <button class="btn btn-primary" onclick="document.getElementById('receipt-file').click()" style="width:100%;margin-bottom:1rem;">📷 Take Photo / Select Image</button>
             <div id="ocr-status" style="display:none;color:#666;margin-bottom:1rem;"></div>
             <div id="ocr-results" style="display:none;text-align:left;background:#f8f9fa;padding:1rem;border-radius:8px;">
-                <h4 style="margin-bottom:0.5rem;">Extracted Data:</h4>
+                <h4 class="mb-1">Extracted Data:</h4>
                 <div class="form-group"><label>Store</label><input type="text" id="ocr-store"></div>
                 <div class="form-group"><label>Date</label><input type="date" id="ocr-date"></div>
                 <div class="form-group"><label>Total</label><input type="number" id="ocr-total" step="0.01"></div>
                 <div class="form-group"><label>Description</label><input type="text" id="ocr-description"></div>
                 <div class="form-group"><label>Category</label><select id="ocr-category"><option value="parts">Parts</option><option value="vehicle">Vehicle/Upkeep</option><option value="tools">Tools</option><option value="supplies">Supplies</option><option value="other">Other</option></select></div>
                 <div class="form-group"><label>Reimbursable?</label><select id="ocr-reimbursable"><option value="no">No - Business Expense</option><option value="yes">Yes - Bill to Customer</option></select></div>
-                <div id="ocr-customer-row" class="form-group" style="display:none;"><label>Customer</label><select id="ocr-customer"></select></div>
+                <div id="ocr-customer-row" class="form-group hidden"><label>Customer</label><select id="ocr-customer"></select></div>
             </div>
         </div>
         <div class="modal-actions">
             <button type="button" class="btn btn-secondary" onclick="closeReceiptModal()">Cancel</button>
-            <button type="button" class="btn btn-primary" id="save-receipt-btn" style="display:none;" onclick="saveReceiptExpense()">💾 Save Expense</button>
+            <button type="button" class="btn btn-primary hidden" id="save-receipt-btn" onclick="saveReceiptExpense()">💾 Save Expense</button>
         </div>
     </div></div>
 
@@ -3916,7 +3863,7 @@
                             <div class="font-semibold">Invoice #${inv.number}</div>
                             <div class="text-body-muted">${inv.date}</div>
                         </div>
-                        <div style="text-align:right;">
+                        <div class="text-right">
                             <div style="font-weight:700;font-size:1.1rem;">$${parseFloat(inv.total || 0).toFixed(2)}</div>
                             <div style="font-size:0.8rem;color:${statusColor};">${statusIcon} ${inv.status.toUpperCase()}</div>
                         </div>
@@ -4011,7 +3958,7 @@
                         <h1 style="margin:0;color:#FFB612;font-size:1.5rem;"><span style="color:white;">SAME</span> SOLUTIONS</h1>
                     </div>
                     
-                    <h2 style="margin-bottom:0.5rem;">Sign In</h2>
+                    <h2 class="mb-1">Sign In</h2>
                     <p style="color:#64748b;margin-bottom:1.5rem;">Enter your credentials to access your account</p>
                     
                     <div id="login-form">
@@ -4306,7 +4253,7 @@
                         </ul>
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-invite').remove()">Close</button>
                     </div>
                 </div>
@@ -4388,19 +4335,19 @@ Same Solutions LLC
                         </div>
                     </div>
                     
-                    <button class="btn btn-secondary" onclick="logout()" style="width:100%;">
+                    <button class="btn btn-secondary w-full" onclick="logout()">
                         🚪 Sign Out
                     </button>
                     ` : `
                     <div style="text-align:center;padding:1rem;">
                         <p style="color:#64748b;margin-bottom:1rem;">Not signed in</p>
-                        <button class="btn btn-primary" onclick="document.getElementById('modal-user-menu').remove();showLoginScreen();" style="width:100%;">
+                        <button class="btn btn-primary w-full" onclick="document.getElementById('modal-user-menu').remove();showLoginScreen();">
                             🔑 Sign In
                         </button>
                     </div>
                     `}
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-user-menu').remove()">Close</button>
                     </div>
                 </div>
@@ -4715,7 +4662,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.16';
+        const APP_VERSION = 'v1.7.17';
 
         // Data schema version - increment when structure changes
         const DATA_VERSION = 17;
@@ -6636,7 +6583,7 @@ Same Solutions LLC
                     <h2>📷 Job Photos (${job.photos.length})</h2>
                     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;max-height:60vh;overflow-y:auto;">
                         ${job.photos.map((p, i) => `
-                            <div style="text-align:center;">
+                            <div class="text-center">
                                 <img src="${p.data}" style="width:100%;height:150px;object-fit:cover;border-radius:8px;cursor:pointer;" onclick="viewFullPhoto('${jobId}', ${i})">
                                 <div style="font-size:0.75rem;color:#64748b;margin-top:0.25rem;">${new Date(p.timestamp).toLocaleDateString()}</div>
                             </div>
@@ -6664,7 +6611,7 @@ Same Solutions LLC
                 <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:1rem;">
                     <img src="${photo.data}" style="max-width:95%;max-height:85vh;object-fit:contain;border-radius:8px;">
                     <div style="color:white;margin-top:1rem;">${photo.name} • ${new Date(photo.timestamp).toLocaleString()}</div>
-                    <button class="btn btn-secondary" onclick="document.getElementById('modal-full-photo').remove()" style="margin-top:1rem;">Close</button>
+                    <button class="btn btn-secondary mt-2" onclick="document.getElementById('modal-full-photo').remove()">Close</button>
                 </div>
             `;
             document.body.appendChild(modal);
@@ -7413,7 +7360,7 @@ Same Solutions LLC
                             <span>Show shortcuts</span><kbd style="background:#e2e8f0;padding:0.1rem 0.4rem;border-radius:3px;">?</kbd>
                         </div>
                     </div>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-primary" onclick="document.getElementById('modal-shortcuts').remove()">Got it!</button>
                     </div>
                 </div>
@@ -7660,7 +7607,7 @@ Same Solutions LLC
             if (data.vehicleReports) {
                 document.getElementById('vehicle-reports-list').innerHTML = data.vehicleReports.map(r => `
                     <div style="background:#f8f9fa;padding:0.75rem;border-radius:6px;margin-bottom:0.5rem;cursor:pointer;border-left:4px solid #3b82f6;" onclick="showVehicleReport('${r.id}')">
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div class="row-between">
                             <div>
                                 <div class="font-semibold">${r.vehicle.year} ${r.vehicle.make} ${r.vehicle.model}</div>
                                 <div style="font-size:0.75rem;color:#666;">${r.service} • ${r.date} • ${data.customers[r.customer]?.name}</div>
@@ -7737,7 +7684,7 @@ Same Solutions LLC
             let html = '<div style="max-width:900px;margin:0 auto;">';
             
             // Summary bar
-            html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">';
+            html += '<div class="row-between mb-2">';
             html += '<h2 style="margin:0;font-size:1.1rem;">My Billing</h2>';
             html += '<div style="background:#1e293b;padding:0.4rem 0.75rem;border-radius:6px;font-size:0.85rem;">Total Outstanding: <strong style="color:#FFB612;">' + fmt(totalOwed) + '</strong></div>';
             html += '</div>';
@@ -7751,7 +7698,7 @@ Same Solutions LLC
                     const sc = statusColor(item.status);
                     const canRespond = item.docType === 'quote' && (item.status === 'pending' || item.status === 'tentative');
                     html += '<div class="clickable" onclick="showCustomerBillingDetail(\x27' + item.id + '\x27, \x27' + item.docType + '\x27)" style="background:#1e293b;border-radius:8px;padding:0.85rem 1rem;margin-bottom:0.4rem;border-left:4px solid ' + sc + ';">';
-                    html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+                    html += '<div class="row-between">';
                     html += '<div><span style="font-weight:700;margin-right:0.5rem;">' + item.id + '</span>';
                     html += '<span style="color:#94a3b8;font-size:0.85rem;">' + (item.title || item.description || '') + '</span></div>';
                     html += '<div style="display:flex;align-items:center;gap:0.75rem;">';
@@ -7879,7 +7826,7 @@ Same Solutions LLC
                 html += '<div style="display:flex;justify-content:space-between;border-bottom:2px solid ' + T.gold + ';padding-bottom:5px;margin-bottom:6px;">';
                 html += '<div><h1 style="margin:0;font-size:15px;">SAME <span style="color:' + T.gold + ';">SOLUTIONS</span> LLC</h1>';
                 html += '<div style="color:' + T.muted + ';font-size:8.5px;line-height:1.35;">Samuel Foran &bull; (248) 568-5861 &bull; sam@samesolutionsllc.com<br>Commerce Township, MI 48382</div>';
-                html += '</div><div style="text-align:right;">';
+                html += '</div><div class="text-right">';
                 html += '<div style="font-size:18px;font-weight:800;color:' + T.gold + ';">' + docId + '</div>';
                 html += '<div style="font-weight:600;color:#475569;font-size:10px;">' + label + '</div>';
                 html += '<div style="color:' + T.muted + ';font-size:8.5px;">Date: ' + (doc.date || '') + '</div>';
@@ -7887,7 +7834,7 @@ Same Solutions LLC
             } else if (theme === 'light' && showLogo) {
                 html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:3px solid ' + T.gold + ';">';
                 html += '<div style="display:flex;align-items:center;gap:0.75rem;"><img src="' + LOGO + '" alt="Logo" style="height:60px;"><div style="font-weight:bold;font-size:1.2rem;">SAME <span style="color:' + T.gold + ';">SOLUTIONS</span> LLC</div></div>';
-                html += '<div style="text-align:right;"><h2 style="color:' + T.text + ';margin-bottom:0.5rem;">' + label + '</h2>';
+                html += '<div class="text-right"><h2 style="color:' + T.text + ';margin-bottom:0.5rem;">' + label + '</h2>';
                 html += '<div style="font-size:1.5rem;font-weight:bold;color:' + T.gold + ';">' + docId + '</div>';
                 html += '<div>Date: ' + (doc.date ? fmtDate(doc.date) : '') + '</div>';
                 const sc = doc.status === 'paid' ? T.green : doc.status === 'owed' ? '#ef4444' : T.gold;
@@ -7899,7 +7846,7 @@ Same Solutions LLC
                 html += '<div><div style="font-weight:800;font-size:' + T.hdrSize + ';"><span style="color:' + T.text + ';">SAME </span><span style="color:' + T.gold + ';">SOLUTIONS</span> LLC</div>';
                 html += '<div style="color:' + T.muted + ';font-size:0.8rem;margin-top:0.25rem;">Samuel Foran &bull; (248) 568-5861</div>';
                 html += '<div style="color:' + T.muted + ';font-size:0.8rem;">sam@samesolutionsllc.com</div></div>';
-                html += '<div style="text-align:right;"><div style="font-size:1.3rem;font-weight:800;color:' + T.gold + ';">' + docId + '</div>';
+                html += '<div class="text-right"><div style="font-size:1.3rem;font-weight:800;color:' + T.gold + ';">' + docId + '</div>';
                 html += '<div style="color:' + T.muted + ';font-size:0.8rem;">' + label + '</div>';
                 html += '<div style="color:' + T.muted + ';font-size:0.8rem;">Date: ' + (doc.date || '') + '</div>';
                 if (doc.validUntil) html += '<div style="color:' + T.muted + ';font-size:0.8rem;">Valid Until: ' + doc.validUntil + '</div>';
@@ -7916,9 +7863,9 @@ Same Solutions LLC
                 html += '<div style="flex:1;background:' + T.cardBg + ';padding:' + T.pad + ';border-radius:3px;"><label style="font-size:7.5px;text-transform:uppercase;color:' + T.muted + ';font-weight:600;display:block;">Property</label><strong>' + propAddress + '</strong></div></div>';
             } else if (theme === 'light') {
                 html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:1.5rem;">';
-                html += '<div style="margin-bottom:1.5rem;"><h3 style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;text-transform:uppercase;">From</h3>';
+                html += '<div class="mb-3"><h3 style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;text-transform:uppercase;">From</h3>';
                 html += '<strong>' + BIZ.owner + '</strong><br>' + BIZ.name + '<br>' + BIZ.city + '<br>' + BIZ.phone + '<br>' + BIZ.email + '</div>';
-                html += '<div style="margin-bottom:1.5rem;"><h3 style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;text-transform:uppercase;">Bill To</h3>';
+                html += '<div class="mb-3"><h3 style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;text-transform:uppercase;">Bill To</h3>';
                 html += '<strong>' + (customer?.name || '') + '</strong><br>';
                 if (customer?.business) html += customer.business + '<br>';
                 if (customer?.address) html += customer.address + '<br>';
@@ -8179,7 +8126,7 @@ Same Solutions LLC
                 html += '<div style="font-weight:600;font-size:0.8rem;margin-bottom:0.4rem;color:' + T.muted + ';">\uD83D\uDCCB Change History (' + doc.changeLog.length + ')</div>';
                 doc.changeLog.slice().reverse().forEach(function(log) {
                     html += '<div style="padding:0.5rem 0.65rem;margin-bottom:0.25rem;background:' + T.accent + ';border-radius:4px;border-left:3px solid #475569;font-size:0.75rem;">';
-                    html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+                    html += '<div class="row-between">';
                     html += '<span style="color:#f59e0b;">' + (log.reason || new Date(log.date).toLocaleDateString()) + '</span>';
                     html += '<span style="font-size:0.7rem;color:#64748b;">' + new Date(log.date).toLocaleString() + '</span></div>';
                     if (log.changes && log.changes.length > 0) {
@@ -8218,9 +8165,9 @@ Same Solutions LLC
             let html = '<div style="max-width:900px;margin:0 auto;">';
             
             // Back + Print buttons
-            html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">';
+            html += '<div class="row-between mb-2">';
             html += '<button class="btn btn-secondary btn-small" onclick="renderCustomerPortalUI();showPage(\x27invoices\x27);">\u2190 Back to Billing</button>';
-            html += '<div style="display:flex;gap:0.5rem;">';
+            html += '<div class="row">';
             html += '<button class="btn btn-small" style="background:#FFB612;color:#101820;font-weight:700;" onclick="printCustomerDocument(\x27' + docId + '\x27, \x27' + docType + '\x27)">\uD83D\uDDA8\uFE0F Print / PDF</button>';
             if (isQuote && (doc.status === 'pending' || doc.status === 'tentative')) {
                 html += '<button class="btn btn-small" style="background:#22c55e;color:white;" onclick="customerRespondQuote(\x27' + docId + '\x27,\x27accepted\x27)">\u2713 Accept</button>';
@@ -9216,7 +9163,7 @@ Same Solutions LLC
                 <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:1rem;">
                     <img src="${expense.receiptImage.data}" style="max-width:95%;max-height:80vh;object-fit:contain;border-radius:8px;">
                     <div style="color:white;margin-top:1rem;">${expense.description} - ${fmt(expense.amount)}</div>
-                    <button class="btn btn-secondary" onclick="document.getElementById('modal-receipt-view').remove()" style="margin-top:1rem;">Close</button>
+                    <button class="btn btn-secondary mt-2" onclick="document.getElementById('modal-receipt-view').remove()">Close</button>
                 </div>
             `;
             document.body.appendChild(modal);
@@ -9340,7 +9287,7 @@ Same Solutions LLC
                     <div style="margin-bottom:1.5rem;padding:1rem;background:#f0fdf4;border-radius:8px;border:1px solid #22c55e;">
                         <div style="font-weight:700;color:#166534;margin-bottom:0.5rem;">💾 Full Data Backup</div>
                         <p style="font-size:0.85rem;color:#64748b;margin-bottom:0.75rem;">Download complete backup of all your data (customers, jobs, invoices, etc.)</p>
-                        <div style="display:flex;gap:0.5rem;">
+                        <div class="row">
                             <button class="btn btn-primary" onclick="exportBackup()">⬇️ Download Backup</button>
                             <button class="btn btn-secondary" onclick="importBackup()">⬆️ Restore Backup</button>
                         </div>
@@ -10238,7 +10185,7 @@ Same Solutions LLC
             modal.innerHTML = `
                 <div class="modal" style="max-width:450px;">
                     <h2>➕ Quick Add Customer</h2>
-                    <p class="text-body-muted" style="margin-bottom:1rem;">Add a new customer and return to your quote. Only name is required — you can fill in details later.</p>
+                    <p class="text-body-muted mb-2">Add a new customer and return to your quote. Only name is required — you can fill in details later.</p>
                     <div class="form-group"><label>Name *</label><input type="text" id="quick-cust-name" required placeholder="Full name" autofocus></div>
                     <div class="form-group"><label>Phone</label><input type="tel" id="quick-cust-phone" placeholder="(248) 555-1234"></div>
                     <div class="form-group"><label>Email</label><input type="email" id="quick-cust-email" placeholder="email@example.com"></div>
@@ -10651,7 +10598,7 @@ Same Solutions LLC
                     <p>${quote.description || 'As discussed.'}</p>
                 </div>
                 <div style="margin-bottom:2rem;">
-                    <table style="width:100%;">
+                    <table class="w-full">
                         <tr style="background:#f5f5f5;">
                             <th style="text-align:left;padding:0.5rem;">Description</th>
                             <th style="text-align:right;padding:0.5rem;">Amount</th>
@@ -10964,8 +10911,8 @@ Same Solutions LLC
                         <div style="font-weight:600;margin-bottom:0.75rem;">📚 Documentation Links (optional)</div>
                         <div class="form-group">
                             <label>Owner's Manual URL</label>
-                            <div style="display:flex;gap:0.5rem;">
-                                <input type="url" id="asset-manual-url" placeholder="https://www.manualslib.com/..." style="flex:1;">
+                            <div class="row">
+                                <input type="url" id="asset-manual-url" placeholder="https://www.manualslib.com/..." class="flex-grow">
                                 <button type="button" class="btn btn-small btn-secondary" onclick="searchManual()">🔍 Search</button>
                             </div>
                         </div>
@@ -11427,13 +11374,13 @@ Same Solutions LLC
                     <div style="background:#fefce8;padding:1rem;border-radius:8px;margin-bottom:1rem;">
                         <div class="font-semibold mb-1">📚 Documentation</div>
                         ${asset.docs?.manualUrl || asset.docs?.partsUrl || asset.docs?.productUrl ? `
-                        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+                        <div class="row-wrap">
                             ${asset.docs.manualUrl ? `<a href="${asset.docs.manualUrl}" target="_blank" class="btn btn-small">📖 Manual</a>` : ''}
                             ${asset.docs.partsUrl ? `<a href="${asset.docs.partsUrl}" target="_blank" class="btn btn-small">🔧 Parts</a>` : ''}
                             ${asset.docs.productUrl ? `<a href="${asset.docs.productUrl}" target="_blank" class="btn btn-small">�icing Product</a>` : ''}
                         </div>
                         ` : `<div style="color:#64748b;font-size:0.9rem;">No documentation links added yet.</div>`}
-                        <button class="btn btn-small btn-secondary" style="margin-top:0.5rem;" onclick="addDocLink('${assetId}')">➕ Add Link</button>
+                        <button class="btn btn-small btn-secondary mt-1" onclick="addDocLink('${assetId}')">➕ Add Link</button>
                     </div>
                     
                     <!-- Components -->
@@ -11449,7 +11396,7 @@ Same Solutions LLC
                             `).join('')}
                         </div>
                         ` : `<div style="color:#64748b;font-size:0.9rem;">No components added yet.</div>`}
-                        <button class="btn btn-small btn-secondary" style="margin-top:0.5rem;" onclick="document.getElementById('modal-asset-detail').remove();addAsset('motor', '${assetId}')">➕ Add Component</button>
+                        <button class="btn btn-small btn-secondary mt-1" onclick="document.getElementById('modal-asset-detail').remove();addAsset('motor', '${assetId}')">➕ Add Component</button>
                     </div>
                     
                     <!-- Notes -->
@@ -11466,7 +11413,7 @@ Same Solutions LLC
                         <div style="max-height:200px;overflow-y:auto;">
                             ${asset.serviceHistory.slice(-5).reverse().map(s => `
                                 <div style="padding:0.5rem;border-bottom:1px solid #e5e7eb;font-size:0.85rem;">
-                                    <div style="display:flex;justify-content:space-between;">
+                                    <div class="row-split">
                                         <strong>${s.type || 'Service'}</strong>
                                         <span class="text-muted">${s.date}</span>
                                     </div>
@@ -11475,7 +11422,7 @@ Same Solutions LLC
                             `).join('')}
                         </div>
                         ` : `<div style="color:#64748b;font-size:0.9rem;">No service records yet.</div>`}
-                        <button class="btn btn-small btn-secondary" style="margin-top:0.5rem;" onclick="addAssetService('${assetId}')">➕ Log Service</button>
+                        <button class="btn btn-small btn-secondary mt-1" onclick="addAssetService('${assetId}')">➕ Log Service</button>
                     </div>
                     
                     <div class="modal-actions">
@@ -12472,7 +12419,7 @@ Same Solutions LLC
                     </div>
                 </div>
                 
-                <h3 style="margin-bottom:0.5rem;">📊 Line Item Comparison</h3>
+                <h3 class="mb-1">📊 Line Item Comparison</h3>
                 <table style="width:100%;border-collapse:collapse;">
                     <thead><tr style="background:#1e293b;">
                         <th style="text-align:left;padding:8px;">Item</th>
@@ -12622,7 +12569,7 @@ Same Solutions LLC
                         <div><strong>Service:</strong> ${r.service}</div>
                         ${r.details.oilType ? `<div><strong>Oil:</strong> ${r.details.oilType} (${r.details.oilCapacity})</div>` : ''}
                         ${r.details.filter ? `<div><strong>Filter:</strong> ${r.details.filter}</div>` : ''}
-                        ${r.details.laborHours ? `<div style="margin-top:0.5rem;"><strong>Labor:</strong> ${r.details.laborHours} hrs @ $${r.details.laborCost}</div>` : ''}
+                        ${r.details.laborHours ? `<div class="mt-1"><strong>Labor:</strong> ${r.details.laborHours} hrs @ $${r.details.laborCost}</div>` : ''}
                         ${r.details.oilCost ? `<div><strong>Parts:</strong> Oil $${r.details.oilCost} + Filter $${r.details.filterCost}</div>` : ''}
                         ${r.details.discount ? `<div><strong>Discount:</strong> -$${r.details.discount}</div>` : ''}
                     </div>
@@ -12726,7 +12673,7 @@ Same Solutions LLC
                                 <div class="font-semibold mb-1">${prop.businessName || prop.address}</div>
                                 <div style="font-size:0.85rem;color:#94a3b8;">${prop.city}, ${prop.state} ${prop.zip}</div>
                                 ${prop.sqFt ? `<div style="font-size:0.85rem;color:#64748b;margin-top:0.25rem;">${prop.sqFt.toLocaleString()} SF${prop.beds ? ` • ${prop.beds}/${prop.baths}` : ''}</div>` : ''}
-                                <button class="btn btn-small btn-secondary" style="margin-top:0.5rem;" onclick="selectProperty('${prop.id}');showPage('knowledge');">View Property →</button>
+                                <button class="btn btn-small btn-secondary mt-1" onclick="selectProperty('${prop.id}');showPage('knowledge');">View Property →</button>
                             </div>
                         `).join('')}
                     </div>
@@ -12735,7 +12682,7 @@ Same Solutions LLC
                 
                 <div class="card">
                     <h2>⚡ Quick Actions</h2>
-                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                    <div class="row-wrap">
                         <button class="btn btn-primary" onclick="generateCustomerInvite('${cid}')">🔗 Send Portal Invite</button>
                         <button class="btn btn-secondary" onclick="generateCustomerPortalLink('${cid}')">🌐 Download Portal Page</button>
                         <button class="btn btn-secondary" onclick="openModal('add-job');document.getElementById('job-customer').value='${cid}';">➕ Add Job</button>
@@ -12816,7 +12763,7 @@ Same Solutions LLC
                 
                 <div class="card">
                     <h2>⚡ Quick Actions</h2>
-                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                    <div class="row-wrap">
                         ${j.status === 'owed' ? `<button class="btn btn-primary" onclick="markPaid('${j.id}');showJobDetail('${j.id}');">✓ Mark Paid</button>` : ''}
                         ${!j.invoice ? `<button class="btn btn-primary" onclick="quickInvoiceFromJob('${j.id}')">🧾 Quick Invoice</button>` : ''}
                         <button class="btn btn-secondary" onclick="addPhotoToJob('${j.id}')">📷 Add Photo</button>
@@ -12986,7 +12933,7 @@ Same Solutions LLC
                         <div style="font-size:3rem;margin-bottom:1rem;">🔍</div>
                         <h3>No Customers Found</h3>
                         <p class="text-muted">Try adjusting your search or filter.</p>
-                        <button class="btn btn-secondary" onclick="filterCustomers('all');document.getElementById('customer-search').value='';" style="margin-top:1rem;">Clear Filters</button>
+                        <button class="btn btn-secondary mt-2" onclick="filterCustomers('all');document.getElementById('customer-search').value='';">Clear Filters</button>
                     </div>
                 `;
                 return;
@@ -13032,7 +12979,7 @@ Same Solutions LLC
                 paidInvoices.map(inv => `
                     <div style="display:flex;gap:1rem;padding:0.75rem;border-left:3px solid var(--green);margin-bottom:0.5rem;background:#f8f9fa;border-radius:0 6px 6px 0;" onclick="viewInv('${inv.number}')" class="clickable">
                         <div style="min-width:80px;color:#666;font-size:0.8rem;">${inv.date}</div>
-                        <div style="flex:1;">
+                        <div class="flex-grow">
                             <div class="font-semibold">${inv.number} • ${data.customers[inv.customer]?.name}</div>
                             <div style="font-size:0.8rem;color:#666;">${inv.jobs.length} job${inv.jobs.length > 1 ? 's' : ''}</div>
                         </div>
@@ -13060,12 +13007,12 @@ Same Solutions LLC
                     const total = jobs.reduce((s, j) => s + j.amount, 0);
                     return `
                         <div style="background:#f8f9fa;padding:0.75rem;border-radius:6px;margin-bottom:0.5rem;cursor:pointer;border-left:4px solid #06b6d4;" onclick="showHandymanReport('${invNum}')">
-                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <div class="row-between">
                                 <div>
                                     <div class="font-semibold">${customer?.name || 'Unknown'} ${invNum !== 'no-invoice' ? `• ${invNum}` : ''}</div>
                                     <div style="font-size:0.75rem;color:#666;">${jobs.length} job${jobs.length > 1 ? 's' : ''} • ${jobs[0].date}</div>
                                 </div>
-                                <div style="text-align:right;">
+                                <div class="text-right">
                                     <div class="font-semibold">${fmt(total)}</div>
                                     <span style="color:#06b6d4;font-size:0.8rem;">View →</span>
                                 </div>
@@ -14642,7 +14589,7 @@ Same Solutions LLC
             let html = `<div class="card" style="border-left:4px solid ${borderColor};">`;
             
             // Header
-            html += `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">`;
+            html += `<div class="row-between mb-2">`;
             html += `<div>`;
             html += `<h2>${isCommercial ? '🏢' : '🏠'} ${prop.businessName || prop.address}</h2>`;
             html += `<div style="color:#64748b;font-size:0.9rem;">${prop.address}, ${prop.city}, ${prop.state} ${prop.zip} • ${ownerName}</div>`;
@@ -14785,7 +14732,7 @@ Same Solutions LLC
                 const pct = Math.round((done / total) * 100);
                 const barColor = pct === 100 ? '#22c55e' : pct >= 50 ? '#f59e0b' : '#ef4444';
                 
-                html += `<div style="margin-top:0.5rem;">`;
+                html += `<div class="mt-1">`;
                 html += `<div style="display:flex;justify-content:space-between;font-size:0.75rem;color:#64748b;">`;
                 html += `<span>Model Progress</span><span>${done}/${total} (${pct}%)</span>`;
                 html += `</div>`;
@@ -14916,7 +14863,7 @@ Same Solutions LLC
                     const pct = Math.round((done / total) * 100);
                     const barColor = pct === 100 ? '#22c55e' : pct >= 50 ? '#f59e0b' : '#ef4444';
                     progressHtml = `
-                        <div style="margin-top:0.5rem;">
+                        <div class="mt-1">
                             <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#64748b;">
                                 <span>Model Progress</span>
                                 <span>${done}/${total}</span>
@@ -15253,7 +15200,7 @@ Same Solutions LLC
             const sqft = (r.w * r.l).toFixed(0);
             let html = `<div id="modal-monroe-room" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)this.remove()">`;
             html += `<div style="background:#0f172a;border:2px solid ${r.color};border-radius:12px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;padding:1.5rem;">`;
-            html += `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">`;
+            html += `<div class="row-between mb-2">`;
             html += `<h3 style="color:${r.color};margin:0;">🏠 ${r.name}</h3>`;
             html += `<button onclick="this.closest('#modal-monroe-room').remove()" style="background:none;border:none;color:#94a3b8;font-size:1.5rem;cursor:pointer;">✕</button></div>`;
             // Stats
@@ -15326,24 +15273,24 @@ Same Solutions LLC
                 // Verified badge
                 if (room.verified) {
                     html += `<circle cx="${rx + rw - 7}" cy="${ry + 7}" r="4" fill="#22c55e"/>`;
-                    html += `<text x="${rx + rw - 7}" y="${ry + 9.5}" fill="white" text-anchor="middle" font-size="6" font-weight="bold" style="pointer-events:none;">✓</text>`;
+                    html += `<text x="${rx + rw - 7}" y="${ry + 9.5}" fill="white" text-anchor="middle" font-size="6" font-weight="bold" class="no-events">✓</text>`;
                 }
                 // Label
                 const fontSize = rw > 60 && rh > 40 ? 9 : rw > 35 ? 7 : 6;
-                html += `<text x="${rx + rw/2}" y="${ry + rh/2 - 3}" fill="${room.color}" text-anchor="middle" font-size="${fontSize}" font-weight="bold" style="pointer-events:none;">${room.name}</text>`;
+                html += `<text x="${rx + rw/2}" y="${ry + rh/2 - 3}" fill="${room.color}" text-anchor="middle" font-size="${fontSize}" font-weight="bold" class="no-events">${room.name}</text>`;
                 // Dimensions
                 if (rw > 30 && rh > 25) {
-                    html += `<text x="${rx + rw/2}" y="${ry + rh/2 + 8}" fill="${dc}" text-anchor="middle" font-size="6" style="pointer-events:none;">${room.w}'×${room.l}'</text>`;
+                    html += `<text x="${rx + rw/2}" y="${ry + rh/2 + 8}" fill="${dc}" text-anchor="middle" font-size="6" class="no-events">${room.w}'×${room.l}'</text>`;
                 }
                 // Fireplace icon
                 if (room.hasFireplace) {
-                    html += `<rect x="${rx + 2}" y="${ry + rh/2 - 12}" width="10" height="24" fill="#f9731644" stroke="#f97316" stroke-width="1" style="pointer-events:none;"/>`;
-                    html += `<text x="${rx + 7}" y="${ry + rh/2 + 3}" fill="#f97316" text-anchor="middle" font-size="7" style="pointer-events:none;">🔥</text>`;
+                    html += `<rect x="${rx + 2}" y="${ry + rh/2 - 12}" width="10" height="24" fill="#f9731644" stroke="#f97316" stroke-width="1" class="no-events"/>`;
+                    html += `<text x="${rx + 7}" y="${ry + rh/2 + 3}" fill="#f97316" text-anchor="middle" font-size="7" class="no-events">🔥</text>`;
                 }
                 // Garage doors
                 if (room.isGarage && monroeFloor === 'first') {
-                    html += `<rect x="${rx}" y="${ry + 3}" width="4" height="${rh/2 - 6}" fill="#92400e" style="pointer-events:none;"/>`;
-                    html += `<rect x="${rx}" y="${ry + rh/2 + 3}" width="4" height="${rh/2 - 6}" fill="#92400e" style="pointer-events:none;"/>`;
+                    html += `<rect x="${rx}" y="${ry + 3}" width="4" height="${rh/2 - 6}" fill="#92400e" class="no-events"/>`;
+                    html += `<rect x="${rx}" y="${ry + rh/2 + 3}" width="4" height="${rh/2 - 6}" fill="#92400e" class="no-events"/>`;
                 }
             });
 
@@ -16076,21 +16023,21 @@ Same Solutions LLC
                 
                 // Room fill - verified rooms have solid border, unverified have dashed
                 const strokeStyle = room.verified ? 'stroke-width="2"' : 'stroke-width="2" stroke-dasharray="4,2"';
-                html += `<rect x="${rx}" y="${ry}" width="${rw}" height="${rh}" fill="${room.color}22" stroke="${room.color}" ${strokeStyle} class="room-clickable" onclick="showRoomModel('${key}')" style="cursor:pointer;"/>`;
+                html += `<rect x="${rx}" y="${ry}" width="${rw}" height="${rh}" fill="${room.color}22" stroke="${room.color}" ${strokeStyle} class="room-clickable cursor-pointer" onclick="showRoomModel('${key}')"/>`;
                 
                 // Verified badge
                 if (room.verified) {
                     html += `<circle cx="${rx + rw - 8}" cy="${ry + 8}" r="5" fill="#22c55e"/>`;
-                    html += `<text x="${rx + rw - 8}" y="${ry + 11}" fill="white" text-anchor="middle" font-size="7" font-weight="bold" style="pointer-events:none;">✓</text>`;
+                    html += `<text x="${rx + rw - 8}" y="${ry + 11}" fill="white" text-anchor="middle" font-size="7" font-weight="bold" class="no-events">✓</text>`;
                 }
                 
                 // Room label
                 if (showLabels) {
-                    html += `<text x="${rx + rw/2}" y="${ry + rh/2 - 5}" fill="${room.color}" text-anchor="middle" font-size="10" font-weight="bold" style="pointer-events:none;">${room.name}</text>`;
+                    html += `<text x="${rx + rw/2}" y="${ry + rh/2 - 5}" fill="${room.color}" text-anchor="middle" font-size="10" font-weight="bold" class="no-events">${room.name}</text>`;
                     if (showDims) {
                         // Show SketchUp dims if available
                         const dimText = room.sketchupDims ? room.sketchupDims.split('×')[0].trim() : `${room.w}'`;
-                        html += `<text x="${rx + rw/2}" y="${ry + rh/2 + 8}" fill="#94a3b8" text-anchor="middle" font-size="8" style="pointer-events:none;">${room.w}'×${room.l}'</text>`;
+                        html += `<text x="${rx + rw/2}" y="${ry + rh/2 + 8}" fill="#94a3b8" text-anchor="middle" font-size="8" class="no-events">${room.w}'×${room.l}'</text>`;
                     }
                 }
                 
@@ -16561,15 +16508,15 @@ Same Solutions LLC
                 <div class="modal" style="max-width:550px;">
                     <h2>❓ Model Completeness</h2>
                     <div style="display:flex;justify-content:space-between;padding:0.75rem;background:#1e293b;border-radius:6px;margin-bottom:1rem;">
-                        <div style="text-align:center;">
+                        <div class="text-center">
                             <div style="font-size:1.5rem;font-weight:700;color:#22c55e;">65%</div>
                             <div style="font-size:0.75rem;color:#94a3b8;">Complete</div>
                         </div>
-                        <div style="text-align:center;">
+                        <div class="text-center">
                             <div style="font-size:1.5rem;font-weight:700;color:#f59e0b;">${gaps.length}</div>
                             <div style="font-size:0.75rem;color:#94a3b8;">Unknown Items</div>
                         </div>
-                        <div style="text-align:center;">
+                        <div class="text-center">
                             <div style="font-size:1.5rem;font-weight:700;color:#dc2626;">${gaps.filter(g => g.priority === 'high').length}</div>
                             <div style="font-size:0.75rem;color:#94a3b8;">High Priority</div>
                         </div>
@@ -16580,7 +16527,7 @@ Same Solutions LLC
                     <div style="max-height:350px;overflow-y:auto;">
                         ${gaps.map(g => `
                             <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:${g.priority === 'high' ? '#fef2f2' : g.priority === 'medium' ? '#fef3c7' : '#f8fafc'};border-radius:6px;margin-bottom:0.5rem;border-left:4px solid ${g.priority === 'high' ? '#dc2626' : g.priority === 'medium' ? '#f59e0b' : '#94a3b8'};">
-                                <div style="flex:1;">
+                                <div class="flex-grow">
                                     <div class="font-semibold">${g.field}</div>
                                     <div class="text-sm-muted">📷 ${g.howToGet}</div>
                                 </div>
@@ -16589,7 +16536,7 @@ Same Solutions LLC
                         `).join('')}
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-gaps').remove()">Close</button>
                         <button class="btn btn-primary" onclick="document.getElementById('modal-gaps').remove();openPhotoGuide('sam')">📷 Start Photo Walkthrough</button>
                     </div>
@@ -16618,7 +16565,7 @@ Same Solutions LLC
             
             panel.style.display = 'block';
             content.innerHTML = `
-                <div style="display:flex;justify-content:space-between;align-items:start;">
+                <div class="row-between-top">
                     <div>
                         <h3 style="margin:0;">${room.name} ${verifiedBadge}</h3>
                         <div style="color:#64748b;font-size:0.85rem;">${dimsDisplay} = ${sqFt} sq ft • ${room.ceiling}' ceiling</div>
@@ -16804,7 +16751,7 @@ Same Solutions LLC
                     </div>
                     <button class="btn btn-primary" onclick="runMaterialCalc()" style="width:100%;margin-top:1rem;">Calculate</button>
                     <div id="calc-results" class="mt-2"></div>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-material-calc').remove()">Close</button>
                     </div>
                 </div>
@@ -18582,7 +18529,7 @@ Same Solutions LLC
                         </a>
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-bosch-dw').remove()">Close</button>
                     </div>
                 </div>
@@ -18678,7 +18625,7 @@ Same Solutions LLC
                             `).join('')}
                         </div>
                     `}
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-service-history').remove()">Close</button>
                         <button class="btn btn-primary" onclick="showAddServiceRecordForm('${entityType}', '${entityId}')">➕ Add Record</button>
                     </div>
@@ -18793,7 +18740,7 @@ Same Solutions LLC
                         <button class="btn btn-small" id="inv-view-room" onclick="setInventoryView('room', '${propId}')">🏠 By Room</button>
                         <button class="btn btn-small btn-secondary" id="inv-view-category" onclick="setInventoryView('category', '${propId}')">📂 By Type</button>
                         <button class="btn btn-small btn-secondary" id="inv-view-diagram" onclick="viewInventoryDiagram('${propId}')">📐 Diagram</button>
-                        <div style="flex:1;"></div>
+                        <div class="flex-grow"></div>
                         <button class="btn btn-small btn-primary" onclick="document.getElementById('modal-property-inventory').remove();openApplianceManager('${propId}')">➕ Add Item</button>
                     </div>
                     
@@ -18802,7 +18749,7 @@ Same Solutions LLC
                         ${renderInventoryByRoom(byLocation, propId)}
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="exportInventoryPDF('${propId}')">📄 Export PDF</button>
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-property-inventory').remove()">Close</button>
                     </div>
@@ -19001,7 +18948,7 @@ Same Solutions LLC
                 <div class="modal" style="max-width:550px;max-height:90vh;overflow-y:auto;">
                     <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;">
                         <span style="font-size:2.5rem;">${icon}</span>
-                        <div style="flex:1;">
+                        <div class="flex-grow">
                             <h2 style="margin:0;font-size:1.3rem;">${item.brand || ''} ${item.model || item.type?.replace(/_/g, ' ')}</h2>
                             <div style="color:#64748b;font-size:0.85rem;">
                                 ${catInfo.icon} ${catInfo.name} 
@@ -19053,7 +19000,7 @@ Same Solutions LLC
                         ` : `
                             <div style="padding:0.75rem;background:#f8fafc;border-radius:6px;text-align:center;">
                                 <div style="color:#64748b;font-size:0.85rem;">No manuals found yet</div>
-                                <button class="btn btn-small" onclick="lookupItemManuals('${item.id}')" style="margin-top:0.5rem;">🔍 Search for Manuals</button>
+                                <button class="btn btn-small mt-1" onclick="lookupItemManuals('${item.id}')">🔍 Search for Manuals</button>
                             </div>
                         `}
                     </div>
@@ -19672,7 +19619,7 @@ Same Solutions LLC
                         </div>
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-3dprint').remove()">Cancel</button>
                         <button class="btn btn-primary" onclick="generateSTL('${propId}')">📥 Generate STL</button>
                     </div>
@@ -19798,7 +19745,7 @@ Same Solutions LLC
                     <div class="form-group">
                         <label>📷 Photo of Label</label>
                         <input type="file" id="appliance-photo" accept="image/*" capture="environment" onchange="previewAppliancePhoto(this)">
-                        <div id="appliance-photo-preview" style="margin-top:0.5rem;"></div>
+                        <div id="appliance-photo-preview" class="mt-1"></div>
                     </div>
                     <div class="modal-actions">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-appliance').remove()">Cancel</button>
@@ -19844,7 +19791,7 @@ Same Solutions LLC
                             ${existingAppliances.map(app => `
                                 <div class="clickable" onclick="viewApplianceDetail('${app.id}')" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:#f8fafc;border-radius:8px;border:1px solid #e5e7eb;">
                                     <div class="text-2xl">${getApplianceIcon(app.type)}</div>
-                                    <div style="flex:1;">
+                                    <div class="flex-grow">
                                         <div class="font-semibold">${app.brand || ''} ${app.model || app.type}</div>
                                         <div class="text-sm-muted">
                                             ${app.serial ? `S/N: ${app.serial.substring(0, 10)}...` : ''}
@@ -19877,7 +19824,7 @@ Same Solutions LLC
                         </div>
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-appliance-manager').remove()">Close</button>
                     </div>
                 </div>
@@ -19933,7 +19880,7 @@ Same Solutions LLC
                     </p>
                     
                     <div style="background:#f8fafc;padding:1.5rem;border-radius:8px;text-align:center;margin-bottom:1rem;">
-                        <input type="file" id="scan-photo-input" accept="image/*" capture="environment" style="display:none;" onchange="processLabelPhoto(this, '${propId}')">
+                        <input type="file" id="scan-photo-input" accept="image/*" capture="environment" class="hidden" onchange="processLabelPhoto(this, '${propId}')">
                         <button class="btn btn-primary" onclick="document.getElementById('scan-photo-input').click()" style="padding:1rem 2rem;font-size:1.1rem;">
                             📸 Take Photo
                         </button>
@@ -19941,7 +19888,7 @@ Same Solutions LLC
                     </div>
                     
                     <div id="scan-preview" style="display:none;margin-bottom:1rem;"></div>
-                    <div id="scan-results" style="display:none;"></div>
+                    <div id="scan-results" class="hidden"></div>
                     
                     <div style="background:#fef3c7;padding:0.75rem;border-radius:6px;">
                         <div style="font-weight:600;color:#92400e;">💡 Tips for best results:</div>
@@ -19953,7 +19900,7 @@ Same Solutions LLC
                         </ul>
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-appliance-scan').remove(); openApplianceManager('${propId}')">← Back</button>
                     </div>
                 </div>
@@ -20246,7 +20193,7 @@ Same Solutions LLC
                     <textarea id="extracted-notes" rows="2" placeholder="Purchase info, special features, issues, receipts..."></textarea>
                 </div>
                 
-                <div class="modal-actions" style="margin-top:1rem;">
+                <div class="modal-actions mt-2">
                     <button class="btn btn-secondary" onclick="document.getElementById('modal-appliance-scan').remove(); openApplianceManager('${propId}')">Cancel</button>
                     <button class="btn btn-primary" onclick="saveAndLookupAppliance('${propId}', '${imageData.substring(0, 50)}...')">
                         🔍 Save & Auto-Lookup
@@ -20343,7 +20290,7 @@ Same Solutions LLC
                         </div>
                     </div>
                     
-                    <div id="lookup-results-comprehensive" style="display:none;"></div>
+                    <div id="lookup-results-comprehensive" class="hidden"></div>
                 </div>
             `;
             document.body.appendChild(modal);
@@ -20705,7 +20652,7 @@ Same Solutions LLC
                         ${specs.expectedLifespan ? `<div>⏱️ Expected Life: <strong>${specs.expectedLifespan} years</strong></div>` : ''}
                     </div>
                     ${specs.features?.length ? `
-                    <div style="margin-top:0.5rem;">
+                    <div class="mt-1">
                         <strong>Features:</strong> ${specs.features.join(', ')}
                     </div>
                     ` : ''}
@@ -20732,7 +20679,7 @@ Same Solutions LLC
                         ${results.manuals.map(m => `
                             <a href="${m.url}" target="_blank" rel="noopener" onclick="trackManualAccess('${appliance.id}', '${m.name}')" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:${m.type === 'official' ? '#eff6ff' : '#f8fafc'};border-radius:6px;text-decoration:none;color:inherit;border:1px solid ${m.type === 'official' ? '#3b82f6' : '#e5e7eb'};">
                                 <span style="font-size:1.3rem;">${m.icon || '📄'}</span>
-                                <div style="flex:1;">
+                                <div class="flex-grow">
                                     <div style="font-weight:600;color:#0369a1;">${m.name}</div>
                                     ${m.description ? `<div class="text-sm-muted">${m.description}</div>` : ''}
                                 </div>
@@ -20787,7 +20734,7 @@ Same Solutions LLC
                     </div>
                 </div>
                 
-                <div class="modal-actions" style="margin-top:1rem;">
+                <div class="modal-actions mt-2">
                     <button class="btn btn-secondary" onclick="document.getElementById('modal-comprehensive-lookup').remove()">Close</button>
                     <button class="btn btn-primary" onclick="document.getElementById('modal-comprehensive-lookup').remove(); viewApplianceDetail('${appliance.id}')">View Appliance →</button>
                 </div>
@@ -20870,7 +20817,7 @@ Same Solutions LLC
                     ${specs.features?.length ? `
                     <div class="mb-2">
                         <div class="font-semibold mb-1">✨ Features</div>
-                        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+                        <div class="row-wrap">
                             ${specs.features.map(f => `<span style="background:#f0fdf4;color:#166534;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">${f}</span>`).join('')}
                         </div>
                     </div>
@@ -20884,7 +20831,7 @@ Same Solutions LLC
                     </div>
                     ` : ''}
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-danger" onclick="deleteAppliance('${app.id}')" style="margin-right:auto;">🗑️ Delete</button>
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-appliance-detail').remove()">Close</button>
                     </div>
@@ -20910,14 +20857,14 @@ Same Solutions LLC
                             ${app.manuals.map(m => `
                                 <a href="${m.url}" target="_blank" style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:#f8fafc;border-radius:6px;text-decoration:none;color:inherit;border:1px solid #e5e7eb;">
                                     <span class="text-2xl">${m.icon || '📄'}</span>
-                                    <div style="flex:1;">
+                                    <div class="flex-grow">
                                         <div style="font-weight:600;color:#0369a1;">${m.name}</div>
                                     </div>
                                     <span style="color:#94a3b8;">↗</span>
                                 </a>
                             `).join('')}
                         </div>
-                        <div class="modal-actions" style="margin-top:1rem;">
+                        <div class="modal-actions mt-2">
                             <button class="btn btn-secondary" onclick="document.getElementById('modal-manuals-list').remove()">Close</button>
                         </div>
                     </div>
@@ -21324,7 +21271,7 @@ Same Solutions LLC
                             </div>
                         `).join('')}
                     </div>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-primary" onclick="addPhotoToJob('${jobId}');document.getElementById('modal-job-photos').remove();">➕ Add Photo</button>
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-job-photos').remove()">Close</button>
                     </div>
@@ -21794,7 +21741,7 @@ Same Solutions LLC
                             ${p.partNumber ? `<code style="margin-left:0.5rem;font-size:0.75rem;background:#e5e7eb;padding:0.1rem 0.3rem;border-radius:3px;">${p.partNumber}</code>` : ''}
                             <div style="font-size:0.75rem;color:#666;">${p.application || ''} • ${p.supplier || ''}</div>
                         </div>
-                        <div style="text-align:right;">
+                        <div class="text-right">
                             <div style="font-weight:600;color:var(--green);">${fmt(p.price)}${p.unit ? '/' + p.unit : ''}</div>
                         </div>
                     </div>
@@ -22090,7 +22037,7 @@ Same Solutions LLC
                             <h1 style="margin:0;color:#101820;font-size:24px;">Same Solutions LLC</h1>
                             <p style="margin:5px 0 0 0;color:#666;font-size:12px;">Technical Consulting • Engineering • Maintenance & Repair</p>
                         </div>
-                        <div style="text-align:right;">
+                        <div class="text-right">
                             <div style="font-weight:bold;font-size:16px;color:#101820;">VEHICLE SERVICE REPORT</div>
                             <div style="font-size:12px;color:#666;">${r.date}</div>
                         </div>
@@ -22130,7 +22077,7 @@ Same Solutions LLC
                             <h1 style="margin:0;color:#101820;font-size:24px;">Same Solutions LLC</h1>
                             <p style="margin:5px 0 0 0;color:#666;font-size:12px;">Handyman • Electrical • Repair Services</p>
                         </div>
-                        <div style="text-align:right;">
+                        <div class="text-right">
                             <div style="font-weight:bold;font-size:16px;color:#101820;">WORK REPORT</div>
                             <div style="font-size:12px;color:#666;">${new Date().toLocaleDateString()}</div>
                         </div>
@@ -22434,7 +22381,7 @@ Same Solutions LLC
                     
                     <div class="mb-2">
                         <div style="font-weight:600;font-size:0.85rem;margin-bottom:0.5rem;color:#64748b;">LABOR</div>
-                        <div style="display:flex;justify-content:space-between;">
+                        <div class="row-split">
                             <span>${svc.labor} hrs @ $${svc.laborRate}/hr</span>
                             <span class="font-semibold">${fmt(laborCost)}</span>
                         </div>
@@ -22663,7 +22610,7 @@ Same Solutions LLC
                     <h3 style="margin:0 0 1rem 0;color:#166534;">${job.name}</h3>
                     
                     <div style="margin-bottom:0.75rem;">
-                        <div style="display:flex;justify-content:space-between;">
+                        <div class="row-split">
                             <span>Labor (${job.labor} hrs @ $50/hr)</span>
                             <span class="font-semibold">${fmt(laborCost)}</span>
                         </div>
@@ -22690,7 +22637,7 @@ Same Solutions LLC
                         <label style="font-size:0.85rem;font-weight:600;">Quantity/Notes</label>
                         <div style="display:flex;gap:0.5rem;margin-top:0.25rem;">
                             <input type="number" id="hj-qty" value="1" min="1" style="width:60px;" onchange="updateHandymanQty()">
-                            <input type="text" id="hj-notes" placeholder="Additional notes..." style="flex:1;">
+                            <input type="text" id="hj-notes" placeholder="Additional notes..." class="flex-grow">
                         </div>
                     </div>
                 </div>
@@ -23049,10 +22996,10 @@ Same Solutions LLC
             // For now, prompt manual entry since OCR requires external library
             // In future, could integrate Tesseract.js for OCR
             result.innerHTML = `
-                <div style="margin-top:0.5rem;">
+                <div class="mt-1">
                     <p style="color:#fbbf24;margin-bottom:0.5rem;">📸 Image captured! Enter VIN from photo:</p>
                     <input type="text" id="scanned-vin" placeholder="Type the VIN you see..." style="width:100%;padding:0.5rem;background:#475569;border:1px solid #64748b;color:white;border-radius:4px;">
-                    <button class="btn btn-primary btn-small" onclick="useScannedVIN()" style="margin-top:0.5rem;">Use This VIN</button>
+                    <button class="btn btn-primary btn-small mt-1" onclick="useScannedVIN()">Use This VIN</button>
                 </div>
             `;
         }
@@ -23103,7 +23050,7 @@ Same Solutions LLC
                                     <div class="font-semibold">${p.name}</div>
                                     <div style="font-size:0.75rem;color:#94a3b8;">${p.partNumber || ''} • ${p.supplier}</div>
                                 </div>
-                                <div style="text-align:right;">
+                                <div class="text-right">
                                     <div style="font-weight:700;color:#22c55e;">${fmt(p.price)}</div>
                                     <button class="btn btn-small" onclick="updatePartPrice('${p.id}')" style="font-size:0.7rem;padding:0.2rem 0.4rem;">Update Price</button>
                                 </div>
@@ -23175,7 +23122,7 @@ Same Solutions LLC
                             <div class="font-semibold">${h.partName}</div>
                             <div style="color:#64748b;font-size:0.75rem;">${new Date(h.date).toLocaleDateString()}</div>
                         </div>
-                        <div style="text-align:right;">
+                        <div class="text-right">
                             <div>${fmt(h.oldPrice)} → ${fmt(h.newPrice)}</div>
                             <div style="color:${changeColor};font-size:0.75rem;">${changeIcon} ${h.change}%</div>
                         </div>
@@ -23214,7 +23161,7 @@ Same Solutions LLC
                             </tbody>
                         </table>
                     </div>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-price-history').remove()">Close</button>
                     </div>
                 </div>
@@ -23795,7 +23742,7 @@ Same Solutions LLC
                             </div>
                         `).join('')}
                     </div>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-day-detail').remove()">Close</button>
                         <button class="btn btn-primary" onclick="document.getElementById('modal-day-detail').remove();document.getElementById('job-date').value='${dateStr}';openModal('add-job');">➕ Add Job</button>
                     </div>
@@ -23882,7 +23829,7 @@ Same Solutions LLC
             modal.innerHTML = `
                 <div class="modal" style="max-width:700px;max-height:85vh;overflow-y:auto;">
                     <h2>📦 Parts Inventory</h2>
-                    <button class="btn btn-primary" onclick="addInventoryItem()" style="margin-bottom:1rem;">➕ Add Part</button>
+                    <button class="btn btn-primary mb-2" onclick="addInventoryItem()">➕ Add Part</button>
                     ${data.inventory.length === 0 ? '<p class="text-muted">No parts in inventory yet.</p>' : ''}
                     <div style="display:flex;flex-direction:column;gap:0.5rem;">
                         ${data.inventory.map(p => `
@@ -23891,14 +23838,14 @@ Same Solutions LLC
                                     <div class="font-semibold">${p.name}</div>
                                     <div class="text-body-muted">${p.partNumber || 'No part #'} • ${p.supplier || 'No supplier'}</div>
                                 </div>
-                                <div style="text-align:right;">
+                                <div class="text-right">
                                     <div style="font-weight:700;${p.quantity <= (p.reorderPoint || 5) ? 'color:#ef4444;' : ''}">${p.quantity} in stock</div>
                                     <div class="text-body-muted">${fmt(p.cost || 0)} each</div>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-inventory').remove()">Close</button>
                     </div>
                 </div>
@@ -23947,7 +23894,7 @@ Same Solutions LLC
                     <h2>✍️ Signature Required</h2>
                     <p>Customer signature for Invoice ${invoiceNum}</p>
                     <canvas id="signature-canvas" width="400" height="150" style="border:2px solid #e5e7eb;border-radius:8px;touch-action:none;"></canvas>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="clearSignature()">Clear</button>
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-signature').remove()">Cancel</button>
                         <button class="btn btn-primary" onclick="saveSignature('${invoiceNum}')">✓ Accept & Sign</button>
@@ -24323,7 +24270,7 @@ Same Solutions LLC
                             <span>Quote Total:</span>
                             <strong>${fmt(quote.amount)}</strong>
                         </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div class="row-between">
                             <span>Deposit Amount:</span>
                             <div style="display:flex;align-items:center;gap:0.5rem;">
                                 <input type="number" id="deposit-percent" value="${depositPercent}" min="10" max="100" style="width:60px;padding:0.25rem;text-align:center;">
@@ -24518,7 +24465,7 @@ Same Solutions LLC
                             `).join('')}
                         </div>
                     `}
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-maintenance').remove()">Close</button>
                     </div>
                 </div>
@@ -24774,7 +24721,7 @@ Same Solutions LLC
                     </div>
                     
                     <div style="background:#f8fafc;padding:1rem;border-radius:8px;margin:1rem 0;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div class="row-between">
                             <span class="font-semibold">Net Income</span>
                             <span style="font-size:1.25rem;font-weight:700;color:${d.netIncome >= 0 ? '#166534' : '#dc2626'};">${fmt(d.netIncome)}</span>
                         </div>
@@ -24784,7 +24731,7 @@ Same Solutions LLC
                         ${d.jobCount} jobs • ${d.invoiceCount} invoices
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-report').remove()">Close</button>
                         <button class="btn btn-primary" onclick="exportReportCSV()">📥 Export</button>
                     </div>
@@ -25048,7 +24995,7 @@ Same Solutions LLC
             modal.id = 'modal-feedback-inbox';
             modal.innerHTML = `
                 <div class="modal" style="max-width:800px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                    <div class="row-between mb-2">
                         <h2>📬 Feedback Inbox</h2>
                         <div style="display:flex;gap:0.5rem;align-items:center;">
                             <span style="background:#3b82f6;color:white;padding:2px 8px;border-radius:12px;font-size:0.8rem;">${newCount} new</span>
@@ -25081,7 +25028,7 @@ Same Solutions LLC
                                     </div>
                                     <span style="color:#64748b;font-size:0.8rem;">${new Date(f.submittedAt).toLocaleDateString()}</span>
                                 </div>
-                                <div style="margin-bottom:0.5rem;">${f.text || '<em>Voice note only</em>'}</div>
+                                <div class="mb-1">${f.text || '<em>Voice note only</em>'}</div>
                                 <div style="font-size:0.8rem;color:#64748b;margin-bottom:0.5rem;">
                                     From: ${f.submittedBy} • Page: ${f.page}
                                 </div>
@@ -25094,7 +25041,7 @@ Same Solutions LLC
                                         ${f.adminNotes.map(n => `<div style="margin-top:0.25rem;">• ${n.text} <span class="text-muted">(${new Date(n.date).toLocaleDateString()})</span></div>`).join('')}
                                     </div>
                                 ` : ''}
-                                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                                <div class="row-wrap">
                                     <select onchange="updateFeedbackStatus('${f.id}', this.value)" style="padding:0.25rem;border-radius:4px;font-size:0.85rem;">
                                         <option value="new" ${f.status === 'new' ? 'selected' : ''}>📬 New</option>
                                         <option value="reviewing" ${f.status === 'reviewing' ? 'selected' : ''}>👀 Reviewing</option>
@@ -25108,7 +25055,7 @@ Same Solutions LLC
                         `).join('')}
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-feedback-inbox').remove()">Close</button>
                         <button class="btn btn-primary" onclick="exportFeedback()">📤 Export CSV</button>
                     </div>
@@ -25592,7 +25539,7 @@ Generated: ${new Date().toLocaleString()}
                     `<p style="color:#888;">${selectedCustomer ? 'No properties for this customer.' : 'No properties documented yet. Add your first property!'}</p>` :
                     props.map(p => `
                         <div class="clickable" onclick="showPropertyDetail('${p.id}')" style="padding:1rem;background:#f8fafc;border-radius:8px;margin-bottom:0.75rem;border-left:4px solid #0369a1;">
-                            <div style="display:flex;justify-content:space-between;align-items:start;">
+                            <div class="row-between-top">
                                 <div>
                                     <div style="font-weight:700;">🏠 ${p.address}</div>
                                     <div class="text-body-muted">
@@ -25617,13 +25564,13 @@ Generated: ${new Date().toLocaleString()}
                 let ownerVehiclesHtml = '';
                 if (isAdmin() && !selectedCustomer && OWNER_VEHICLES && OWNER_VEHICLES.length > 0) {
                     ownerVehiclesHtml = `
-                        <div style="margin-bottom:1.5rem;">
+                        <div class="mb-3">
                             <div style="font-weight:700;color:#1e293b;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:2px solid #FFB612;">
                                 🏠 My Vehicles (${OWNER_VEHICLES.length})
                             </div>
                             ${OWNER_VEHICLES.map(v => `
                                 <div class="clickable" onclick="showVehicleDetail('${v.id}')" style="padding:1rem;background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:8px;margin-bottom:0.75rem;border-left:4px solid #FFB612;">
-                                    <div style="display:flex;justify-content:space-between;align-items:start;">
+                                    <div class="row-between-top">
                                         <div>
                                             <div style="font-weight:700;">${v.icon || '🚗'} ${v.year} ${v.make} ${v.model}</div>
                                             <div style="font-size:0.85rem;color:#92400e;">
@@ -25632,7 +25579,7 @@ Generated: ${new Date().toLocaleString()}
                                             ${v.engine ? `<div style="font-size:0.8rem;color:#78350f;">${v.engine}</div>` : ''}
                                             ${v.oil ? `<div style="font-size:0.75rem;color:#a16207;margin-top:0.25rem;">🛢️ ${v.oil}</div>` : ''}
                                         </div>
-                                        <div style="text-align:right;">
+                                        <div class="text-right">
                                             <span style="background:#101820;color:#FFB612;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.7rem;font-weight:600;">OWNER</span>
                                         </div>
                                     </div>
@@ -25660,13 +25607,13 @@ Generated: ${new Date().toLocaleString()}
                     // For customers, just show the tiles without the section header
                     const showHeader = isAdmin() && selectedCustomer;
                     propertyVehiclesHtml = `
-                        <div style="margin-bottom:1.5rem;">
+                        <div class="mb-3">
                             ${showHeader ? `<div style="font-weight:700;color:#1e293b;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:2px solid #22c55e;">
                                 📍 Customer Vehicles (${filteredPropertyVehicles.length})
                             </div>` : ''}
                             ${filteredPropertyVehicles.map(v => `
                                 <div class="clickable" onclick="showVehicleDetail('${v.id}')" style="padding:1rem;background:#f0fdf4;border-radius:8px;margin-bottom:0.75rem;border-left:4px solid #22c55e;">
-                                    <div style="display:flex;justify-content:space-between;align-items:start;">
+                                    <div class="row-between-top">
                                         <div>
                                             <div style="font-weight:700;">${v.icon || '🚗'} ${v.year} ${v.make} ${v.model}</div>
                                             ${isAdmin() ? `<div style="font-size:0.85rem;color:#166534;">
@@ -25694,7 +25641,7 @@ Generated: ${new Date().toLocaleString()}
                             </div>
                             ${customerVehicles.map(v => `
                                 <div class="clickable" onclick="showVehicleKBDetail('${v.id}')" style="padding:1rem;background:#f8fafc;border-radius:8px;margin-bottom:0.75rem;border-left:4px solid #3b82f6;">
-                                    <div style="display:flex;justify-content:space-between;align-items:start;">
+                                    <div class="row-between-top">
                                         <div>
                                             <div style="font-weight:700;">🚗 ${v.year} ${v.make} ${v.model}</div>
                                             <div class="text-body-muted">
@@ -25703,7 +25650,7 @@ Generated: ${new Date().toLocaleString()}
                                             ${v.vin ? `<div style="font-size:0.75rem;color:#94a3b8;">VIN: ${v.vin}</div>` : ''}
                                             ${v.knownIssues ? `<div style="font-size:0.8rem;color:#f59e0b;margin-top:0.25rem;">⚠️ ${v.knownIssues.substring(0, 50)}...</div>` : ''}
                                         </div>
-                                        <div style="text-align:right;">
+                                        <div class="text-right">
                                             <button class="btn btn-small" aria-label="Log issue" onclick="event.stopPropagation();logIssueFor('vehicle', '${v.id}')">🔧</button>
                                             <button class="btn btn-small btn-secondary" aria-label="Common issues" onclick="event.stopPropagation();lookupCommonIssues('vehicle', '${v.id}')">💡</button>
                                         </div>
@@ -25928,13 +25875,13 @@ Generated: ${new Date().toLocaleString()}
                                            data.properties?.[loc]?.address ||
                                            (loc === 'sam-home' ? '4289 Bluebird Dr (Home)' : loc);
                             return `
-                                <div style="margin-bottom:1.5rem;">
+                                <div class="mb-3">
                                     <div style="font-size:0.9rem;font-weight:600;color:#1e293b;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:2px solid #e5e7eb;">
                                         📍 ${locName}
                                     </div>
                                     ${items.map(eq => `
                                         <div class="clickable" onclick="showApplianceDetail('${eq.id}')" style="padding:0.75rem;background:#f8fafc;border-radius:8px;margin-bottom:0.5rem;border-left:4px solid #22c55e;">
-                                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                            <div class="row-between">
                                                 <div>
                                                     <span class="font-semibold">${eq.icon || '🔌'} ${eq.name}</span>
                                                     <span style="color:#64748b;font-size:0.85rem;margin-left:0.5rem;">${eq.brand || ''} ${eq.model || ''}</span>
@@ -26031,7 +25978,7 @@ Generated: ${new Date().toLocaleString()}
                     } else {
                         machEl.innerHTML = machines.map(m => `
                             <div class="clickable" onclick="showMachineDetail('${m.id}')" style="padding:0.75rem;background:#f8fafc;border-radius:8px;margin-bottom:0.5rem;border-left:4px solid ${m.status === 'needs_repair' ? '#ef4444' : '#3b82f6'};">
-                                <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <div class="row-between">
                                     <div>
                                         <span class="font-semibold">${m.icon || (m.category === 'tool' ? '🔧' : '💻')} ${m.name}</span>
                                         <span style="color:#64748b;font-size:0.85rem;margin-left:0.5rem;">${m.brand || ''} ${m.model || ''}</span>
@@ -26064,12 +26011,12 @@ Generated: ${new Date().toLocaleString()}
                 issuesEl.innerHTML = issues.length === 0 ?
                     '<p style="color:#888;">No issues logged yet. Document problems and solutions to build your knowledge base!</p>' :
                     `<div class="mb-2">
-                        <input type="text" id="issue-search" placeholder="🔍 Search issues..." oninput="filterIssues(this.value)" style="width:100%;">
+                        <input type="text" id="issue-search" placeholder="🔍 Search issues..." oninput="filterIssues(this.value)" class="w-full">
                     </div>
                     <div id="issues-results">
                     ${issues.map(i => `
                         <div style="padding:0.75rem;background:#f8fafc;border-radius:6px;margin-bottom:0.5rem;border-left:4px solid ${i.resolved ? '#22c55e' : '#f59e0b'};">
-                            <div style="display:flex;justify-content:space-between;">
+                            <div class="row-split">
                                 <div class="font-semibold">${i.title}</div>
                                 <span style="font-size:0.75rem;background:${i.resolved ? '#dcfce7' : '#fef3c7'};padding:0.1rem 0.5rem;border-radius:999px;">${i.resolved ? '✅ Resolved' : '⏳ Open'}</span>
                             </div>
@@ -26108,13 +26055,13 @@ Generated: ${new Date().toLocaleString()}
             // Boats
             if (rec.boats.length) {
                 html += `
-                    <div style="margin-bottom:1.5rem;">
+                    <div class="mb-3">
                         <div style="font-weight:700;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:2px solid #0ea5e9;">🚤 Boats (${rec.boats.length})</div>
                         ${rec.boats.map(b => {
                             const linkedTrailer = getLinkedTrailer(b.id);
                             return `
                                 <div class="clickable" onclick="viewRecreationalDetail('boat', '${b.id}')" style="padding:1rem;background:#f0f9ff;border-radius:8px;margin-bottom:0.5rem;border-left:4px solid #0ea5e9;">
-                                    <div style="display:flex;justify-content:space-between;">
+                                    <div class="row-split">
                                         <div>
                                             <div class="font-semibold">${b.year || ''} ${b.make || ''} ${b.model || 'Boat'}</div>
                                             <div class="text-body-muted">
@@ -26135,13 +26082,13 @@ Generated: ${new Date().toLocaleString()}
             // Jetskis/PWC
             if (rec.jetskis.length) {
                 html += `
-                    <div style="margin-bottom:1.5rem;">
+                    <div class="mb-3">
                         <div style="font-weight:700;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:2px solid #06b6d4;">🏄 Jetskis/PWC (${rec.jetskis.length})</div>
                         ${rec.jetskis.map(j => {
                             const linkedTrailer = getLinkedTrailer(j.id);
                             return `
                                 <div class="clickable" onclick="viewRecreationalDetail('jetski', '${j.id}')" style="padding:1rem;background:#ecfeff;border-radius:8px;margin-bottom:0.5rem;border-left:4px solid #06b6d4;">
-                                    <div style="display:flex;justify-content:space-between;">
+                                    <div class="row-split">
                                         <div>
                                             <div class="font-semibold">${j.year || ''} ${j.make || ''} ${j.model || 'Jetski'}</div>
                                             <div class="text-body-muted">
@@ -26161,11 +26108,11 @@ Generated: ${new Date().toLocaleString()}
             // ATVs/UTVs
             if (rec.atvs.length) {
                 html += `
-                    <div style="margin-bottom:1.5rem;">
+                    <div class="mb-3">
                         <div style="font-weight:700;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:2px solid #84cc16;">🏍️ ATVs/UTVs (${rec.atvs.length})</div>
                         ${rec.atvs.map(a => `
                             <div class="clickable" onclick="viewRecreationalDetail('atv', '${a.id}')" style="padding:1rem;background:#f7fee7;border-radius:8px;margin-bottom:0.5rem;border-left:4px solid #84cc16;">
-                                <div style="display:flex;justify-content:space-between;">
+                                <div class="row-split">
                                     <div>
                                         <div class="font-semibold">${a.year || ''} ${a.make || ''} ${a.model || 'ATV'}</div>
                                         <div class="text-body-muted">
@@ -26183,13 +26130,13 @@ Generated: ${new Date().toLocaleString()}
             // Trailers
             if (rec.trailers.length) {
                 html += `
-                    <div style="margin-bottom:1.5rem;">
+                    <div class="mb-3">
                         <div style="font-weight:700;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:2px solid #f97316;">🚛 Trailers (${rec.trailers.length})</div>
                         ${rec.trailers.map(t => {
                             const linked = getLinkedEquipment(t.id);
                             return `
                                 <div class="clickable" onclick="viewRecreationalDetail('trailer', '${t.id}')" style="padding:1rem;background:#fff7ed;border-radius:8px;margin-bottom:0.5rem;border-left:4px solid #f97316;">
-                                    <div style="display:flex;justify-content:space-between;">
+                                    <div class="row-split">
                                         <div>
                                             <div class="font-semibold">${t.year || ''} ${t.make || ''} ${t.model || t.subtype || 'Trailer'}</div>
                                             <div class="text-body-muted">
@@ -26565,7 +26512,7 @@ Generated: ${new Date().toLocaleString()}
                             ${item.motor.documentation ? `
                                 <div style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid #fed7aa;">
                                     <div class="font-semibold mb-1">📚 Documentation</div>
-                                    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+                                    <div class="row-wrap">
                                         ${item.motor.documentation.manualSearch ? `<a href="${item.motor.documentation.manualSearch}" target="_blank" class="btn btn-small" style="font-size:0.75rem;">📖 Manuals</a>` : ''}
                                         ${item.motor.documentation.partsSearch ? `<a href="${item.motor.documentation.partsSearch}" target="_blank" class="btn btn-small" style="font-size:0.75rem;">🔩 Parts</a>` : ''}
                                         ${item.motor.documentation.supportUrl ? `<a href="${item.motor.documentation.supportUrl}" target="_blank" class="btn btn-small" style="font-size:0.75rem;">🛟 Support</a>` : ''}
@@ -26835,7 +26782,7 @@ Generated: ${new Date().toLocaleString()}
                     ` : `
                         <p style="color:#888;padding:1rem;text-align:center;">No issues logged for this type yet. Log your first issue to start building your knowledge base!</p>
                     `}
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-common-issues').remove()">Close</button>
                         <button class="btn btn-primary" onclick="document.getElementById('modal-common-issues').remove();logIssueFor('${assetType}', '${assetId}')">🔧 Log New Issue</button>
                     </div>
@@ -26966,7 +26913,7 @@ Generated: ${new Date().toLocaleString()}
                 
                 ${p.notes ? `<div style="background:#fef3c7;padding:0.75rem;border-radius:6px;margin-bottom:1rem;"><strong>Notes:</strong> ${p.notes}</div>` : ''}
                 
-                <h3 style="margin-bottom:0.5rem;">🏗️ Documented Systems</h3>
+                <h3 class="mb-1">🏗️ Documented Systems</h3>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:1rem;">
                     ${Object.entries(p.systems || {}).map(([key, sys]) => `
                         <div style="padding:0.5rem;background:#f8fafc;border-radius:6px;text-align:center;">
@@ -26982,7 +26929,7 @@ Generated: ${new Date().toLocaleString()}
                 </div>
                 
                 ${propIssues.length > 0 ? `
-                    <h3 style="margin-bottom:0.5rem;">🔧 Issue History</h3>
+                    <h3 class="mb-1">🔧 Issue History</h3>
                     <div style="max-height:200px;overflow-y:auto;margin-bottom:1rem;">
                         ${propIssues.map(i => `
                             <div style="padding:0.5rem;background:#f8fafc;border-radius:6px;margin-bottom:0.5rem;border-left:4px solid ${i.resolved ? '#22c55e' : '#f59e0b'};">
@@ -26993,7 +26940,7 @@ Generated: ${new Date().toLocaleString()}
                     </div>
                 ` : ''}
                 
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <div class="row-wrap">
                     <button class="btn btn-primary" onclick="logIssueFor('property', '${propId}')">🔧 Log Issue</button>
                     <button class="btn btn-secondary" onclick="addPropertySystem('${propId}')">🏗️ Add System</button>
                     <button class="btn btn-secondary" onclick="exportPropertyReport('${propId}')">📄 Export Report</button>
@@ -27189,7 +27136,7 @@ Generated: ${new Date().toLocaleString()}
                         </div>
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-property-fetch').remove()">Close</button>
                         <button class="btn btn-primary" onclick="document.getElementById('modal-property-fetch').remove();addPropertyChecklist('aceves')">📋 Create Inspection Checklist</button>
                     </div>
@@ -27259,7 +27206,7 @@ Generated: ${new Date().toLocaleString()}
                         ${checklist.items.map(item => `
                             <div style="display:flex;align-items:start;gap:0.5rem;padding:0.5rem;background:${item.completed ? '#f0fdf4' : (item.priority === 'high' ? '#fef2f2' : '#f8fafc')};border-radius:6px;margin-bottom:0.5rem;border-left:4px solid ${item.priority === 'high' ? '#dc2626' : item.priority === 'medium' ? '#f59e0b' : '#22c55e'};">
                                 <input type="checkbox" ${item.completed ? 'checked' : ''} onchange="toggleChecklistItem('${propId}', ${item.id})" style="margin-top:0.25rem;">
-                                <div style="flex:1;">
+                                <div class="flex-grow">
                                     <div style="${item.completed ? 'text-decoration:line-through;color:#64748b;' : ''}">${item.item}</div>
                                     <div class="text-xs-muted">${item.system} • ${item.priority} priority</div>
                                 </div>
@@ -27269,7 +27216,7 @@ Generated: ${new Date().toLocaleString()}
                     
                     <div style="display:flex;justify-content:space-between;margin-top:1rem;padding-top:0.75rem;border-top:1px solid #e5e7eb;">
                         <span class="text-muted">${checklist.items.filter(i => i.completed).length}/${checklist.items.length} completed</span>
-                        <div style="display:flex;gap:0.5rem;">
+                        <div class="row">
                             <button class="btn btn-secondary" onclick="document.getElementById('modal-checklist').remove()">Close</button>
                         </div>
                     </div>
@@ -27476,7 +27423,7 @@ Generated: ${new Date().toLocaleString()}
                             </div>
                         </div>
                         
-                        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                        <div class="row-wrap">
                             <a href="https://www.manualslib.com/manual/1099115/Johnson-Outboard.html" target="_blank" class="btn btn-small">📖 Motor Manual</a>
                             <a href="https://www.boats.net/parts/search/Johnson/Outboard/2000" target="_blank" class="btn btn-small">🔧 Motor Parts</a>
                             <a href="https://www.brp.com/en/support.html" target="_blank" class="btn btn-small">🏭 BRP Support</a>
@@ -27530,7 +27477,7 @@ Generated: ${new Date().toLocaleString()}
                             <div><strong>Access:</strong> Pull-down stairs</div>
                             <div><strong>Ventilation:</strong> Soffit vents</div>
                         </div>
-                        <button class="btn btn-primary" onclick="document.querySelector('.modal-overlay').remove();toggleAtticModel()" style="margin-top:1rem;">📐 View 3D Model</button>
+                        <button class="btn btn-primary mt-2" onclick="document.querySelector('.modal-overlay').remove();toggleAtticModel()">📐 View 3D Model</button>
                     `
                 },
                 waterheater: {
@@ -27683,7 +27630,7 @@ Generated: ${new Date().toLocaleString()}
                     data: propId === 'sam' ? `
                         <div style="background:#fef2f2;padding:0.75rem;border-radius:6px;font-size:0.9rem;">
                             <div style="font-weight:600;color:#991b1b;">⚠️ 1954 Build - Inspection Recommended</div>
-                            <div style="margin-top:0.5rem;">
+                            <div class="mt-1">
                                 <div>• Original wiring type unknown</div>
                                 <div>• Panel capacity unknown</div>
                                 <div>• May need grounding verification</div>
@@ -27696,7 +27643,7 @@ Generated: ${new Date().toLocaleString()}
                     ` : `
                         <div style="background:#fef2f2;padding:0.75rem;border-radius:6px;font-size:0.9rem;">
                             <div style="font-weight:600;color:#991b1b;">⚠️ 1931 Build - Inspection Recommended</div>
-                            <div style="margin-top:0.5rem;">
+                            <div class="mt-1">
                                 <div>• Original knob & tube wiring possible</div>
                                 <div>• May have been updated - verify</div>
                                 <div>• Check panel capacity and breaker type</div>
@@ -27758,7 +27705,7 @@ Generated: ${new Date().toLocaleString()}
                         ${photoChecklist.map((item, i) => `
                             <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:${item.priority === 'high' ? '#fef2f2' : item.priority === 'medium' ? '#fef3c7' : '#f8fafc'};border-radius:6px;margin-bottom:0.5rem;border-left:4px solid ${item.priority === 'high' ? '#dc2626' : item.priority === 'medium' ? '#f59e0b' : '#94a3b8'};">
                                 <input type="checkbox" id="photo-${i}" style="margin-top:0.25rem;width:20px;height:20px;">
-                                <div style="flex:1;">
+                                <div class="flex-grow">
                                     <div class="font-semibold">${item.room}</div>
                                     <div class="text-sm-muted">${item.instructions}</div>
                                 </div>
@@ -27777,7 +27724,7 @@ Generated: ${new Date().toLocaleString()}
                         </div>
                     </div>
                     
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-photo-guide').remove()">Close</button>
                         <button class="btn btn-primary" onclick="startPhotoCapture('${propId}')">📷 Start Capturing</button>
                     </div>
@@ -27917,7 +27864,7 @@ Generated: ${new Date().toLocaleString()}
             
             document.getElementById('issues-results').innerHTML = issues.map(i => `
                 <div style="padding:0.75rem;background:#f8fafc;border-radius:6px;margin-bottom:0.5rem;border-left:4px solid ${i.resolved ? '#22c55e' : '#f59e0b'};">
-                    <div style="display:flex;justify-content:space-between;">
+                    <div class="row-split">
                         <div class="font-semibold">${i.title}</div>
                         <span style="font-size:0.75rem;background:${i.resolved ? '#dcfce7' : '#fef3c7'};padding:0.1rem 0.5rem;border-radius:999px;">${i.resolved ? '✅ Resolved' : '⏳ Open'}</span>
                     </div>
@@ -28034,7 +27981,7 @@ ${propIssues.map(i => `
                     </div>
                 ` : ''}
                 
-                <h3 style="margin-bottom:0.5rem;">🔧 Service History</h3>
+                <h3 class="mb-1">🔧 Service History</h3>
                 ${customerJobs.length > 0 ? `
                     <div style="max-height:200px;overflow-y:auto;margin-bottom:1rem;">
                         ${customerJobs.map(j => `
@@ -28050,7 +27997,7 @@ ${propIssues.map(i => `
                 ` : '<p style="color:#888;margin-bottom:1rem;">No service history recorded.</p>'}
                 
                 ${vehIssues.length > 0 ? `
-                    <h3 style="margin-bottom:0.5rem;">🔧 Issue History</h3>
+                    <h3 class="mb-1">🔧 Issue History</h3>
                     <div style="max-height:200px;overflow-y:auto;margin-bottom:1rem;">
                         ${vehIssues.map(i => `
                             <div style="padding:0.5rem;background:#f8fafc;border-radius:6px;margin-bottom:0.5rem;border-left:4px solid ${i.resolved ? '#22c55e' : '#f59e0b'};">
@@ -28062,7 +28009,7 @@ ${propIssues.map(i => `
                     </div>
                 ` : ''}
                 
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <div class="row-wrap">
                     <button class="btn btn-primary" onclick="logIssueFor('vehicle', '${vehId}')">🔧 Log Issue</button>
                     <button class="btn btn-secondary" onclick="lookupCommonIssues('vehicle', '${vehId}')">💡 Common Issues</button>
                     <button class="btn btn-secondary" onclick="updateVehicleMileage('${vehId}')">📊 Update Mileage</button>
@@ -28134,7 +28081,7 @@ ${propIssues.map(i => `
                 ${e.notes ? `<div style="background:#f8fafc;padding:0.75rem;border-radius:6px;margin-bottom:1rem;"><strong>Notes:</strong> ${e.notes}</div>` : ''}
                 
                 ${eqIssues.length > 0 ? `
-                    <h3 style="margin-bottom:0.5rem;">🔧 Issue History</h3>
+                    <h3 class="mb-1">🔧 Issue History</h3>
                     <div style="max-height:200px;overflow-y:auto;margin-bottom:1rem;">
                         ${eqIssues.map(i => `
                             <div style="padding:0.5rem;background:#f8fafc;border-radius:6px;margin-bottom:0.5rem;border-left:4px solid ${i.resolved ? '#22c55e' : '#f59e0b'};">
@@ -28146,7 +28093,7 @@ ${propIssues.map(i => `
                     </div>
                 ` : ''}
                 
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <div class="row-wrap">
                     <button class="btn btn-primary" onclick="logIssueFor('equipment', '${eqId}')">🔧 Log Issue</button>
                     <button class="btn btn-secondary" onclick="lookupCommonIssues('equipment', '${eqId}')">💡 Common Issues</button>
                 </div>
@@ -28250,7 +28197,7 @@ ${propIssues.map(i => `
             
             let issuesHtml = '';
             if (issues.length > 0) {
-                issuesHtml = `<div style="margin-bottom:1rem;"><strong style="color:#ef4444;">⚠️ Open Issues (${issues.length}):</strong>` +
+                issuesHtml = `<div class="mb-2"><strong style="color:#ef4444;">⚠️ Open Issues (${issues.length}):</strong>` +
                     issues.map(iss => `
                         <div style="background:#fef2f2;padding:0.75rem;border-radius:6px;margin-top:0.5rem;border-left:3px solid #ef4444;">
                             <div style="font-weight:600;color:#1e293b;">${iss.description}</div>
@@ -28265,7 +28212,7 @@ ${propIssues.map(i => `
             // Specs section for equipment
             let specsHtml = '';
             if (fromEquipment && mach.specs && typeof mach.specs === 'object') {
-                specsHtml = '<div style="margin-bottom:1rem;"><strong>Specs:</strong><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.25rem;font-size:0.85rem;margin-top:0.25rem;">' +
+                specsHtml = '<div class="mb-2"><strong>Specs:</strong><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.25rem;font-size:0.85rem;margin-top:0.25rem;">' +
                     Object.entries(mach.specs).map(([k,v]) => `<div><span style="color:#64748b;">${k}:</span> ${v}</div>`).join('') +
                 '</div></div>';
             }
@@ -28275,7 +28222,7 @@ ${propIssues.map(i => `
             modal.id = 'modal-machine-detail';
             modal.innerHTML = `
                 <div class="modal" style="max-width:550px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+                    <div class="row-between mb-2">
                         <h2 style="margin:0;">${icon} ${name}</h2>
                         <button onclick="document.getElementById('modal-machine-detail').remove()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#94a3b8;">✕</button>
                     </div>
@@ -28337,7 +28284,7 @@ ${propIssues.map(i => `
                         ${config.fields.includes('motorModel') ? '<input type="text" id="veh-motor-model" placeholder="Motor Model" style="padding:0.5rem;border:1px solid #ddd;border-radius:4px;">' : ''}
                         ${config.fields.includes('motorSerial') ? '<input type="text" id="veh-motor-serial" placeholder="Motor Serial #" style="padding:0.5rem;border:1px solid #ddd;border-radius:4px;">' : ''}
                     </div>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-add-vehicle').remove()">Cancel</button>
                         <button class="btn btn-primary" onclick="saveNewVehicle('${type}')">Save ${config.label}</button>
                     </div>
@@ -28420,7 +28367,7 @@ ${propIssues.map(i => `
                             <!-- Other properties could be added -->
                         </select>
                     </div>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-add-appliance').remove()">Cancel</button>
                         <button class="btn btn-primary" onclick="saveNewAppliance()">Save Appliance</button>
                     </div>
@@ -28490,7 +28437,7 @@ ${propIssues.map(i => `
                         <input type="text" id="mach-model" placeholder="Model Number" style="padding:0.5rem;border:1px solid #ddd;border-radius:4px;">
                         <input type="text" id="mach-serial" placeholder="Serial Number" style="padding:0.5rem;border:1px solid #ddd;border-radius:4px;">
                     </div>
-                    <div class="modal-actions" style="margin-top:1rem;">
+                    <div class="modal-actions mt-2">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-add-machine').remove()">Cancel</button>
                         <button class="btn btn-primary" onclick="saveNewMachine('${machType}')">Save</button>
                     </div>
