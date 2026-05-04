@@ -1,0 +1,6 @@
+# robots.txt for samesolutionsllc.com
+User-agent: *
+Disallow: /archive/
+
+# Allow public crawling of everything else
+Allow: /

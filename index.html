@@ -269,8 +269,8 @@ section .subtitle {
 .service-area h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--black); }
 .service-area p { color: var(--muted); font-size: 0.95rem; }
 
-/* ===== BOOKING FORM (non-functional) ===== */
-.booking-form {
+/* ===== BOOKING CTA ===== */
+.booking-cta {
   background: var(--card);
   border: 1px solid var(--line);
   border-top: 3px solid var(--gold);
@@ -278,70 +278,20 @@ section .subtitle {
   padding: 2.5rem;
   max-width: 720px;
   margin: 0 auto;
+  text-align: center;
 }
-.booking-form h3 {
+.booking-cta h3 {
   font-size: 1.5rem;
   margin-bottom: 0.4rem;
   color: var(--black);
-  text-align: center;
 }
-.booking-form .form-subtitle {
-  text-align: center;
-  color: var(--muted);
-  margin-bottom: 2rem;
-  font-size: 0.95rem;
-}
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.booking-cta-buttons {
+  display: flex;
   gap: 1rem;
-  margin-bottom: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
 }
-.form-group { display: flex; flex-direction: column; }
-.form-group.full { grid-column: 1 / -1; }
-.form-group label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--muted);
-  margin-bottom: 0.4rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 0.95rem;
-  background: #fff;
-  transition: border-color 0.2s;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--gold);
-}
-.form-group textarea { resize: vertical; min-height: 100px; }
-.form-submit {
-  display: block;
-  width: 100%;
-  padding: 1rem;
-  background: var(--black);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.2s;
-  font-family: inherit;
-}
-.form-submit:hover { background: var(--gold); color: var(--black); }
 
 /* ===== FOOTER ===== */
 footer {
@@ -360,7 +310,6 @@ footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
   .hero h1 { font-size: 2.5rem; }
   .hero h2 { font-size: 1.2rem; }
   section > h2 { font-size: 2rem; }
-  .form-grid { grid-template-columns: 1fr; }
   nav { gap: 0.75rem; }
   nav a:not(.btn-portal) { display: none; }
 }
@@ -479,42 +428,13 @@ footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
 <p>Based in Commerce Township, serving Oakland County and surrounding areas in Southeast Michigan.</p>
 </div>
 
-<div class="booking-form">
-<h3>Request a Quote</h3>
-<p class="form-subtitle">Tell us about your project — we will follow up by phone or email.</p>
-<div class="form-grid">
-<div class="form-group">
-<label for="name">Name</label>
-<input type="text" id="name" name="name" autocomplete="name">
+<div class="booking-cta">
+<h3>Ready to get started?</h3>
+<p class="form-subtitle">Call or email — fastest way to get a real conversation going about your project.</p>
+<div class="booking-cta-buttons">
+<a href="tel:+12485685861" class="btn btn-gold">Call (248) 568-5861</a>
+<a href="mailto:sam@samesolutionsllc.com" class="btn btn-outline">Email Us</a>
 </div>
-<div class="form-group">
-<label for="phone">Phone</label>
-<input type="tel" id="phone" name="phone" autocomplete="tel">
-</div>
-<div class="form-group full">
-<label for="email">Email</label>
-<input type="email" id="email" name="email" autocomplete="email">
-</div>
-<div class="form-group full">
-<label for="service">Service Needed</label>
-<select id="service" name="service">
-<option value="">Select a service</option>
-<option>Technical Consulting</option>
-<option>Automotive Service</option>
-<option>Electrical</option>
-<option>Plumbing</option>
-<option>Equipment Repair</option>
-<option>Handyman Services</option>
-<option>Cleaning Services</option>
-<option>Other / Multiple</option>
-</select>
-</div>
-<div class="form-group full">
-<label for="details">Project Details</label>
-<textarea id="details" name="details" placeholder="Brief description of what you need..."></textarea>
-</div>
-</div>
-<button type="button" class="form-submit">Send Request</button>
 </div>
 
 </section>

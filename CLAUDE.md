@@ -28,6 +28,25 @@ This repo participates in a multi-store architecture. Each concern has exactly o
 
 Chat memories are informational continuity only — never authoritative. When in doubt about where something belongs, check this list first.
 
+## Canonical URL references
+
+When chat outputs, prompts, or planner entries reference prior committed work, use canonical URLs — not local Downloads paths or chat memories.
+
+- Substrate references: https://samesolutions-equipment-service.pages.dev/<path>
+- Website references: https://samesolutionsllc.com/<path>
+
+Why: chats can fetch URLs but can't see each other's local filesystems or memories. URL references make any prior work fetchable by any chat without re-uploading. Local-path references break when the source chat session ends.
+
+Examples:
+
+GOOD: "See substrate https://samesolutions-equipment-service.pages.dev/customer-jobs/aceves-home-fence-2026-04/overview.html"
+BAD: "See C:/Users/smf13/Downloads/aceves-overview.html"
+
+GOOD: "Per current PLANNER.md (https://samesolutionsllc.com/PLANNER.md)..."
+BAD: "Per the version of PLANNER.md I remember..."
+
+This rule applies to all chat outputs (prompts to Claude Code, planning documents, handoff messages) and to PLANNER.md item descriptions. Verify-by-URL rather than verify-by-local-file. The Class 4 cache patch precedent (2026-04-28) established that substrate is recoverable from bad commits, so post-commit URL verification is the canonical pattern; pre-commit zip uploads are deprecated.
+
 ## Brand Standards
 
 - **Colors**: Black `#101820` + Gold `#FFB612` — NO gradients ever
