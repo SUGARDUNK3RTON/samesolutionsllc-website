@@ -84,3 +84,64 @@
 .alert-success { background: #dcfce7; border-left: 4px solid var(--green); color: #166534; }
 .alert-warning { background: #fef3c7; border-left: 4px solid #f59e0b; color: #92400e; }
 .alert-danger { background: #fee2e2; border-left: 4px solid var(--red); color: #991b1b; }
+
+/* ===== CARDS (semantic backgrounds + default md size) ===== */
+.card-neutral { background: #f8fafc; border-radius: 6px; padding: 0.75rem; }
+.card-info    { background: #f0f9ff; border-radius: 6px; padding: 0.75rem; }
+.card-success { background: #f0fdf4; border-radius: 6px; padding: 0.75rem; }
+.card-warning { background: #fef3c7; border-radius: 6px; padding: 0.75rem; }
+.card-danger  { background: #fef2f2; border-radius: 6px; padding: 0.75rem; }
+.card-mint    { background: #ecfdf5; border-radius: 6px; padding: 0.75rem; }
+.card-violet  { background: #faf5ff; border-radius: 6px; padding: 0.75rem; }
+.card-slate   { background: #f1f5f9; border-radius: 6px; padding: 0.75rem; }
+.card-dark    { background: #1e293b; border-radius: 8px; padding: 1rem; color: #e2e8f0; }
+.card-darker  { background: #0a0f1a; border-radius: 8px; padding: 1rem; }
+/* Size modifiers — must come AFTER color classes so cascade source-order wins */
+.card-sm { border-radius: 4px; padding: 0.5rem; }
+.card-lg { border-radius: 8px; padding: 1rem; }
+
+/* ===== INPUT-LIKE ===== */
+.input-base { padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; }
+
+/* ===== TEXT COLORS (gaps not in commit 1) ===== */
+.text-info     { color: #0369a1; }
+.text-warning  { color: #92400e; }
+.text-green    { color: #22c55e; }
+.text-success-2 { color: #166534; }
+.text-muted-2  { color: #94a3b8; }
+.text-666      { color: #666; }
+.text-888      { color: #888; }
+.text-slate    { color: #475569; }
+.text-white    { color: white; }
+.text-blue     { color: #3b82f6; }
+.text-amber    { color: #f59e0b; }
+.text-purple   { color: #7c3aed; }
+.text-emerald  { color: #059669; }
+
+/* ===== FONT SIZES (gaps; existing covers .text-xs=0.75, .text-sm=0.875, .text-lg=1.125, .text-xl=1.25, .text-2xl=1.5) ===== */
+.fs-60  { font-size: 0.6rem; }
+.fs-65  { font-size: 0.65rem; }
+.fs-70  { font-size: 0.7rem; }
+.fs-80  { font-size: 0.8rem; }
+.fs-85  { font-size: 0.85rem; }
+.fs-90  { font-size: 0.9rem; }
+.fs-95  { font-size: 0.95rem; }
+.fs-100 { font-size: 1rem; }
+.fs-110 { font-size: 1.1rem; }
+.fs-120 { font-size: 1.2rem; }
+.fs-130 { font-size: 1.3rem; }
+
+/* ===== FONT WEIGHTS (numeric; alongside existing .font-bold and .font-semibold) ===== */
+.fw-600 { font-weight: 600; }
+.fw-700 { font-weight: 700; }
+
+/* ===== MISC ===== */
+.opacity-80 { opacity: 0.8; }
+.opacity-50 { opacity: 0.5; }
+.whitespace-nowrap { white-space: nowrap; }
+.maxw-400 { max-width: 400px; }
+.maxw-450 { max-width: 450px; }
+.maxw-500 { max-width: 500px; }
+.maxw-550 { max-width: 550px; }
+.maxw-600 { max-width: 600px; }
+.maxw-700 { max-width: 700px; }
