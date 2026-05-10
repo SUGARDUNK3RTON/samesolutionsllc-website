@@ -1,0 +1,12 @@
+{
+  "name": "samesolutionsllc-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Same Solutions LLC public site + manage PWA. Smoke tests run against production via GitHub Actions on every push.",
+  "scripts": {
+    "test:smoke": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}
