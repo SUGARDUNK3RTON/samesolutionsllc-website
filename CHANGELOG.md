@@ -4,6 +4,17 @@
 
 Format: each entry is dated, names the milestone, and gives a one-sentence summary plus links to the relevant artifacts.
 
+## 2026-05-11 (Monday) — operations checkpoint
+
+Active workday in progress:
+- Pirates v3.1 print running overnight 2:30 AM (3-color test print)
+- Peter Scott shed assessment scheduled 4:30 PM (3232 Green Oak)
+- Jon's house paint work (ceiling cut-in + trim + radiator clean+paint)
+- Pittsburgh trip 4 days away (Fri May 15 departure)
+- Status tracker substrate live; Sam bookmarking on phone
+- Two parallel research chats active (metal 3DP + lifestyle business)
+- Passive income research substrate scaffolded for post-Pittsburgh handoff
+
 ## 2026-05-10 — Sunday operations: Pirates v3 print file regeneration, metal 3DP scope reframe, two new research chats
 
 Major work without code changes to manage app or public site:
