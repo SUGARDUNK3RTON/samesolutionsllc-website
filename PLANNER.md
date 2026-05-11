@@ -1,6 +1,6 @@
 # Same Solutions — Planner
 
-> Last updated: Monday May 11, 2026
+> Last updated: Tuesday May 12, 2026
 > Single source of truth for global priorities. See CLAUDE.md for repo rules. See CHANGELOG.md for shipped work.
 
 ## HARD DEADLINES
@@ -11,8 +11,14 @@
 
 ## THIS WEEK (May 11 – May 17)
 
+### Tue 5/12 (today)
+- **Morning** — bus-stop conversation with Jon (paint access + deck status + fence status + Keith schedule)
+- **Afternoon** — paint work at Jon's: ceiling cut-in + trim + radiators (clean + paint)
+- **4:30 PM** — Peter Scott shed out-of-level investigation (address TBD)
+- **All day** — Pirates + Phillies prints continuing in background (v3.1 canonical, three slicer-config bugs from v3 already fixed)
+
 ### Mon 5/11 — Wed 5/13
-- Pirates/Phillies print sprint final stretch — v3 file is canonical (mesh-verified pauses at z=10mm and z=12mm); v1/v2 superseded
+- Pirates/Phillies print sprint final stretch — v3.1 file is canonical (mesh-verified pauses at z=10mm and z=12mm + three slicer-config fixes); v1/v2/v3 superseded. See substrate handoff 2026-05-11 for v3 bug details.
 - Verify all 16 medallions + 16 chains complete by Wed EOD
 
 ### Thu 5/14
@@ -43,7 +49,7 @@ Priorities below are ordered. Substrate-managed entities (equipment, customer jo
 16. **Home model room layout fix** — manage app, floor plan SVG rooms overlap
 17. **LT180 spindle brake parts research** — see substrate `index/equipment/lt180.md`
 18. **customer-jobs/ template codification** — refine from Aceves fence work, see substrate
-19. **Home tab for manage app** — personal dashboard inside /manage (tasks, quick links, notes). Design spec at substrate `personal/home-tab-design-spec-2026-05/`. Build deferred until post-Pittsburgh trip per Sam.
+19. **Home tab for manage app** — personal dashboard inside /manage (tasks, quick links, notes). Design spec **live** at substrate `personal/home-tab-design-spec-2026-05/intake.md`; 6 open decisions flagged for Sam's review. Build session scheduled post-Pittsburgh (after 2026-05-16). Until Home tab ships, the static status tracker at `personal/status-tracker/current.html` is Sam's phone bookmark.
 20. **Water heater replacement (sam-home)** — 1984 unit, 41 years old, critical
 21. **Sam's deck — scrape, replace boards, stain** — ~1/5 boards
 22. **CeCe's studio arches — verify completion** [?]
