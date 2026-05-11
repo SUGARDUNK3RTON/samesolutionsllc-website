@@ -55,11 +55,12 @@ Priorities below are ordered. Substrate-managed entities (equipment, customer jo
 23. **ACA enrollment for Sam + CeCe** — each household-of-1, separate filings
 24. **CeCe Schedule C reconstruction** — tax prep for hair-stylist LLC
 25. **Business cards — design + order** — logo v38 SVG ready as source
-26. **Logo-based 3D prints** — keychains, magnets, desk pieces
-27. **Pocket screwdrivers branded order** — pair with business card order?
-28. **Foran's Transmission site — Dad review, push live** — subpage with mascot already built
-29. **Paint: Windsor's room, master, basement, exterior wall** — part of SW bulk order
-30. **Collect Letvin $695** — outstanding, deprioritized
+26. **Metal 3D printing business exploration** — multi-month iterative research project. Substrate folder at personal/metal-3dp-business-exploration-2026/. Research chat owns deep exploration; planning chat coordinates with Same Solutions LLC strategic considerations. Living documents, no fixed deliverable date. See substrate landscape-overview.html for current market snapshot.
+27. **Logo-based 3D prints** — keychains, magnets, desk pieces
+28. **Pocket screwdrivers branded order** — pair with business card order?
+29. **Foran's Transmission site — Dad review, push live** — subpage with mascot already built
+30. **Paint: Windsor's room, master, basement, exterior wall** — part of SW bulk order
+31. **Collect Letvin $695** — outstanding, deprioritized
 
 ## TO VERIFY (status unknown — flagged from prior planner)
 

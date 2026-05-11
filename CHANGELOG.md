@@ -4,6 +4,10 @@
 
 Format: each entry is dated, names the milestone, and gives a one-sentence summary plus links to the relevant artifacts.
 
+## 2026-05-09 — Metal 3DP business exploration substrate project created
+
+Started multi-month iterative exploration of metal additive manufacturing as a potential small business venture. Substrate project scaffolded at personal/metal-3dp-business-exploration-2026/ with multi-folder structure to support ongoing research (research-updates/, business-models/, vendor-evaluation/, application-research/). Baseline research from planning chat captured. Research chat handoff prepared. This is the first personal-project using the multi-folder iterative structure — pattern may inform future business-exploration projects.
+
 ## 2026-05-01 — Landing page v3 ships
 
 Public landing page rebuilt with engineer-first positioning. New: hybrid 7-service list (Technical Consulting, Automotive Service, Electrical, Plumbing, Equipment Repair, Handyman Services, Cleaning Services) with custom SVG icons replacing emoji; "15+ Years Engineering at Major Automakers" credential pill in About section; structured contact cards with phone/email/location SVG icons; non-functional booking form placeholder for visual completeness (submit button does nothing — backend deferred to v4); Commerce Township eyebrow in hero; refined editorial typography and spacing throughout. Recovered v115 original archived at `archive/landing-page-v115-original.html` for design reference. Brand colors verified: #101820 black, #FFB612 gold, no #000000.
