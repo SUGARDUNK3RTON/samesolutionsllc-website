@@ -1,6 +1,6 @@
 # Same Solutions — Planner
 
-> Last updated: Tuesday May 12, 2026
+> Last updated: Monday May 11, 2026 (2:30 AM correction — prior version mislabeled today as Tuesday)
 > Single source of truth for global priorities. See CLAUDE.md for repo rules. See CHANGELOG.md for shipped work.
 
 ## HARD DEADLINES
@@ -11,11 +11,11 @@
 
 ## THIS WEEK (May 11 – May 17)
 
-### Tue 5/12 (today)
+### Mon 5/11 (today)
 - **Morning** — bus-stop conversation with Jon (paint access + deck status + fence status + Keith schedule)
 - **Afternoon** — paint work at Jon's: ceiling cut-in + trim + radiators (clean + paint)
-- **4:30 PM** — Peter Scott shed out-of-level investigation (address TBD)
-- **All day** — Pirates + Phillies prints continuing in background (v3.1 canonical, three slicer-config bugs from v3 already fixed)
+- **4:30 PM** — Peter Scott shed out-of-level investigation (3232 Green Oak, Commerce Twp). Substrate folder: `customer-jobs/peter-scott-shed-2026-05/`. TODO: add Peter Scott as customer in /manage app via Add Customer form (no migration needed if added via UI; phone/email captured at appt).
+- **All day** — Pirates + Phillies prints continuing in background (v3.1 canonical, three slicer-config bugs from v3 already fixed). v3.1 print running overnight from 2:30 AM Monday.
 
 ### Mon 5/11 — Wed 5/13
 - Pirates/Phillies print sprint final stretch — v3.1 file is canonical (mesh-verified pauses at z=10mm and z=12mm + three slicer-config fixes); v1/v2/v3 superseded. See substrate handoff 2026-05-11 for v3 bug details.
