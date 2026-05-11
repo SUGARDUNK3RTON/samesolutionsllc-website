@@ -4,6 +4,18 @@
 
 Format: each entry is dated, names the milestone, and gives a one-sentence summary plus links to the relevant artifacts.
 
+## 2026-05-10 — Sunday operations: Pirates v3 print file regeneration, metal 3DP scope reframe, two new research chats
+
+Major work without code changes to manage app or public site:
+
+- Pirates necklace 3D print file regenerated as v3 with mesh-verified pause locations (z=10.0mm white→black, z=12.0mm black→gold). v1/v2 superseded. Source mesh inspection confirmed paint_color triangle distribution: 854 white base triangles (z=0-10mm), 598 black ring triangles (z=10-12mm), 708 gold top triangles (z=12-14mm).
+
+- Metal 3DP business exploration substrate project scoping refined. Initial framing of "metal 3D printing service bureau" reframed to broader fabrication venture exploration with two-track research split: metal 3DP technical/market track (existing chat, scope expanded to include WAAM/CNC/plasma/waterjet/welding) and lifestyle business / career exit track (new chat, partnership structure + healthcare/retirement focus).
+
+- Status tracker generated documenting 6/8 converged action plan items shipped (Priorities 1, 2, 3, 4, 6, 7, 8 done; Priority 5 substrate template spec deferred). 5-day Pittsburgh trip planning calendar surfaced.
+
+- Sam's "Home tab" personal dashboard concept identified as next architectural priority for the manage app post-Pittsburgh trip. Design spec generated.
+
 ## 2026-05-09 — Metal 3DP business exploration substrate project created
 
 Started multi-month iterative exploration of metal additive manufacturing as a potential small business venture. Substrate project scaffolded at personal/metal-3dp-business-exploration-2026/ with multi-folder structure to support ongoing research (research-updates/, business-models/, vendor-evaluation/, application-research/). Baseline research from planning chat captured. Research chat handoff prepared. This is the first personal-project using the multi-folder iterative structure — pattern may inform future business-exploration projects.
