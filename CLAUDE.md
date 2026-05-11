@@ -47,6 +47,10 @@ BAD: "Per the version of PLANNER.md I remember..."
 
 This rule applies to all chat outputs (prompts to Claude Code, planning documents, handoff messages) and to PLANNER.md item descriptions. Verify-by-URL rather than verify-by-local-file. The Class 4 cache patch precedent (2026-04-28) established that substrate is recoverable from bad commits, so post-commit URL verification is the canonical pattern; pre-commit zip uploads are deprecated.
 
+## URL extension behavior
+
+Substrate (samesolutions-equipment-service.pages.dev) serves HTML files at both /path/to/file.html and /path/to/file (with 308 redirect from .html → strip-extension). Both forms work in browsers. For canonical URL references in PLANNER, chat outputs, and handoff prompts, prefer the no-.html form (cleaner, shorter). Either form is technically correct. This behavior was confirmed by Claude Code during the metal 3DP substrate scaffold deploy on 2026-05-09.
+
 ## Brand Standards
 
 - **Colors**: Black `#101820` + Gold `#FFB612` — NO gradients ever
