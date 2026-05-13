@@ -29,6 +29,23 @@ header {
   border-bottom: 3px solid var(--gold);
 }
 header img { height: 44px; }
+header .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: #fff;
+}
+header .brand .wordmark {
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+header .brand .wordmark .accent { color: var(--gold); }
+@media (max-width: 600px) {
+  header .brand .wordmark { font-size: 0.95rem; }
+}
 nav { display: flex; gap: 1.75rem; align-items: center; }
 nav a {
   color: #fff;
@@ -241,6 +258,10 @@ section .subtitle {
   flex-shrink: 0;
 }
 .contact-icon svg { width: 22px; height: 22px; }
+.contact-info {
+  flex: 1;
+  min-width: 0;
+}
 .contact-info h4 {
   font-size: 0.75rem;
   color: var(--muted);
@@ -252,8 +273,10 @@ section .subtitle {
 .contact-info a, .contact-info p {
   color: var(--black);
   text-decoration: none;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .contact-info a:hover { color: var(--gold); }
 
@@ -318,7 +341,10 @@ footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
 <body>
 
 <header>
-<img src="https://samesolutionsllc.com/same-solutions-logo.svg" alt="Same Solutions LLC" />
+<a class="brand" href="/">
+  <img src="https://samesolutionsllc.com/same-solutions-logo.svg" alt="Same Solutions LLC" />
+  <span class="wordmark">Same <span class="accent">Solutions</span></span>
+</a>
 <nav>
 <a href="#services">Services</a>
 <a href="#about">About</a>
@@ -329,7 +355,6 @@ footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
 
 <section class="hero">
 <div class="hero-content">
-<div class="eyebrow">Commerce Township, Michigan</div>
 <h1>Same Solutions LLC</h1>
 <h2>Same Solutions for Different Problems</h2>
 <p>Engineering-grade technical and handyman services for homeowners and small businesses across Southeast Michigan.</p>
@@ -382,12 +407,6 @@ footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
 <p>Drywall, painting, trim, shelving, furniture assembly, door and window repairs, and general maintenance.</p>
 </div>
 
-<div class="service-card">
-<div class="service-icon"><svg fill="#FFB612" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg></div>
-<h3>Cleaning Services</h3>
-<p>Commercial steam cleaning for kitchens and equipment, plus move-in/out deep cleaning and property turnovers.</p>
-</div>
-
 </div>
 </section>
 
@@ -403,8 +422,15 @@ footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
 
 <section id="contact">
 <div class="section-eyebrow">Get In Touch</div>
-<h2>Contact Us</h2>
-<p class="subtitle">Three ways to reach us — choose what works for you</p>
+<h2>Start Your Project</h2>
+<p class="subtitle">Call or email — fastest way to get a real conversation going about your project.</p>
+
+<div class="booking-cta">
+<div class="booking-cta-buttons">
+<a href="tel:+12485685861" class="btn btn-gold">Call (248) 568-5861</a>
+<a href="mailto:sam@samesolutionsllc.com" class="btn btn-outline">Email Us</a>
+</div>
+</div>
 
 <div class="contact-cards">
 <div class="contact-card">
@@ -419,27 +445,14 @@ footer a { color: var(--gold); text-decoration: none; font-weight: 600; }
 
 <div class="contact-card">
 <div class="contact-icon"><svg width="20" height="20" fill="#FFB612" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
-<div class="contact-info"><h4>Location</h4><p>Commerce Township, MI 48382</p></div>
-</div>
-</div>
-
-<div class="service-area">
-<h3>Service Area</h3>
-<p>Based in Commerce Township, serving Oakland County and surrounding areas in Southeast Michigan.</p>
-</div>
-
-<div class="booking-cta">
-<h3>Ready to get started?</h3>
-<p class="form-subtitle">Call or email — fastest way to get a real conversation going about your project.</p>
-<div class="booking-cta-buttons">
-<a href="tel:+12485685861" class="btn btn-gold">Call (248) 568-5861</a>
-<a href="mailto:sam@samesolutionsllc.com" class="btn btn-outline">Email Us</a>
+<div class="contact-info"><h4>Service Area</h4><p>Commerce Township + Oakland County + Southeast MI</p></div>
 </div>
 </div>
 
 </section>
 
 <footer>
+<p>Commerce Township, Michigan · serving Oakland County and Southeast Michigan</p>
 <p>© 2026 Same Solutions LLC. All rights reserved.</p>
 <p><a href="https://www.samesolutionsllc.com/manage">Customer Portal →</a></p>
 </footer>
