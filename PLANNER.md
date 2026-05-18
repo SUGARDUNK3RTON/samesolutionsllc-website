@@ -1,31 +1,44 @@
 # Same Solutions — Planner
 
-> Last updated: Monday May 11, 2026 (2:30 AM correction — prior version mislabeled today as Tuesday)
+> Last updated: Monday May 18, 2026 (post-Pittsburgh return)
 > Single source of truth for global priorities. See CLAUDE.md for repo rules. See CHANGELOG.md for shipped work.
 
 ## HARD DEADLINES
 
-- **Wed May 13 EOD** — all 16+ logos and chains printed and ready
-- **Thu May 14 AM** — truck departs for family baseball game
-- **Sat May 16** — game day at Hubbard Lake
+- **Sun May 24** — confirm Win parenting time for this coming weekend (May 23-24) with Win's mom
+- **Sat Jun 7** — Donlin team medallions delivery deadline (Jarod) — design coordination phase, urgent after 2026-05-22
+- **Early Jul (3-5)** — confirm Win parenting time for July 4 weekend (Commerce Lake fireworks party with neighbors)
 
-## THIS WEEK (May 11 – May 17)
+> Sweep needed: prior deadlines (May 13/14/16 — print sprint + Hubbard Lake trip) all in the past. Pirates/Phillies print + game day status to confirm and move to RECENTLY COMPLETED.
 
-### Mon 5/11 (today)
-- **Morning** — bus-stop conversation with Jon (paint access + deck status + fence status + Keith schedule)
-- **Afternoon** — paint work at Jon's: ceiling cut-in + trim + radiators (clean + paint)
-- **4:30 PM** — Peter Scott shed out-of-level investigation (3232 Green Oak, Commerce Twp). Substrate folder: `customer-jobs/peter-scott-shed-2026-05/`. TODO: add Peter Scott as customer in /manage app via Add Customer form (no migration needed if added via UI; phone/email captured at appt).
-- **All day** — Pirates + Phillies prints continuing in background (v3.1 canonical, three slicer-config bugs from v3 already fixed). v3.1 print running overnight from 2:30 AM Monday.
+## THIS WEEK (May 18 – May 24)
 
-### Mon 5/11 — Wed 5/13
-- Pirates/Phillies print sprint final stretch — v3.1 file is canonical (mesh-verified pauses at z=10mm and z=12mm + three slicer-config fixes); v1/v2/v3 superseded. See substrate handoff 2026-05-11 for v3 bug details.
-- Verify all 16 medallions + 16 chains complete by Wed EOD
+### Mon 5/18 (today)
+- **12:30 – 1:30 PM** — Sherwin Williams run: quart of paint (Aceves trim color) + FrogTape Multi-Surface 1.41" (60yd) painter's tape
+- **2:00 PM** — Recalibration meeting (self) — post-Pittsburgh + Aceves wrap-up + active workload. Notes file lives on substrate: `personal/recalibration/2026-05-18.md`
+- **Afternoon / evening** — Aceves trim painting: 1 window full trim + 3 window touchups (finish remaining work, unblocks final invoice + survey)
 
-### Thu 5/14
-- Truck loads AM for Hubbard Lake; depart
+### Tue 5/19
+- **After school — TIME TBD** — Neighborhood block party (kids). Details pending — Sam to check Glengary newsletter, neighborhood FB/Nextdoor, HOA email, Win's school folder, neighbor texts. Calendar entry: substrate `/our/calendar` placeholder titled "Block Party (kids) — DETAILS PENDING"
 
-### Sat 5/16
-- Game day
+### Weekend 5/23 – 5/24
+- Win parenting time — confirm with Win's mom this week
+
+## SAM ACTION QUEUE (captured 2026-05-18)
+
+Items captured this Monday — see substrate task ledger for owners/status/links. Each links out to a substrate task ID; PLANNER tracks priority only.
+
+- **task-RUG-CLEAN-001** — Clean living-room rug with pressure washer (dry + reinstall). Blocked on B.
+- **task-EQUIP-PRESSURE-WASHER-001** — Fix pressure washer nozzle or buy replacement. Decision needed; unblocks A.
+- **task-3DP-LOTION-BOTTLES-001** — 3D-print vanilla-scented lotion bottles. Needs design source + bottle specs + food-safe filament call.
+- **task-CECE-SELL-SALON-CHAIRS-001** — List CeCe's old salon chairs (FB Marketplace / Craigslist / OfferUp). Owner: CeCe. Needs photos + pricing research.
+- **task-WIN-WEEKEND-SCHEDULE-001** — Confirm Win parenting time May 23-24 with Win's mom. Trigger reminder Wed if unresolved.
+- **task-WIN-JULY-4-SCHEDULE-001** — Confirm Win parenting time July 3-5 (Commerce Lake fireworks party with neighbors).
+- **task-ACEVES-HUB-WALKTHROUGH-001** — Walk Jon Aceves through hub + app install flow (manage app customer portal). Reference: substrate `/handoff-blocks/jon-walkthrough-prep.md` if exists.
+- **task-ACEVES-BILL-FINALIZE-001** — Finalize Aceves invoice + survey procedure. Blocked on today's trim work. Reconcile $700-840 vs $950 placeholder per prior audit.
+- **task-BOAT-BATTERY-CABLES-001** — Four Winns H190: identify cable end types needed + decide whether to repurpose pontoon battery as 12V replacement. Sub-steps: check Four Winns current battery condition, check pontoon battery (age/CCA/group size), determine compatibility, identify terminal/lug specs, source cable ends (NAPA / AutoZone / Marine West / Amazon). Affects season readiness.
+
+> **2 PM recalibration agenda — add:** decide home for "Accounts & Reference Numbers" page. Options on table: local-only outside any repo, inside /manage app (admin-authed), on substrate with noindex (accepting public-URL exposure), or 1Password/Bitwarden only. First entry waiting to be stored: SW Pro account #. Painting tools doc + boat battery task are not blocked by this decision and can ship to substrate independently.
 
 ## RANKED BACKLOG
 
