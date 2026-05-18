@@ -6,10 +6,11 @@ test('public landing page renders core elements', async ({ page }) => {
 
   await expect(page).toHaveTitle(/Same Solutions LLC/);
   await expect(page.locator('h1', { hasText: 'Same Solutions LLC' })).toBeVisible();
-  await expect(page.locator('.eyebrow', { hasText: 'Commerce Township, Michigan' })).toBeVisible();
+  await expect(page.locator('h2', { hasText: 'Same Solutions for Different Problems' })).toBeVisible();
   await expect(page.locator('.credential-line', { hasText: '15+ Years Engineering at Major Automakers' })).toBeVisible();
-  await expect(page.locator('.service-card')).toHaveCount(7);
+  await expect(page.locator('.service-card')).toHaveCount(6);
   await expect(page.locator('footer p', { hasText: '© 2026' })).toBeVisible();
+  await expect(page.locator('footer p', { hasText: 'Commerce Township' })).toBeVisible();
 });
 
 test('manage entry serves expected structure', async ({ page }) => {
