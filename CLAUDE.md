@@ -18,7 +18,7 @@ This repo participates in a multi-store architecture. Each concern has exactly o
 - Major architectural milestones, shipped work, history → CHANGELOG.md (this repo)
 - Repo rules, conventions, codebase guidance → CLAUDE.md (this repo, this file)
 - Repo structure / what-lives-where → REPO.md (this repo)
-- Customer/quote/invoice/property/equipment data → /manage app data model (localStorage, DATA_VERSION 15)
+- Customer/quote/invoice/property/equipment data → /manage app data model (localStorage, DATA_VERSION 17)
 - Methodology, session protocol, kind-specific behavior → substrate METHODOLOGY.md + SESSION-PRELUDE.md
 - Per-entity next-steps and dossiers → substrate index/<kind>/<id>.md
 - Customer-jobs research artifacts → substrate customer-jobs/<property-id>-<job-type>-<YYYY-MM>/
