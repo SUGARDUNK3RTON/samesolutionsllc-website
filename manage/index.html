@@ -1068,7 +1068,7 @@
                 <div class="row-between mb-2">
                     <div>
                         <h2>📍 4256 Bluebird Dr, Commerce Twp, MI 48382</h2>
-                        <div class="text-muted fs-90">Jonathan & Abbey Aceves • Lake Access Property</div>
+                        <div class="text-muted fs-90">Jonathon & Abbey Aceves • Lake Access Property</div>
                     </div>
                     <div class="row">
                         <button class="btn btn-small" onclick="fetchPropertyData('4256 Bluebird Dr Commerce Township MI')">🔄 Refresh</button>
@@ -1354,7 +1354,7 @@
                 </div>
                 
                 <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
-                    <button class="btn btn-primary" onclick="showCustomerDetail('jonathan-aceves')">👤 View Customer</button>
+                    <button class="btn btn-primary" onclick="showCustomerDetail('jonathon-aceves')">👤 View Customer</button>
                     <button class="btn btn-secondary" onclick="addJobNote('aceves')">📝 Add Note</button>
                     <button class="btn btn-secondary" onclick="calculateMaterials()">🧮 Material Calculator</button>
                     <button class="btn btn-secondary" onclick="exportPropertyReport('aceves')">📄 Export Report</button>
@@ -2793,7 +2793,7 @@
         const MILEAGE_RATE = 0.70; // IRS 2025 rate
         
         // Invoice counter for generating sequential invoice numbers
-        let invoiceCounter = 12; // Starting after SS-011 (last recorded)
+        let invoiceCounter = 13; // Starting after SS-012 (added 2026-05-20 for Aceves paint final; last manually-recorded was SS-011 Haim)
         function getNextInvoiceNumber() {
             invoiceCounter++;
             return `SS-${String(invoiceCounter).padStart(3, '0')}`;
@@ -3392,7 +3392,7 @@
             // Customers - format: firstnamelastname@same.com / lastname
             'mikeletvin@same.com': { _pw: 'bGV0dmlu', role: 'customer', customerId: 'mike-letvin' },
             'jeffmcgibbons@same.com': { _pw: 'bWNnaWJib25z', role: 'customer', customerId: 'jeff-mcgibbons' },
-            'jonathanaceves@same.com': { _pw: 'YWNldmVz', role: 'customer', customerId: 'jonathan-aceves', properties: ['aceves-home', 'aceves-lake'] },
+            'jonathonaceves@same.com': { _pw: 'YWNldmVz', role: 'customer', customerId: 'jonathon-aceves', properties: ['aceves-home', 'aceves-lake'] },
             'tonyburt@same.com': { _pw: 'YnVydA==', role: 'customer', customerId: 'tony-burt' },
             'adamthompson@same.com': { _pw: 'dGhvbXBzb24=', role: 'customer', customerId: 'adam-thompson' },
             'lukeshepley@same.com': { _pw: 'c2hlcGxleQ==', role: 'customer', customerId: 'luke-shepley' },
@@ -4662,10 +4662,10 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.18';
+        const APP_VERSION = 'v1.7.19';
 
         // Data schema version - increment when structure changes
-        const DATA_VERSION = 17;
+        const DATA_VERSION = 18;
         
         let data = { customers: {}, jobs: [], invoices: [], expenses: [], quotes: [], mileage: [], _version: DATA_VERSION };
 
@@ -4734,7 +4734,7 @@ Same Solutions LLC
                                 property2: { address: "", city: "", state: "MI", zip: "", type: "residential", name: "Talmid Property 2 (address TBD)" }
                             },
                             address: "Dearborn, MI 48126", type: "customer", notes: "Mashgiach. Multiple properties. Has outstanding balance." },
-                        "jonathan-aceves": { name: "Jonathan Aceves", business: "", phone: "(734) 644-1552", email: "", address: "4256 Bluebird Dr, Commerce, MI 48382", type: "customer" },
+                        "jonathon-aceves": { name: "Jonathon Aceves", business: "", phone: "(734) 644-1552", email: "", address: "4256 Bluebird Dr, Commerce, MI 48382", type: "customer" },
                         "tony-burt": { name: "Tony Burt", business: "", phone: "", email: "", address: "23061 Oneida St, Oak Park, MI 48237", type: "friend", notes: "Friend/collaborator - no charge work" },
                         "michael-foran": { name: "Michael Foran", business: "Foran's Transmission & Auto Repair", phone: "(570) 544-6509", email: "", 
                             addresses: {
@@ -4811,14 +4811,14 @@ Same Solutions LLC
                         { id: "H-015", customer: "haim-talmid", date: "2026-03-01", description: "Parts - Paint (4 cans)", type: "parts", amount: 24, status: "owed" },
                         { id: "H-016", customer: "haim-talmid", date: "2026-01-18", description: "Parts - Menards (paint, wood filler, spout)", type: "parts", amount: 49.01, status: "owed" },
                         { id: "H-017", customer: "haim-talmid", date: "2026-03-06", description: "Damper repair (0.5 hrs)", type: "handyman", amount: 30, status: "paid", invoice: "SS-011" },
-                        { id: "J-001", customer: "jonathan-aceves", date: "2026-03-02", description: "Oil change - 2023 Ford Explorer ST", type: "automotive", amount: 100, status: "paid", invoice: "SS-001" },
-                        { id: "J-002", customer: "jonathan-aceves", date: "2026-02-20", description: "Tankless water heater leak diagnostic", type: "repair", amount: 125, status: "paid", invoice: "SS-009" },
+                        { id: "J-001", customer: "jonathon-aceves", date: "2026-03-02", description: "Oil change - 2023 Ford Explorer ST", type: "automotive", amount: 100, status: "paid", invoice: "SS-001" },
+                        { id: "J-002", customer: "jonathon-aceves", date: "2026-02-20", description: "Tankless water heater leak diagnostic", type: "repair", amount: 125, status: "paid", invoice: "SS-009" },
                         { id: "T-001", customer: "tony-burt", date: "2026-03-07", description: "Galvanized pipe replacement - HW heater to kitchen/washer/wash tub (collaborative - no charge)", type: "plumbing", amount: 0, status: "paid", notes: "Replaced blocked galvanized hot water pipe in basement ceiling. Tony installed new Bosch 300 dishwasher, discovered no hot water to sink/dishwasher. Cut out and replaced galv with copper/pex." },
                         { id: "T-002", customer: "tony-burt", date: "2026-03-07", description: "Kitchen sink water line - Pex to copper transition + new angle valves", type: "plumbing", amount: 0, status: "paid", notes: "Tied in kitchen sink water line with pex-to-copper transition. Installed new right angle shut-off valves under sink." },
                         { id: "T-003", customer: "tony-burt", date: "2026-03-07", description: "Hot water flow diagnostic - minor blockage found, suspect full blockage", type: "plumbing", amount: 0, status: "paid", notes: "Inspected sink hot water flow issue. Found minor blockage but suspect fully blocked somewhere in line. Hot side not flowing at full pressure." }
                     ],
                     invoices: [
-                        { number: "SS-001", customer: "jonathan-aceves", date: "2026-03-02", jobs: ["J-001"], subtotal: 125, discount: 25, total: 100, status: "paid" },
+                        { number: "SS-001", customer: "jonathon-aceves", date: "2026-03-02", jobs: ["J-001"], subtotal: 125, discount: 25, total: 100, status: "paid" },
                         { number: "SS-002", customer: "mike-letvin", date: "2026-01-07", jobs: ["M-001", "M-002", "M-003", "M-004"], subtotal: 400, discount: 0, total: 400, status: "paid" },
                         { number: "SS-003", customer: "mike-letvin", date: "2026-01-15", jobs: ["M-005"], subtotal: 400, discount: 0, total: 400, status: "paid" },
                         { number: "SS-004", customer: "mike-letvin", date: "2026-01-22", jobs: ["M-006"], subtotal: 400, discount: 0, total: 400, status: "paid" },
@@ -4826,9 +4826,10 @@ Same Solutions LLC
                         { number: "SS-006", customer: "mike-letvin", date: "2026-03-02", jobs: ["M-008"], subtotal: 50, discount: 0, total: 50, status: "paid" },
                         { number: "SS-007", customer: "mike-letvin", date: "2026-03-06", jobs: ["M-014"], subtotal: 200, discount: 0, total: 200, status: "paid" },
                         { number: "SS-008", customer: "haim-talmid", date: "2026-02-24", jobs: ["H-001"], subtotal: 125, discount: 0, total: 125, status: "paid" },
-                        { number: "SS-009", customer: "jonathan-aceves", date: "2026-02-20", jobs: ["J-002"], subtotal: 125, discount: 0, total: 125, status: "paid" },
+                        { number: "SS-009", customer: "jonathon-aceves", date: "2026-02-20", jobs: ["J-002"], subtotal: 125, discount: 0, total: 125, status: "paid" },
                         { number: "SS-010", customer: "haim-talmid", date: "2026-03-06", jobs: ["H-002", "H-007", "H-010", "H-011"], subtotal: 250, discount: 0, total: 250, status: "paid", notes: "Customer provided damper" },
-                        { number: "SS-011", customer: "haim-talmid", date: "2026-03-06", jobs: ["H-004", "H-006", "H-009", "H-017"], subtotal: 200, discount: 0, total: 200, status: "paid", notes: "Customer provided Frost King materials" }
+                        { number: "SS-011", customer: "haim-talmid", date: "2026-03-06", jobs: ["H-004", "H-006", "H-009", "H-017"], subtotal: 200, discount: 0, total: 200, status: "paid", notes: "Customer provided Frost King materials" },
+                        { number: "SS-012", customer: "jonathon-aceves", date: "2026-05-20", jobs: [], subtotal: 950, discount: 0, total: 950, status: "draft", notes: "Aceves Paint Job SS-Q010 final invoice. Trim finish confirmed complete Tue 2026-05-19 17:00. Canonical: /customer-jobs/aceves-home-fence-2026-04/status.json" }
                     ],
                     expenses: [
                         { id: "E-001", date: "2026-01-15", description: "LLC Filing - Michigan LARA", amount: 50, category: "legal", reimbursable: false },
@@ -4840,7 +4841,7 @@ Same Solutions LLC
                     quotes: [
                         { 
                             id: "SS-Q001", 
-                            customer: "jonathan-aceves", 
+                            customer: "jonathon-aceves", 
                             date: "2026-03-05", 
                             description: "Attic Insulation - R-23 Rockwool + Baffles", 
                             status: "pending", 
@@ -4864,7 +4865,7 @@ Same Solutions LLC
                         { 
                             id: "VR-001", 
                             jobId: "J-001",
-                            customer: "jonathan-aceves", 
+                            customer: "jonathon-aceves", 
                             date: "2026-03-02",
                             vehicle: { 
                                 year: 2023, 
@@ -5638,7 +5639,7 @@ Same Solutions LLC
                 data.quotes = data.quotes.filter(q => q.id !== 'SS-Q004');
                 data.quotes.push({
                     id: 'SS-Q004',
-                    customer: 'jonathan-aceves',
+                    customer: 'jonathon-aceves',
                     title: 'Front Peak Staining — 4256 Bluebird Dr',
                     description: 'Stain front house peak (colonial gable, ~28-35 ft height). Customer provides stain. Requires 28ft+ extension ladder.',
                     property: 'aceves-home',
@@ -6240,8 +6241,8 @@ Same Solutions LLC
                 if (!data.properties['aceves-lake']) {
                     data.properties['aceves-lake'] = {
                         id: 'aceves-lake',
-                        owner: 'jonathan-aceves',
-                        ownerId: 'jonathan-aceves',
+                        owner: 'jonathon-aceves',
+                        ownerId: 'jonathon-aceves',
                         address: '4286 Union St',
                         city: 'Hubbard Lake',
                         state: 'MI',
@@ -6290,7 +6291,7 @@ Same Solutions LLC
                 data.quotes = (data.quotes || []).filter(q => q.id !== 'SS-Q008');
                 data.quotes.push({
                     id: 'SS-Q008',
-                    customer: 'jonathan-aceves',
+                    customer: 'jonathon-aceves',
                     title: 'Hubbard Lake — Wood-to-Trex Deck Replacement (500 sqft)',
                     description: 'Remove existing wood deck and replace with Trex Enhance Naturals composite. 500 sqft wrap-around deck, reuse existing substructure if solid, include railing and stairs.',
                     property: 'aceves-lake',
@@ -6483,6 +6484,63 @@ Same Solutions LLC
                         notes: 'Jason McCabe property. First on-site research visit by Sam. Primary purpose: help Jason understand his water softener and filtration setup. Secondary: capture house data for future reference. Fox Bay subdivision is an established lakefront-adjacent neighborhood (Alan Lake) built primarily mid-1960s, typically on private well water with septic or older municipal connections.',
                         created: '2026-05-02'
                     };
+                }
+            }
+
+            // v17 -> v18: Rename jonathan-aceves -> jonathon-aceves (correct spelling) + add SS-012 invoice for Aceves paint final.
+            // Sam confirmed correct formal spelling is "Jonathon" 2026-05-20. PRESET_ACCOUNTS email also renamed in code (jonathonaceves@same.com).
+            // SS-012 inserted idempotently for existing-data users; seed data also includes it for fresh installs.
+            if (fromVersion < 18) {
+                // Rename customer record key
+                if (data.customers && data.customers['jonathan-aceves']) {
+                    data.customers['jonathon-aceves'] = data.customers['jonathan-aceves'];
+                    if (data.customers['jonathon-aceves']) {
+                        data.customers['jonathon-aceves'].name = 'Jonathon Aceves';
+                    }
+                    delete data.customers['jonathan-aceves'];
+                }
+                // Update transactions (jobs array — customer field)
+                (data.jobs || []).forEach(j => {
+                    if (j && j.customer === 'jonathan-aceves') j.customer = 'jonathon-aceves';
+                });
+                // Update expenses (customer field where present)
+                (data.expenses || []).forEach(e => {
+                    if (e && e.customer === 'jonathan-aceves') e.customer = 'jonathon-aceves';
+                });
+                // Update invoices (customer field)
+                (data.invoices || []).forEach(i => {
+                    if (i && i.customer === 'jonathan-aceves') i.customer = 'jonathon-aceves';
+                });
+                // Update quotes (customer field if present)
+                (data.quotes || []).forEach(q => {
+                    if (q && q.customer === 'jonathan-aceves') q.customer = 'jonathon-aceves';
+                });
+                // Update mileage entries (customer field if present)
+                (data.mileage || []).forEach(m => {
+                    if (m && m.customer === 'jonathan-aceves') m.customer = 'jonathon-aceves';
+                });
+                // Update properties (owner + ownerId)
+                if (data.properties) {
+                    Object.keys(data.properties).forEach(pid => {
+                        const p = data.properties[pid];
+                        if (p && p.owner === 'jonathan-aceves') p.owner = 'jonathon-aceves';
+                        if (p && p.ownerId === 'jonathan-aceves') p.ownerId = 'jonathon-aceves';
+                    });
+                }
+                // Insert SS-012 invoice for Aceves paint final (idempotent — skip if already present)
+                if (!data.invoices) data.invoices = [];
+                if (!data.invoices.find(i => i && i.number === 'SS-012')) {
+                    data.invoices.push({
+                        number: 'SS-012',
+                        customer: 'jonathon-aceves',
+                        date: '2026-05-20',
+                        jobs: [],
+                        subtotal: 950,
+                        discount: 0,
+                        total: 950,
+                        status: 'draft',
+                        notes: 'Aceves Paint Job SS-Q010 final invoice. Trim finish confirmed complete Tue 2026-05-19 17:00. Canonical: /customer-jobs/aceves-home-fence-2026-04/status.json'
+                    });
                 }
             }
 
@@ -13574,7 +13632,7 @@ Same Solutions LLC
                 unverified: ['septic tank location', 'well depth', 'roof age']
             },
             'aceves-home': {
-                id: 'aceves-home', owner: 'jonathan-aceves', ownerId: 'jonathan-aceves',
+                id: 'aceves-home', owner: 'jonathon-aceves', ownerId: 'jonathon-aceves',
                 address: '4256 Bluebird Dr', city: 'Commerce Township', state: 'MI', zip: '48382',
                 county: 'Oakland',
                 type: 'residential', style: 'Colonial', stories: 2,
@@ -13587,7 +13645,7 @@ Same Solutions LLC
                 customerVehicles: {
                     'explorer-st': {
                         id: 'VR-001',
-                        owner: 'jonathan-aceves',
+                        owner: 'jonathon-aceves',
                         year: 2023,
                         make: 'Ford',
                         model: 'Explorer ST',
@@ -16809,7 +16867,7 @@ Same Solutions LLC
         // ========== ACEVES HOUSE MODEL ==========
         const ACEVES_MODEL = {
             id: 'aceves-home',
-            owner: 'jonathan-aceves',
+            owner: 'jonathon-aceves',
             address: '4256 Bluebird Dr',
             city: 'Commerce Township, MI 48382',
             county: 'Oakland',
@@ -18763,7 +18821,7 @@ Same Solutions LLC
                 'aceves': '4256 Bluebird Dr',
                 'burt': '23061 Oneida St', 
                 'sam': '4289 Bluebird Dr',
-                'jonathan-aceves': '4256 Bluebird Dr',
+                'jonathon-aceves': '4256 Bluebird Dr',
                 'tony-burt': '23061 Oneida St'
             };
             return names[propId] || propId || 'Property';
