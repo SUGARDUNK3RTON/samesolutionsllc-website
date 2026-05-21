@@ -4662,7 +4662,7 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.19';
+        const APP_VERSION = 'v1.7.20';
 
         // Data schema version - increment when structure changes
         const DATA_VERSION = 18;
@@ -6870,13 +6870,76 @@ Same Solutions LLC
                     <div class="modal-actions">
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-view-customer').remove()">Close</button>
                         <button class="btn btn-secondary" onclick="document.getElementById('modal-view-customer').remove();editCustomer('${customerId}')">✏️ Edit</button>
+                        <button class="btn btn-secondary" onclick="generateSelfRegisterInvite('${customerId}', ${JSON.stringify(customer.name || '')})">🔑 Invite to Portal</button>
                         ${balance > 0 ? `<button class="btn btn-primary" onclick="createInvoiceForCustomer('${customerId}')">📄 Create Invoice</button>` : ''}
                     </div>
                 </div>
             `;
             document.body.appendChild(modal);
         }
-        
+
+        // GENERATE SELF-REGISTER INVITE LINK (calls substrate /api/generate-invite)
+        // Replaces the legacy ?invite=1&customer=ID query-string flow for customers
+        // who get a real account on substrate (currently /jon/ only · expand as more
+        // customer hubs come online). Admin secret stored in
+        // localStorage["ss-admin-invite-secret"]; prompted once.
+        async function generateSelfRegisterInvite(customerId, customerName) {
+            if (!isAdmin()) { toast('Admin access required', 'error'); return; }
+            let secret = '';
+            try { secret = localStorage.getItem('ss-admin-invite-secret') || ''; } catch (e) {}
+            if (!secret) {
+                secret = prompt('Admin invite secret (one-time setup; matches ADMIN_INVITE_SECRET in Cloudflare Pages env):');
+                if (!secret) return;
+                try { localStorage.setItem('ss-admin-invite-secret', secret); } catch (e) {}
+            }
+            const INVITE_API = 'https://samesolutions-equipment-service.pages.dev/api/generate-invite';
+            try {
+                const res = await fetch(INVITE_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + secret },
+                    body: JSON.stringify({ customerId, customerName })
+                });
+                const body = await res.json().catch(() => ({}));
+                if (!res.ok || !body.ok) {
+                    if (res.status === 401) {
+                        try { localStorage.removeItem('ss-admin-invite-secret'); } catch (e) {}
+                        toast('Invite secret rejected. Stored secret cleared — try again.', 'error');
+                    } else {
+                        toast('Failed to mint invite: ' + (body.error || res.status), 'error');
+                    }
+                    return;
+                }
+                const url = body.url;
+                const expiresDate = new Date(body.expires).toLocaleDateString();
+                const inviteModal = document.createElement('div');
+                inviteModal.className = 'modal-overlay active';
+                inviteModal.innerHTML = `
+                    <div class="modal" style="max-width:560px;">
+                        <h2>🔑 Invite Link Ready</h2>
+                        <div style="margin-bottom:1rem;color:#475569;">Share this link with <strong>${customerName || customerId}</strong>. It's valid until <strong>${expiresDate}</strong> and is single-use.</div>
+                        <div style="background:#f8fafc;padding:0.75rem;border-radius:6px;border:1px solid #e2e8f0;font-family:monospace;font-size:0.85rem;word-break:break-all;margin-bottom:1rem;">${url}</div>
+                        <div class="modal-actions">
+                            <button class="btn btn-secondary" onclick="this.closest('.modal-overlay').remove()">Close</button>
+                            <button class="btn btn-primary" id="copy-invite-btn">📋 Copy Link</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(inviteModal);
+                inviteModal.querySelector('#copy-invite-btn').addEventListener('click', async () => {
+                    try {
+                        await navigator.clipboard.writeText(url);
+                        toast('Invite link copied to clipboard', 'success');
+                    } catch (e) {
+                        toast('Copy failed — manual select the link above', 'warning');
+                    }
+                });
+                logActivity('customer_invite_sent', 'Generated invite for ' + (customerName || customerId), customerId);
+            } catch (e) {
+                console.error('invite error', e);
+                toast('Network error minting invite', 'error');
+            }
+        }
+
         // DELETE CUSTOMER (with safety checks)
         async function deleteCustomer(customerId) {
             if (!isAdmin()) { toast("Admin access required", "error"); return; }

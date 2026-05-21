@@ -1,6 +1,6 @@
-const CACHE_NAME = 'ss-manager-v55';
-const STATIC_CACHE = 'ss-static-v55';
-const DYNAMIC_CACHE = 'ss-dynamic-v55';
+const CACHE_NAME = 'ss-manager-v56';
+const STATIC_CACHE = 'ss-static-v56';
+const DYNAMIC_CACHE = 'ss-dynamic-v56';
 const CURRENT_CACHES = [CACHE_NAME, STATIC_CACHE, DYNAMIC_CACHE];
 
 // Core app files to cache immediately
