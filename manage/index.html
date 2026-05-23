@@ -2793,7 +2793,7 @@
         const MILEAGE_RATE = 0.70; // IRS 2025 rate
         
         // Invoice counter for generating sequential invoice numbers
-        let invoiceCounter = 13; // Starting after SS-012 (added 2026-05-20 for Aceves paint final; last manually-recorded was SS-011 Haim)
+        let invoiceCounter = 14; // Starting after SS-013 (Aceves paint final, $1,500 — 2026-05-22; SS-012 reserved for Letvin Wall Shelving per hardcoded label)
         function getNextInvoiceNumber() {
             invoiceCounter++;
             return `SS-${String(invoiceCounter).padStart(3, '0')}`;
@@ -4662,10 +4662,10 @@ Same Solutions LLC
         
         // ========== DATA STORAGE ==========
         // App version
-        const APP_VERSION = 'v1.7.20';
+        const APP_VERSION = 'v1.7.21';
 
         // Data schema version - increment when structure changes
-        const DATA_VERSION = 18;
+        const DATA_VERSION = 19;
         
         let data = { customers: {}, jobs: [], invoices: [], expenses: [], quotes: [], mileage: [], _version: DATA_VERSION };
 
@@ -4829,7 +4829,16 @@ Same Solutions LLC
                         { number: "SS-009", customer: "jonathon-aceves", date: "2026-02-20", jobs: ["J-002"], subtotal: 125, discount: 0, total: 125, status: "paid" },
                         { number: "SS-010", customer: "haim-talmid", date: "2026-03-06", jobs: ["H-002", "H-007", "H-010", "H-011"], subtotal: 250, discount: 0, total: 250, status: "paid", notes: "Customer provided damper" },
                         { number: "SS-011", customer: "haim-talmid", date: "2026-03-06", jobs: ["H-004", "H-006", "H-009", "H-017"], subtotal: 200, discount: 0, total: 200, status: "paid", notes: "Customer provided Frost King materials" },
-                        { number: "SS-012", customer: "jonathon-aceves", date: "2026-05-20", jobs: [], subtotal: 950, discount: 0, total: 950, status: "draft", notes: "Aceves Paint Job SS-Q010 final invoice. Trim finish confirmed complete Tue 2026-05-19 17:00. Canonical: /customer-jobs/aceves-home-fence-2026-04/status.json" }
+                        { number: "SS-013", customer: "jonathon-aceves", date: "2026-05-22", jobs: [], subtotal: 1500.00, discount: 0, total: 1500.00, status: "ready", notes: "Aceves Paint Job SS-Q010 final invoice. Trim finish confirmed complete Tue 2026-05-19 17:00. Industry-low rate ($1/sq ft labor) + paint at receipt cost (no markup). Canonical: /customer-jobs/aceves-home-fence-2026-04/status.json", lineItems: [
+                            { id: 1, type: 'labor', description: 'Walls (2 coats, ~700 sq ft) — White Mocha OR-W11', qty: 700, unit: 'sq ft', unitPrice: 1.00, lineTotal: 700.00 },
+                            { id: 2, type: 'labor', description: 'Vaulted ceiling (2 coats, ~400 sq ft) — Swiss Coffee OC-45 + Blackboard MAG017 medallion accent', qty: 400, unit: 'sq ft', unitPrice: 1.20, lineTotal: 480.00 },
+                            { id: 3, type: 'labor', description: 'Trim (2 coats, ~200 lin ft baseboards + 3 door casings + 4 window casings) — Classic Gray OC-23', qty: 200, unit: 'lin ft', unitPrice: 0.60, lineTotal: 120.00 },
+                            { id: 4, type: 'labor', description: 'Doors (3 interior doors, 1 face each + casings) — Classic Gray OC-23', qty: 3, unit: 'door', unitPrice: 23.21, lineTotal: 69.62 },
+                            { id: 5, type: 'material', description: 'Paint — Classic Gray OC-23 Emerald (1 gal) · at cost, no markup', qty: 1, unit: 'gal', unitPrice: 27.99, lineTotal: 27.99, supplier: 'Sherwin-Williams' },
+                            { id: 6, type: 'material', description: 'Paint — Swiss Coffee OC-45 Duration Home MT Extra (1 gal) · at cost, no markup', qty: 1, unit: 'gal', unitPrice: 24.47, lineTotal: 24.47, supplier: 'Sherwin-Williams' },
+                            { id: 7, type: 'material', description: 'Paint — Blackboard MAG017 Duration Home SA Ultra (1 gal) · at cost, no markup', qty: 1, unit: 'gal', unitPrice: 25.97, lineTotal: 25.97, supplier: 'Sherwin-Williams' },
+                            { id: 8, type: 'material', description: 'Paint — White Mocha OR-W11 Duration Home SA Extra (2 gal) · at cost, no markup', qty: 2, unit: 'gal', unitPrice: 25.975, lineTotal: 51.95, supplier: 'Sherwin-Williams' }
+                        ] }
                     ],
                     expenses: [
                         { id: "E-001", date: "2026-01-15", description: "LLC Filing - Michigan LARA", amount: 50, category: "legal", reimbursable: false },
@@ -6540,6 +6549,40 @@ Same Solutions LLC
                         total: 950,
                         status: 'draft',
                         notes: 'Aceves Paint Job SS-Q010 final invoice. Trim finish confirmed complete Tue 2026-05-19 17:00. Canonical: /customer-jobs/aceves-home-fence-2026-04/status.json'
+                    });
+                }
+            }
+
+            // v18 -> v19: Renumber Aceves paint invoice from SS-012 to SS-013 and finalize at $1,500 with full line-item breakdown.
+            // Reason: SS-012 reserved for Letvin Wall Shelving per hardcoded label at manage/index.html. Aceves paint final billed 2026-05-22 after
+            // detailed L-shape room measurement + paint-receipt audit. Industry-low $1/sq ft labor + paint at receipt cost (zero markup).
+            // Idempotent: removes any SS-012 Aceves draft and inserts SS-013 final (skip if SS-013 already present).
+            if (fromVersion < 19) {
+                if (!data.invoices) data.invoices = [];
+                // Remove the v18 SS-012 Aceves draft (only if it's still the $950 Aceves paint draft — leave alone if Sam manually edited it)
+                data.invoices = data.invoices.filter(i => !(i && i.number === 'SS-012' && i.customer === 'jonathon-aceves' && i.total === 950 && i.status === 'draft'));
+                // Insert SS-013 final invoice (idempotent)
+                if (!data.invoices.find(i => i && i.number === 'SS-013')) {
+                    data.invoices.push({
+                        number: 'SS-013',
+                        customer: 'jonathon-aceves',
+                        date: '2026-05-22',
+                        jobs: [],
+                        subtotal: 1500.00,
+                        discount: 0,
+                        total: 1500.00,
+                        status: 'ready',
+                        notes: 'Aceves Paint Job SS-Q010 final invoice. Trim finish confirmed complete Tue 2026-05-19 17:00. Industry-low rate ($1/sq ft labor) + paint at receipt cost (no markup). Canonical: /customer-jobs/aceves-home-fence-2026-04/status.json',
+                        lineItems: [
+                            { id: 1, type: 'labor', description: 'Walls (2 coats, ~700 sq ft) — White Mocha OR-W11', qty: 700, unit: 'sq ft', unitPrice: 1.00, lineTotal: 700.00 },
+                            { id: 2, type: 'labor', description: 'Vaulted ceiling (2 coats, ~400 sq ft) — Swiss Coffee OC-45 + Blackboard MAG017 medallion accent', qty: 400, unit: 'sq ft', unitPrice: 1.20, lineTotal: 480.00 },
+                            { id: 3, type: 'labor', description: 'Trim (2 coats, ~200 lin ft baseboards + 3 door casings + 4 window casings) — Classic Gray OC-23', qty: 200, unit: 'lin ft', unitPrice: 0.60, lineTotal: 120.00 },
+                            { id: 4, type: 'labor', description: 'Doors (3 interior doors, 1 face each + casings) — Classic Gray OC-23', qty: 3, unit: 'door', unitPrice: 23.21, lineTotal: 69.62 },
+                            { id: 5, type: 'material', description: 'Paint — Classic Gray OC-23 Emerald (1 gal) · at cost, no markup', qty: 1, unit: 'gal', unitPrice: 27.99, lineTotal: 27.99, supplier: 'Sherwin-Williams' },
+                            { id: 6, type: 'material', description: 'Paint — Swiss Coffee OC-45 Duration Home MT Extra (1 gal) · at cost, no markup', qty: 1, unit: 'gal', unitPrice: 24.47, lineTotal: 24.47, supplier: 'Sherwin-Williams' },
+                            { id: 7, type: 'material', description: 'Paint — Blackboard MAG017 Duration Home SA Ultra (1 gal) · at cost, no markup', qty: 1, unit: 'gal', unitPrice: 25.97, lineTotal: 25.97, supplier: 'Sherwin-Williams' },
+                            { id: 8, type: 'material', description: 'Paint — White Mocha OR-W11 Duration Home SA Extra (2 gal) · at cost, no markup', qty: 2, unit: 'gal', unitPrice: 25.975, lineTotal: 51.95, supplier: 'Sherwin-Williams' }
+                        ]
                     });
                 }
             }

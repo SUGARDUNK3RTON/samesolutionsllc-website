@@ -1,6 +1,6 @@
-const CACHE_NAME = 'ss-manager-v56';
-const STATIC_CACHE = 'ss-static-v56';
-const DYNAMIC_CACHE = 'ss-dynamic-v56';
+const CACHE_NAME = 'ss-manager-v57';
+const STATIC_CACHE = 'ss-static-v57';
+const DYNAMIC_CACHE = 'ss-dynamic-v57';
 const CURRENT_CACHES = [CACHE_NAME, STATIC_CACHE, DYNAMIC_CACHE];
 
 // Core app files to cache immediately
@@ -15,7 +15,7 @@ const STATIC_ASSETS = [
 
 // Install - cache static assets
 self.addEventListener('install', event => {
-  console.log('[SW] Installing v55...');
+  console.log('[SW] Installing v57...');
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then(cache => cache.addAll(STATIC_ASSETS))
