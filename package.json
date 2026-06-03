@@ -4,7 +4,8 @@
   "private": true,
   "description": "Same Solutions LLC public site + manage PWA. Smoke tests run against production via GitHub Actions on every push.",
   "scripts": {
-    "test:smoke": "playwright test"
+    "test:smoke": "playwright test",
+    "test:rules": "firebase emulators:exec --project demo-same-solutions --only firestore \"node test/isolation.rules.test.js\""
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0"
