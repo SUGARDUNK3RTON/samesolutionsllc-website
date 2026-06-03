@@ -1,0 +1,113 @@
+rules_version = '2';
+
+// Same Solutions LLC — Firestore security rules.
+// Model: per-OWNER documents. Every user-data doc carries an `owner` field == the owning uid.
+// A user may read/write ONLY documents they own; ADMIN (Sam) may read/write all. Deny by default.
+// See ADR 0001 (substrate docs/adr/0001-per-user-data-isolation.md) + docs/firestore-data-model.md.
+// Develop/verify on the EMULATOR via test/isolation.rules.test.js. Do NOT hand-edit live in console.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- helpers ----------
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Admin = custom claim `admin == true` (set once on Sam's uid via the Admin SDK).
+    // Bootstrap fallback: the known admin email (Firebase verifies token.email, so this is safe
+    // to rely on until the custom claim is set; remove the email line after the claim is in place).
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.get('admin', false) == true ||
+        request.auth.token.get('email', '') == 'samuel.m.foran@gmail.com'
+      );
+    }
+
+    // Caller owns the uid passed in.
+    function isOwner(ownerUid) {
+      return isSignedIn() && request.auth.uid == ownerUid;
+    }
+
+    // Caller owns the EXISTING stored doc (its `owner` field).
+    function ownsExisting() {
+      return isSignedIn() && resource.data.owner == request.auth.uid;
+    }
+
+    // Caller owns the INCOMING doc (create/update payload `owner` field).
+    // Used to (a) force create owner == caller, and (b) block changing owner to someone else.
+    function ownsIncoming() {
+      return isSignedIn() && request.resource.data.owner == request.auth.uid;
+    }
+
+    // ---------- allowlist / account records ----------
+    // users/{uid}: invite allowlist record. User reads own; ADMIN provisions (write) + reads all.
+    // No self-write -> preserves invite-only integrity (accounts are admin-created).
+    match /users/{uid} {
+      allow read:  if isOwner(uid) || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // customerUsers/{uid}: uid -> customer-scope routing map. User reads own; ADMIN writes.
+    match /customerUsers/{uid} {
+      allow read:  if isOwner(uid) || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // ---------- generic per-owner user data ----------
+    // The reusable pattern. Any owner-tagged doc: read/write only your own; admin all.
+    // create must set owner == caller; update may not transfer ownership away.
+    match /userData/{docId} {
+      allow read:   if ownsExisting() || isAdmin();
+      allow create: if ownsIncoming() || isAdmin();
+      allow update: if (ownsExisting() && ownsIncoming()) || isAdmin();
+      allow delete: if ownsExisting() || isAdmin();
+    }
+
+    // ---------- business data (admin-only) ----------
+    // The migrated business blob lives here. ONLY admin reads/writes. Customers must NOT read this
+    // whole blob -> they get their scoped data from per-owner customer docs below.
+    match /businesses/{bizId} {
+      allow read, write: if isAdmin();
+    }
+
+    // ---------- per-customer docs ----------
+    // customers/{customerId}: customer-facing subset, owner == that customer's uid.
+    match /customers/{customerId} {
+      allow read:   if ownsExisting() || isAdmin();
+      allow create: if isAdmin();                              // admin provisions
+      allow update: if (ownsExisting() && ownsIncoming()) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ---------- feature collections (rules ready; features still STATIC until Sam flips live) ----------
+    // Poll definition: signed-in users read; admin writes the definition.
+    match /polls/{pollId} {
+      allow read:  if isSignedIn();
+      allow write: if isAdmin();
+
+      // One vote doc per voter (doc id == uid, owner == uid). Read own + admin; write only own.
+      match /votes/{voterUid} {
+        allow read:   if isOwner(voterUid) || isAdmin();
+        allow create: if isOwner(voterUid) && ownsIncoming();
+        allow update: if isOwner(voterUid) && ownsExisting() && ownsIncoming();
+        allow delete: if isOwner(voterUid) || isAdmin();
+      }
+    }
+
+    // Party items: shared-visible list, owner-controlled edit. submitter owner == uid.
+    match /partyItems/{itemId} {
+      allow read:   if isSignedIn();
+      allow create: if ownsIncoming();
+      allow update: if (ownsExisting() && ownsIncoming()) || isAdmin();
+      allow delete: if ownsExisting() || isAdmin();
+    }
+
+    // ---------- deny by default ----------
+    // Any path not matched above is denied (Firestore default). Explicit catch-all for clarity;
+    // `if false` never grants, and specific allows above still win where they match.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

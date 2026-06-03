@@ -3989,8 +3989,9 @@
         }
         
         function showSignupForm() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('signup-form').style.display = 'block';
+            // Invite-only (ADR 0001): there is no public signup form. Keep the login form shown.
+            showLoginForm();
+            showLoginError('Accounts are invite-only — ask Sam for an invite link.');
         }
         
         function showLoginForm() {
@@ -4158,26 +4159,15 @@
             }
         }
         
-        // Email/Password Signup
+        // Email/Password Signup — DISABLED (invite-only, ADR 0001).
+        // Public self-signup is off. Accounts are admin-provisioned: Sam generates an invite via
+        // generateSelfRegisterInvite() -> substrate /api/generate-invite, and the admin-only
+        // allowlist docs (users/{uid}, customerUsers/{uid}) authorize the account. This function is
+        // kept only as a hard stop so any stale call cannot create an account.
+        // (Also disable Email/Password sign-up in the Firebase console — Sam's action — for defense in depth.)
         async function signupWithEmail() {
-            const email = document.getElementById('signup-email').value.toLowerCase().trim();
-            const password = document.getElementById('signup-password').value;
-            
-            if (!email || !password) {
-                showLoginError('Please enter email and password');
-                return;
-            }
-            
-            if (password.length < 6) {
-                showLoginError('Password must be at least 6 characters');
-                return;
-            }
-            
-            try {
-                await auth.createUserWithEmailAndPassword(email, password);
-            } catch (e) {
-                showLoginError(e.message);
-            }
+            showLoginError('Accounts are invite-only — ask Sam for an invite link. Public sign-up is disabled.');
+            return;
         }
         
         // Google Login
