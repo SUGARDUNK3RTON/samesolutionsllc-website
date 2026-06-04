@@ -84,39 +84,55 @@ sign-IN on (so existing accounts + Google login still work).
 
 ---
 
-## Step 6 — BACKUP live data  (REQUIRED before any migration)
-Pick ONE:
+## Step 6 — BACKUP live data  (REQUIRED before any migration — pick by your plan tier)
+> Check your tier: Firebase Console -> top-left gear / "Usage and billing" -> **Spark** (free) or **Blaze** (pay-as-you-go).
 
-**Option A — local JSON dump (simplest for this app; needs the key from Step 1):**
+**IF BLAZE — managed export (KEYLESS, uses your `firebase login`; simplest, no install):**
 ```powershell
-$env:GOOGLE_APPLICATION_CREDENTIALS = "C:\Users\smf13\firebase-keys\same-solutions-adminsdk.json"
+firebase firestore:export gs://same-solutions-app.firebasestorage.app/backups/pre-migration-2026-06-04 --project same-solutions-app
+```
+(That's the project's real default bucket. Verify in Console -> Firestore -> Import/Export that it completed.)
+
+**IF SPARK — keyless local JSON dump (no managed export on free tier; no service-account key):**
+```powershell
+npm install firebase                          # web SDK, one-time, no key
+$env:FB_PW = "<your /manage password>"        # keyless sign-in as admin (samuel.m.foran@gmail.com)
 node scripts/backup-blob.js "C:\Users\smf13\firebase-backups\pre-migration-2026-06-04.json"
+Remove-Item Env:FB_PW
 ```
-It prints per-collection **doc counts** (write these down — the no-data-loss check) and confirms the
-`businesses/same-solutions` blob is present.
+It prints per-collection **doc counts** (write them down = the no-loss check) + confirms the blob is present.
+> **If sign-in fails because your /manage account is GOOGLE-only** (no password): either set a password
+> for it (Console -> Authentication -> your user -> reset/add password) and retry, OR use the
+> service-account-key fallback (`$env:GOOGLE_APPLICATION_CREDENTIALS=...key.json` + `npm i firebase-admin`,
+> then ask CC for the admin-SDK backup variant). The key is git-ignored.
 
-**Option B — managed export (needs a GCS bucket on the project):**
-```powershell
-firebase firestore:export gs://same-solutions-app-backups/pre-migration-2026-06-04 --project same-solutions-app
-```
-**GATE 6 — paste:** the backup file path (or GCS path) + the printed doc counts / "blob present: true".
+**GATE 6 — paste:** the backup path (or GCS path) + the printed doc counts + "blob present: true".
 **Do NOT migrate without a verified backup.**
 
 ---
 
-## Step 7 — Migrate blob -> per-owner docs  (per docs/firestore-data-model.md section 5)
-This is the one **custom** step — the script depends on your real blob shape + each customer's uid,
-so it is authored at this gate, not pre-canned. The plan (reversible — only ADDS docs; the blob is
-untouched):
-1. Keep `businesses/same-solutions` as the **admin-only** business store (rules already enforce that).
-2. For each customer in `customerUsers/{uid}`, write `customers/{customerId} = { owner: <that uid>, ...their subset }`.
-3. Repoint the customer portal read path from the blob slice to `customers/{customerId}`.
+## Step 7 — Migrate blob -> per-owner docs  (DRY-RUN first; per docs/firestore-data-model.md section 5)
+The migration script is written + shape-adaptive (`scripts/migrate-blob.js`). It only **ADDS**
+`customers/{customerId}` docs (owner=uid from `customerUsers`); it **does NOT touch/delete** the blob.
 
-**At this gate: paste GATE-6's backup JSON shape (or the blob's top-level keys + the `customerUsers`
-list) to the planning chat, and CC will write `scripts/migrate-blob.js` against your actual data.**
-After running it, re-run the backup-counts comparison.
-**GATE 7 — paste:** post-migration verification — per-owner docs created, counts match the backup
-(no loss), admin still sees everything. **Do NOT flip features until this verifies.**
+**7a — DRY RUN (writes NOTHING — paste the result back):**
+```powershell
+npm install firebase            # if not already (Step 6 Spark path installs it)
+$env:FB_PW = "<your /manage password>"
+node scripts/migrate-blob.js
+```
+It lists each `customers/<id>` it WOULD create with inv/quo/job counts. **Paste this output to the
+planning chat.** If it says "no data.customers{} / unexpected shape," paste the GATE-6 backup JSON's
+top-level keys and CC adjusts the script before you commit.
+
+**7b — REAL run (only after the dry-run looks right AND GATE 6 backup is verified):**
+```powershell
+node scripts/migrate-blob.js --commit
+Remove-Item Env:FB_PW
+```
+Then compare the new `customers/*` count against the backup counts (no loss). The blob stays intact.
+**GATE 7 — paste:** dry-run output, then the --commit result + the count comparison (no data loss).
+**Do NOT flip features until this verifies.**
 
 ---
 
